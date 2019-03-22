@@ -43,8 +43,8 @@ namespace MapaDaForca
             services.AddDbContext<MapaDaForcaDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<MapaDaForcaDbContext>()
-                .AddEntityFrameworkStores<MapaDaForcaDbContext>();
+            //services.AddDefaultIdentity<MapaDaForcaDbContext>()
+            //    .AddEntityFrameworkStores<MapaDaForcaDbContext>();
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
