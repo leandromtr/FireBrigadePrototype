@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MapaDaForca.Core\MapaDaForca.Core.csproj" />
     <ProjectReference Include="..\MapaDaForca.Data\MapaDaForca.Data.csproj" />
     <ProjectReference Include="..\MapaDaForca.Model\MapaDaForca.Model.csproj" />
   </ItemGroup>
