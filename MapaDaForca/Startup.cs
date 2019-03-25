@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MapaDaForca.Data.Data;
+using MapaDaForca.Core.Store;
+using MapaDaForca.Data.Repository;
 
 namespace MapaDaForca
 {
@@ -48,6 +50,14 @@ namespace MapaDaForca
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+
+
+
+            services.AddTransient<IBatalhaoStore, BatalhaoStore>();
+
+            services.AddTransient<IBatalhaoRepository, BatalhaoRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
