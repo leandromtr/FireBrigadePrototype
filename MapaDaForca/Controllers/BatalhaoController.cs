@@ -23,7 +23,8 @@ namespace MapaDaForca.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var batalhao = _batalhaoStore.GetAll();
+            return View(batalhao);
         }
 
         public ActionResult Create()
