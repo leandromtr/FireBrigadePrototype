@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimal-ui">
+    <title>Mapa da Força</title>
+    <meta content="Mapa da Força" name="description">
+    <meta content="Hexagon" name="author">
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <link rel="stylesheet" href="plugins/morris/morris.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/metismenu.min.css" rel="stylesheet" type="text/css">
+    <link href="css/icons.css" rel="stylesheet" type="text/css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+
+    <link href="plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link href="plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">    
+    <link href="plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css">
+
+
+    @RenderSection("Styles", required: false)
+</head>
+
+<body>
+    <div id="wrapper">
+
+        <partial name="_TopBar" />
+
+
+        <partial name="_SideBar" />
+
+
+        <!-- Start right Content here -->
+        <div class="content-page">
+            <div class="content">
+                <div class="container-fluid">
+
+                    <partial name="_Header" />
+
+                    @RenderBody()
+
+                </div>
+            </div>
+
+            <partial name="_Footer" />
+
+        </div>
+        <!-- End Right content here -->
+
+    </div>
+
+
+    <!-- jQuery  -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/metisMenu.min.js"></script>
+    <script src="js/jquery.slimscroll.js"></script>
+    <script src="js/waves.min.js"></script>
+    <script src="plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <!--Morris Chart-->
+    <script src="plugins/morris/morris.min.js"></script>
+    <script src="plugins/raphael/raphael-min.js"></script>
+    <script src="pages/dashboard.js"></script>
+
+    <!-- Required datatable js -->
+    <script src="plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="plugins/datatables/dataTables.buttons.min.js"></script>
+    <script src="plugins/datatables/buttons.bootstrap4.min.js"></script>
+    <script src="plugins/datatables/jszip.min.js"></script>
+    <script src="plugins/datatables/pdfmake.min.js"></script>
+    <script src="plugins/datatables/vfs_fonts.js"></script>
+    <script src="plugins/datatables/buttons.html5.min.js"></script>
+    <script src="plugins/datatables/buttons.print.min.js"></script>
+    <script src="plugins/datatables/buttons.colVis.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="plugins/datatables/dataTables.responsive.min.js"></script>
+    <script src="plugins/datatables/responsive.bootstrap4.min.js"></script>
+    <!-- Datatable init js -->
+    <script src="pages/datatables.init.js"></script>
+    <!-- App js -->
+    <script src="js/app.js"></script>
+
+
+
+
+
+
+
+
+
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
