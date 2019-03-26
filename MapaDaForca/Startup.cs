@@ -74,11 +74,15 @@ namespace MapaDaForca
                 app.UseHsts();
             }
 
+
+            app.UseAuthentication();
+
+            app.UseStatusCodePages();
             app.UseHttpsRedirection();
+            app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

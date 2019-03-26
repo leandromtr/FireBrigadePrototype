@@ -7,7 +7,4 @@ namespace MapaDaForca.Model
         public Guid Id { get; set; }
         public string Nome { get; set; }
     }
-
-
-
 }
