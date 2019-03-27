@@ -11,7 +11,7 @@ namespace MapaDaForca.Core.Store
 
         Batalhao GetById(Guid id);
         
-        Batalhao Save(Batalhao save, string userId);
+        Batalhao Save(Batalhao save);
 
         bool Delete(Guid id);
     }

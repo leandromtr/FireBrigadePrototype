@@ -1,10 +1,47 @@
 ﻿<div class="row">
     <div class="col-sm-12">
         <div class="page-title-box">
-            <h4 class="page-title">@ViewData["Title"]</h4>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Home > Batalhao > Cadastrar</li>
-            </ol>
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h4 class="page-title">@ViewData["Title"]</h4>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active">Home > Batalhao > Cadastrar</li>
+                    </ol>
+                </div>
+                <div class="col-md-4">
+
+                    @if (ViewData["CreateButtonLink"] != null)
+                    {
+                        <div class="float-right d-none d-md-block">
+                            <div><a href="@ViewData["CreateButtonLink"]" class="btn btn-primary waves-effect waves-light">Cadastrar</a></div>
+                        </div>
+                    }
+
+                    @if (ViewData["DeleteButtonLink"] != null)
+                    {
+                        <button type="button" class="float-right btn btn-primary waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-center">Excluir</button>
+                        <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title mt-0">Excluir @ViewData["DeleteButton"]</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Você confirma a exclusão deste registro?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" id="Excluir">Confirmar</button>
+                                        <button type="button" class="btn btn-secondary" id="CloseModal" data-dismiss="modal">Cancelar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
         </div>
     </div>
 </div>
+

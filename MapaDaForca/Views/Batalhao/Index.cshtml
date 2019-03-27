@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<Batalhao>
 @{
     ViewData["Title"] = "Batalhão";
+    ViewData["CreateButtonLink"] = Url.Action("Create", "Batalhao");
 }
-
 
 <div class="row">
     <div class="col-12">
@@ -18,7 +18,7 @@
                         @foreach (var batalhao in Model)
                         {
                             <tr>
-                                <td>@batalhao.Nome</td>
+                                <td><a href="@Url.Action("Edit", "Batalhao", new {id = batalhao.Id})">@batalhao.Nome</a></td>
                             </tr>
                         }
                     </tbody>
@@ -26,6 +26,5 @@
             </div>
         </div>
     </div>
-    <!-- end col -->
 </div>
 

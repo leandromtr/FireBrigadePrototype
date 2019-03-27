@@ -26,7 +26,7 @@ namespace MapaDaForca.Core.Store
             return _repository.GetById(id);
         }
 
-        public Batalhao Save(Batalhao save, string userId)
+        public Batalhao Save(Batalhao save)
         {
             Batalhao saved = null;
 
