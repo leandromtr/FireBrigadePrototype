@@ -1,0 +1,54 @@
+﻿@model Batalhao
+@{
+    ViewData["Title"] = "Cadastrar Batalhão";
+    ViewData["DeleteButtonLink"] = Url.Action("Delete", "Batalhao", new { @id = Model.Id });
+}
+
+
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" action="/batalhao/edit">
+                    @Html.HiddenFor(x => x.Id)
+
+                    <div class="form-group">
+                        <label class="form-label">@Html.DisplayNameFor(m => m.Nome)</label>
+                        @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", @type = "text", @required = "required" })
+
+                    </div>
+                    <div class="form-group mb-0">
+                        <div>
+
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Salvar</button>
+                            <button type="reset" class="btn btn-secondary waves-effect m-l-5" onclick="location.href='@Url.Action("Index", "Batalhao")'">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        $('#Excluir').click(function () {
+            $.ajax(
+                {
+                    type: "Delete",
+                    url: "@ViewData["DeleteButtonLink"]",
+
+                    success: function () {
+                        window.location.href = '@Url.Action("Index", "Batalhao")';
+                    }
+                });
+        });
+    });
+
+</script>
