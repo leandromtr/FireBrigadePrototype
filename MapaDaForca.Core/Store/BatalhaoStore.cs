@@ -10,10 +10,12 @@ namespace MapaDaForca.Core.Store
     public class BatalhaoStore : IBatalhaoStore
     {
         private readonly IBatalhaoRepository _repository;
+        //private readonly ICompanhiaRepository _companhiaRepository;
 
         public BatalhaoStore(IBatalhaoRepository repository)
         {
             _repository = repository;
+            //_companhiaRepository = companhiaRepository;
         }
 
         public IList<Batalhao> GetAll()
