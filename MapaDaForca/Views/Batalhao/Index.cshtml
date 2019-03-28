@@ -1,6 +1,13 @@
 ﻿@model IEnumerable<Batalhao>
 @{
-    ViewData["Title"] = "Batalhão";
+    ViewBag.Title = "Batalhão";
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+    {
+        new Breadcrumb() { Name = "Dashboard", Link = "/" },
+        new Breadcrumb() { Name = "Batalhão", Link = @Url.Action("Index","Batalhao"), IsActive = true}
+    };
+
+
     ViewData["CreateButtonLink"] = Url.Action("Create", "Batalhao");
 }
 
