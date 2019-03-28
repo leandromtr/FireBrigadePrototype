@@ -1,6 +1,12 @@
 ﻿@model Batalhao
 @{
-    ViewData["Title"] = "Cadastrar Batalhão";
+    ViewBag.Title = "Batalhão: " + Model.Nome;
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+    {
+        new Breadcrumb() { Name = "Dashboard", Link = "/" },
+        new Breadcrumb() { Name = "Batalhão", Link = @Url.Action("Index","Batalhao")},
+        new Breadcrumb() { Name = Model.Nome, Link = @Url.Action("Index","Batalhao", new { @id = Model.Id }), IsActive = true}
+    };
     ViewData["DeleteButtonLink"] = Url.Action("Delete", "Batalhao", new { @id = Model.Id });
 }
 

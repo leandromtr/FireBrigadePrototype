@@ -1,6 +1,12 @@
 ﻿@model Batalhao
 @{
-    ViewData["Title"] = "Cadastrar Batalhão";
+    ViewBag.Title = "Cadastrar Batalhão";
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+    {
+        new Breadcrumb() { Name = "Dashboard", Link = "/" },
+        new Breadcrumb() { Name = "Batalhão", Link = @Url.Action("Index","Batalhao") },
+        new Breadcrumb() { Name = "Cadastrar", Link = @Url.Action("Create","Batalhao"), IsActive = true}
+    };    
 }
 
 <div class="row">

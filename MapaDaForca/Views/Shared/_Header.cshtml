@@ -3,10 +3,36 @@
         <div class="page-title-box">
             <div class="row align-items-center">
                 <div class="col-md-8">
-                    <h4 class="page-title">@ViewData["Title"]</h4>
-                    <ol class="breadcrumb">
+                    <h4 class="page-title">@ViewBag.Title</h4>
+
+
+                    @if (ViewBag.Breadcrumbs != null)
+                    {
+                        <ol class="breadcrumb">
+
+                            @foreach (Breadcrumb breadcrumb in ViewBag.Breadcrumbs)
+                            {
+                                if (breadcrumb.IsActive == true)
+                                {
+                                    <li class="breadcrumb-item"><a href="@breadcrumb.Link"><b>@breadcrumb.Name </b></a></li>
+                                }
+                                else
+                                {
+                                    <li class="breadcrumb-item"><a href="@breadcrumb.Link">@breadcrumb.Name </a></li>
+                                }
+                            }
+
+                        </ol>
+                    }
+
+                    @*<ol class="breadcrumb">
                         <li class="breadcrumb-item active">Home > Batalhao > Cadastrar</li>
-                    </ol>
+                    </ol>*@
+
+
+
+
+
                 </div>
                 <div class="col-md-4">
 
