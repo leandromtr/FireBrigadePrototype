@@ -51,24 +51,31 @@ namespace MapaDaForca.Controllers
 
 
         [HttpPost]
-        public ActionResult Edit(Batalhao batalhao)
+        public JsonResult Edit(Batalhao batalhao)
         {
-            var newBatalhao = _batalhaoStore.Save(batalhao);
-            return new RedirectToActionResult("Edit", "Batalhao", new { @id = newBatalhao.Id });
+            try
+            {
+                var newBatalhao = _batalhaoStore.Save(batalhao);
+                return Json(new { success = true, message = "Batalhão salvo com sucesso!" });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, message = "Erro ao salvar este Batalhão" });
+            }
         }
 
 
         [HttpDelete]
-        public ActionResult Delete(Guid id)
+        public JsonResult Delete(Guid id)
         {
-            _batalhaoStore.Delete(id);
-            return RedirectToAction("Index", "Batalhao");
-        }
+            //if (_batalhaoStore.HasRelation)
+            if (1 == 1)
+                _batalhaoStore.Delete(id);
+            return Json(new { Success = false, ErrorMessage = "Este batalhão possui relações e não pode ser excluído!" });
 
-        [HttpGet]
-        public ActionResult Details()
-        {
-            return View();
+            _batalhaoStore.Delete(id);
+            return Json(new { Success = true });
+
         }
     }
 }
