@@ -1,13 +1,13 @@
-﻿@model Batalhao
+﻿@model Companhia
 @{
-    ViewBag.Title = "Batalhão: " + Model.Nome;
+    ViewBag.Title = "Companhia: " + Model.Nome;
     ViewBag.Breadcrumbs = new List<Breadcrumb>()
-    {
-        new Breadcrumb() { Name = "Dashboard", Link = "/" },
-        new Breadcrumb() { Name = "Batalhão", Link = @Url.Action("Index","Batalhao")},
-        new Breadcrumb() { Name = Model.Nome, Link = @Url.Action("Index","Batalhao", new { @id = Model.Id }), IsActive = true}
-    };
-    ViewData["DeleteButtonLink"] = Url.Action("Delete", "Batalhao", new { @id = Model.Id });
+{
+new Breadcrumb() { Name = "Dashboard", Link = "/" },
+new Breadcrumb() { Name = "Companhia", Link = @Url.Action("Index","Companhia")},
+new Breadcrumb() { Name = Model.Nome, Link = @Url.Action("Detail","Companhia", new { @id = Model.Id }), IsActive = true}
+};
+    ViewData["DeleteButtonLink"] = Url.Action("Delete", "Companhia", new { @id = Model.Id });
 }
 
 
@@ -22,14 +22,21 @@
                     <div class="form-group">
                         <label class="form-label">@Html.DisplayNameFor(m => m.Nome)</label>
                         @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", @type = "text", @required = "required" })
-
+                    </div>
+                    <div class="form-group">
+                        <label>Batalhão</label>
+                        <div>
+                            <select class="form-control" asp-for="BatalhaoId" asp-items="@(new SelectList(@Model.Batalhoes,"Id","Nome"))">
+                                @*<option value="">None</option>*@
+                            </select>
+                        </div>
                     </div>
                 </form>
                 <div class="form-group mb-0">
                     <div>
 
-                        <button id="SaveBatalhao" class="btn btn-primary waves-effect waves-light">Salvar</button>
-                        <button type="reset" class="btn btn-secondary waves-effect m-l-5" onclick="location.href='@Url.Action("Index", "Batalhao")'">Cancelar</button>
+                        <button id="SaveCompanhia" class="btn btn-primary waves-effect waves-light">Salvar</button>
+                        <button type="reset" class="btn btn-secondary waves-effect m-l-5" onclick="location.href='@Url.Action("Index", "Companhia")'">Cancelar</button>
                     </div>
                 </div>
             </div>
@@ -43,12 +50,12 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        $("#SaveBatalhao").click(function (e) {
+        $("#SaveCompanhia").click(function (e) {
 
             e.preventDefault();
 
             $.ajax({
-                url: '@Url.Action("Edit","Batalhao")',
+                url: '@Url.Action("Edit", "Companhia")',
                 type: "POST",
                 datatype: "json",
                 data: $("#form").serialize()
@@ -69,13 +76,13 @@
             $.ajax(
                 {
                     type: "Delete",
-                    url: "@Url.Action("Delete", "Batalhao", new { @id = Model.Id})",
+                    url: "@Url.Action("Delete", "Companhia", new { @id = Model.Id})",
                     success: function (data) {
                         //if (data.ErrorMessage != "") {
                         //    $.notify(data.errorMessage, "error");
                         //}
                         //else {
-                            window.location.href = '@Url.Action("Index", "Batalhao", new { @notification = true })';
+                            window.location.href = '@Url.Action("Index", "Companhia", new { @notification = true })';
                         //}
                     }
                 });

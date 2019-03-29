@@ -7,8 +7,8 @@ namespace MapaDaForca.Model
     public class TipoViaturaFuncao
     {
         public Guid Id { get; set; }
-        public Guid IdTipoViatura { get; set; }
-        public Guid IdFuncao { get; set; }
+        public Guid TipoViaturaId { get; set; }
+        public Guid FuncaoId { get; set; }
         public int Quantidade { get; set; }
 
         [NotMapped]

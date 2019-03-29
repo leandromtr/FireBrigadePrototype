@@ -7,8 +7,8 @@ namespace MapaDaForca.Model
     public class BombeiroFuncao
     {
         public Guid Id { get; set; }
-        public Guid IdBombeiro { get; set; }
-        public Guid IdFuncao { get; set; }
+        public Guid BombeiroId { get; set; }
+        public Guid FuncaoId { get; set; }
         public string Nome { get; set; }
         public bool FuncaoPrincipal { get; set; }
 

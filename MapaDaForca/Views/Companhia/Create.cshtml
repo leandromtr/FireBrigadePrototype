@@ -1,0 +1,41 @@
+﻿@model Companhia
+@{
+    ViewBag.Title = "Cadastrar Companhia";
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+{
+new Breadcrumb() { Name = "Dashboard", Link = "/" },
+new Breadcrumb() { Name = "Companhia", Link = @Url.Action("Index","Companhia") },
+new Breadcrumb() { Name = "Cadastrar", Link = @Url.Action("Create","Companhia"), IsActive = true}
+};
+}
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" action="/companhia/create">
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <div>
+                            <input name="nome" type="text" class="form-control" required data-parsley-minlength="6">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Batalhão</label>
+                        <div>
+                            <select class="form-control" asp-for="BatalhaoId" asp-items="@(new SelectList(@Model.Batalhoes,"Id","Nome"))">
+                                @*<option value="">None</option>*@
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group mb-0">
+                        <div>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Cadastrar</button>
+                            <button type="reset" class="btn btn-secondary waves-effect m-l-5" onclick="location.href='@Url.Action("Index", "Companhia")'">Voltar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

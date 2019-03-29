@@ -8,7 +8,7 @@ namespace MapaDaForca.Model
     {
         public Guid Id { get; set; }
         public string Nome { get; set; }
-        public Guid IdBatalhao { get; set; }
+        public Guid BatalhaoId { get; set; }
 
         [NotMapped]
         public Batalhao Batalhao { get; set; }

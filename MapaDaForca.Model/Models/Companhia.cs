@@ -7,7 +7,7 @@ namespace MapaDaForca.Model
     public class Companhia
     {
         public Guid Id { get; set; }
-        public Guid IdBatalhao { get; set; }
+        public Guid BatalhaoId { get; set; }
         public string Nome { get; set; }
 
         [NotMapped]

@@ -11,8 +11,8 @@ namespace MapaDaForca.Model
         public Guid Id { get; set; }
         public string Nome { get; set; }
         public DateTime DtInicio { get; set; }
-        public Guid IdPosto { get; set; }
-        public Guid IdQuartel { get; set; }
+        public Guid PostoId { get; set; }
+        public Guid QuartelId { get; set; }
         public int Turno { get; set; }
 
         [NotMapped]

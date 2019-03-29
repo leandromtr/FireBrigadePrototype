@@ -7,8 +7,8 @@ namespace MapaDaForca.Model
     public class QuartelViaturaCondicao
     {
         public Guid Id { get; set; }
-        public Guid IdQuartelViatura { get; set; }
-        public Guid IdViatura { get; set; }
+        public Guid QuartelViaturaId { get; set; }
+        public Guid ViaturaId { get; set; }
 
         [NotMapped]
         public QuartelViatura QuartelViatura { get; set; }

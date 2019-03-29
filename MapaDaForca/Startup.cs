@@ -55,8 +55,12 @@ namespace MapaDaForca
 
 
             services.AddTransient<IBatalhaoStore, BatalhaoStore>();
+            services.AddTransient<ICompanhiaStore, CompanhiaStore>();
+            services.AddTransient<IQuartelStore, QuartelStore>();
 
             services.AddTransient<IBatalhaoRepository, BatalhaoRepository>();
+            services.AddTransient<ICompanhiaRepository, CompanhiaRepository>();
+            services.AddTransient<IQuartelRepository, QuartelRepository>();
 
         }
 
