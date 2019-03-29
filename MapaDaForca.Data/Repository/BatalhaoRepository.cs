@@ -71,7 +71,7 @@ namespace MapaDaForca.Data.Repository
         {
             using (var context = new MapaDaForcaDbContext(Options))
             {
-                var delete = context.Batalhoes.FirstOrDefault(s => s.Id == id);
+                var delete = context.Batalhoes.FirstOrDefault(x => x.Id == id);
 
                 context.Batalhoes.Remove(delete);
 

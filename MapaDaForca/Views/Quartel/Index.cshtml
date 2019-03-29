@@ -1,5 +1,45 @@
-﻿
+﻿@model IEnumerable<Quartel>
 @{
-    ViewData["Title"] = "Quartel";
+    ViewBag.Title = "Quartel";
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+{
+new Breadcrumb() { Name = "Dashboard", Link = "/" },
+new Breadcrumb() { Name = "Quartel", Link = @Url.Action("Index","Quartel"), IsActive = true}
+};
+
+    ViewData["CreateButtonLink"] = Url.Action("Create", "Quartel");
 }
+
+<div class="row">
+    <div class="col-12">
+        <div class="card m-b-20">
+            <div class="card-body">
+                <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Name do Quartel</th>
+                            <th>Name do Companhia</th>
+                            <th>Name do Batalhão</th>
+                            <th>Contingente p/ Portão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var quartel in Model)
+                        {
+                            <tr>
+                                <td><a href="@Url.Action("Detail", "Quartel", new {id = quartel.Id})">@quartel.Nome</a></td>
+                                <td>@quartel.Companhia.Nome</td>
+                                <td>@quartel.Companhia.Batalhao.Nome</td>
+                                <td>@(quartel.Portao == true ? "Sim" : "Não")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 

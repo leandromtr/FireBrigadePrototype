@@ -7,7 +7,7 @@ namespace MapaDaForca.Model
     public class TipoEscala
     {
         public Guid Id { get; set; }
-        public Guid IdDetalheTipo { get; set; }
+        public Guid DetalheTipoId { get; set; }
         public string Descricao { get; set; }
 
         [NotMapped]

@@ -7,7 +7,7 @@ namespace MapaDaForca.Model
     public class Viatura
     {
         public Guid Id { get; set; }
-        public Guid IdTipoViatura { get; set; }
+        public Guid TipoViaturaId { get; set; }
         public bool Operacional { get; set; }
         public string Matricula { get; set; }
         public int Ano { get; set; }

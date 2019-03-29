@@ -1,0 +1,99 @@
+﻿@model Quartel
+@{
+    ViewBag.Title = "Quartel: " + Model.Nome;
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+{
+new Breadcrumb() { Name = "Dashboard", Link = "/" },
+new Breadcrumb() { Name = "Quartel", Link = @Url.Action("Index","Quartel")},
+new Breadcrumb() { Name = Model.Nome, Link = @Url.Action("Detail","Quartel", new { @id = Model.Id }), IsActive = true}
+};
+    ViewData["DeleteButtonLink"] = Url.Action("Delete", "Quartel", new { @id = Model.Id });
+}
+
+
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <form id="form">
+                    @Html.HiddenFor(x => x.Id)
+
+                    <div class="form-group">
+                        <label class="form-label">@Html.DisplayNameFor(m => m.Nome)</label>
+                        @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", @type = "text", @required = "required" })
+                    </div>
+                    <div class="form-group">
+                        <label>Batalhão</label>
+                        <div>
+                            <select class="form-control" asp-for="CompanhiaId" asp-items="@(new SelectList(@Model.Companhias,"Id","Nome"))">
+                                @*<option value="">None</option>*@
+                            </select>
+                        </div>
+                    </div>                    
+                    <div class="form-group">
+                        <label>Contabilizar contingente para o Portão?</label>
+                        <div>
+                            <input type="checkbox" asp-for="Portao" @*switch="success"*@/>
+                            @*<label for="switch4" data-on-label="Sim" data-off-label="Não"></label>*@
+                        </div>
+                    </div>
+                </form>
+                <div class="form-group mb-0">
+                    <div>
+
+                        <button id="SaveQuartel" class="btn btn-primary waves-effect waves-light">Salvar</button>
+                        <button type="reset" class="btn btn-secondary waves-effect m-l-5" onclick="location.href='@Url.Action("Index", "Quartel")'">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#SaveQuartel").click(function (e) {
+
+            e.preventDefault();
+
+            $.ajax({
+                url: '@Url.Action("Edit", "Quartel")',
+                type: "POST",
+                datatype: "json",
+                data: $("#form").serialize()
+            })
+            .done(function (data) {
+                if (data.success == true) {
+                    $.notify(data.message, "success");
+                }
+                else {
+                    $.notify(data.message, "error");
+                }
+            })
+        });
+
+
+
+        $('#Excluir').click(function () {
+            $.ajax(
+                {
+                    type: "Delete",
+                    url: "@Url.Action("Delete", "Quartel", new { @id = Model.Id})",
+                    success: function (data) {
+                        //if (data.ErrorMessage != "") {
+                        //    $.notify(data.errorMessage, "error");
+                        //}
+                        //else {
+                            window.location.href = '@Url.Action("Index", "Quartel", new { @notification = true })';
+                        //}
+                    }
+                });
+        });
+    });
+
+</script>

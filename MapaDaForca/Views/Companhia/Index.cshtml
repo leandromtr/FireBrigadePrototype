@@ -1,6 +1,41 @@
-﻿
+﻿@model IEnumerable<Companhia>
 @{
-    ViewData["Title"] = "Companhia";
+    ViewBag.Title = "Companhia";
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+    {
+    new Breadcrumb() { Name = "Dashboard", Link = "/" },
+    new Breadcrumb() { Name = "Companhia", Link = @Url.Action("Index","Companhia"), IsActive = true}
+    };
+
+    ViewData["CreateButtonLink"] = Url.Action("Create", "Companhia");
 }
+
+<div class="row">
+    <div class="col-12">
+        <div class="card m-b-20">
+            <div class="card-body">
+                <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Name do Companhia</th>
+                            <th>Name do Batalhão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var companhia in Model)
+                        {
+                            <tr>
+                                <td><a href="@Url.Action("Detail", "Companhia", new {id = companhia.Id})">@companhia.Nome</a></td>
+                                <td>@companhia.Batalhao.Nome</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 

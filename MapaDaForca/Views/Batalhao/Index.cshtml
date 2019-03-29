@@ -25,7 +25,7 @@
                         @foreach (var batalhao in Model)
                         {
                             <tr>
-                                <td><a href="@Url.Action("Edit", "Batalhao", new {id = batalhao.Id})">@batalhao.Nome</a></td>
+                                <td><a href="@Url.Action("Detail", "Batalhao", new {id = batalhao.Id})">@batalhao.Nome</a></td>
                             </tr>
                         }
                     </tbody>

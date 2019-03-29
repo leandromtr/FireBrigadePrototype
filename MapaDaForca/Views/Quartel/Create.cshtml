@@ -1,0 +1,47 @@
+﻿@model Quartel
+@{
+    ViewBag.Title = "Cadastrar Quartel";
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+{
+new Breadcrumb() { Name = "Dashboard", Link = "/" },
+new Breadcrumb() { Name = "Quartel", Link = @Url.Action("Index","Quartel") },
+new Breadcrumb() { Name = "Cadastrar", Link = @Url.Action("Create","Quartel"), IsActive = true}
+};
+}
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" action="/quartel/create">
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <div>
+                            <input name="nome" type="text" class="form-control" required data-parsley-minlength="6">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Companhia</label>
+                        <div>
+                            <select class="form-control" asp-for="CompanhiaId" asp-items="@(new SelectList(@Model.Companhias,"Id","Nome"))">
+                                @*<option value="">None</option>*@
+                            </select>
+                        </div>
+                    </div>                    
+                    <div class="form-group">
+                        <label>Contabilizar contingente para o Portão?</label>
+                        <div>
+                            <input type="checkbox" asp-for="Portao" />
+                        </div>
+                    </div>
+                    <div class="form-group mb-0">
+                        <div>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Cadastrar</button>
+                            <button type="reset" class="btn btn-secondary waves-effect m-l-5" onclick="location.href='@Url.Action("Index", "Quartel")'">Voltar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

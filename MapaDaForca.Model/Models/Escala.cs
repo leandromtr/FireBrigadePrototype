@@ -7,10 +7,10 @@ namespace MapaDaForca.Model
     public class Escala
     {
         public Guid Id { get; set; }
-        public Guid IdBombeiro { get; set; }
-        public Guid IdFuncao { get; set; }
-        public Guid IdQuartel { get; set; }
-        public Guid IdTipoEscala { get; set; }
+        public Guid BombeiroId { get; set; }
+        public Guid FuncaoId { get; set; }
+        public Guid QuartelId { get; set; }
+        public Guid TipoEscalaId { get; set; }
         public DateTime Data { get; set; }
         public bool Periodo1 { get; set; }
         public int PrioridadeFerias { get; set; }

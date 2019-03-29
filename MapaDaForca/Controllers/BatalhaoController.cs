@@ -12,13 +12,15 @@ namespace MapaDaForca.Controllers
     {
         //private readonly UserManager<User> _userManager;
         private readonly IBatalhaoStore _batalhaoStore;
+        private readonly ICompanhiaStore _companhiaStore;
+
 
         public BatalhaoController(
-            //UserManager<User> userManager,
-            IBatalhaoStore batalhaoStore)
+            IBatalhaoStore batalhaoStore,
+            ICompanhiaStore companhiaStore)
         {
-            //_userManager = userManager;
             _batalhaoStore = batalhaoStore;
+            _companhiaStore = companhiaStore;
         }
 
 
@@ -38,12 +40,12 @@ namespace MapaDaForca.Controllers
         public ActionResult Create(Batalhao batalhao)
         {
             var newBatalhao = _batalhaoStore.Save(batalhao);
-            return new RedirectToActionResult("Edit", "Batalhao", new { @id = newBatalhao.Id });
+            return new RedirectToActionResult("Detail", "Batalhao", new { @id = newBatalhao.Id });
         }
 
 
         [HttpGet]
-        public ActionResult Edit(Guid id)
+        public ActionResult Detail(Guid id)
         {
             var model = _batalhaoStore.GetById(id);
             return View(model);
@@ -68,14 +70,11 @@ namespace MapaDaForca.Controllers
         [HttpDelete]
         public JsonResult Delete(Guid id)
         {
-            //if (_batalhaoStore.HasRelation)
-            if (1 == 1)
-                _batalhaoStore.Delete(id);
-            return Json(new { Success = false, ErrorMessage = "Este batalhão possui relações e não pode ser excluído!" });
+            if (_companhiaStore.GetByBatalhaoId(id).Any())
+                return Json(new { success = false, message = "Este batalhão possui relações e não poderá ser excluído!" });
 
             _batalhaoStore.Delete(id);
-            return Json(new { Success = true });
-
+            return Json(new { success = true, message = "Batalhão excluído!" });
         }
     }
 }

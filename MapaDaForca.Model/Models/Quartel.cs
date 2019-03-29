@@ -7,7 +7,7 @@ namespace MapaDaForca.Model
     public class Quartel
     {
         public Guid Id { get; set; }
-        public Guid IdCompanhia { get; set; }
+        public Guid CompanhiaId { get; set; }
         public string Nome { get; set; }
         public bool Portao { get; set; }
 
