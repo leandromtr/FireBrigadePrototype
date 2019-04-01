@@ -14,9 +14,9 @@ namespace MapaDaForca.Model
         public DateTime DataInicioUso { get; set; }
 
         [NotMapped]
-        public TipoViatura TipoViatura { get; set; }
+        public ViaturaTipo ViaturaTipo { get; set; }
         [NotMapped]
-        public IEnumerable<TipoViatura> TipoViaturas { get; set; }
+        public IEnumerable<ViaturaTipo> ViaturaTipos { get; set; }
     }
 
 

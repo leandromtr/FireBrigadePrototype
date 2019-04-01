@@ -34,9 +34,9 @@ namespace MapaDaForca.Data.Data
 
         public DbSet<BombeiroFuncao> BombeiroFuncoes { get; set; }
 
-        public DbSet<TipoEscala> TipoEscalas { get; set; }
+        public DbSet<EscalaTipo> EscalaTipos { get; set; }
 
-        public DbSet<DetalheTipo> DetalheTipos { get; set; }
+        public DbSet<EscalaTipoDetalhe> EscalaTipoDetalhes { get; set; }
 
         public DbSet<Quartel> Quarteis { get; set; }
 
@@ -56,8 +56,8 @@ namespace MapaDaForca.Data.Data
 
         public DbSet<Viatura> Viaturas { get; set; }
 
-        public DbSet<TipoViatura> TipoViaturas { get; set; }
+        public DbSet<ViaturaTipo> ViaturaTipos { get; set; }
 
-        public DbSet<TipoViaturaFuncao> TipoViaturaFuncoes { get; set; }
+        public DbSet<ViaturaTipoFuncao> ViaturaTipoFuncoes { get; set; }
     }
 }

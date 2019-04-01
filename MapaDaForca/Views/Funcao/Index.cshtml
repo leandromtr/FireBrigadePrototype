@@ -1,6 +1,40 @@
-﻿
+﻿@model IEnumerable<Funcao>
 @{
-    ViewData["Title"] = "Função";
+    ViewBag.Title = "Função";
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+{
+new Breadcrumb() { Name = "Dashboard", Link = "/" },
+new Breadcrumb() { Name = "Função", Link = @Url.Action("Index","Funcao"), IsActive = true}
+};
+
+
+    ViewData["CreateButtonLink"] = Url.Action("Create", "Funcao");
 }
+
+<div class="row">
+    <div class="col-12">
+        <div class="card m-b-20">
+            <div class="card-body">
+                <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Nome da Função</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var funcao in Model)
+                        {
+                            <tr>
+                                <td><a href="@Url.Action("Detail", "Funcao", new {id = funcao.Id})">@funcao.Nome</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 

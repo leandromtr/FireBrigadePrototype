@@ -2,13 +2,9 @@
 
 namespace MapaDaForca.Model
 {
-    public class TipoViatura
+    public class EscalaTipoDetalhe
     {
         public Guid Id { get; set; }
-        public string Sigla { get; set; }
         public string Descricao { get; set; }
     }
-
-
-
 }

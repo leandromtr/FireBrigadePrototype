@@ -1,0 +1,85 @@
+﻿@model Posto
+@{
+    ViewBag.Title = "Posto: " + Model.Nome;
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+{
+new Breadcrumb() { Name = "Dashboard", Link = "/" },
+new Breadcrumb() { Name = "Posto", Link = @Url.Action("Index","Posto")},
+new Breadcrumb() { Name = Model.Nome, Link = @Url.Action("Detail","Posto", new { @id = Model.Id }), IsActive = true}
+};
+    ViewData["DeleteButtonLink"] = Url.Action("Delete", "Posto", new { @id = Model.Id });
+}
+
+
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <form id="form">
+                    @Html.HiddenFor(x => x.Id)
+
+                    <div class="form-group">
+                        <label class="form-label">@Html.DisplayNameFor(m => m.Nome)</label>
+                        @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", @type = "text", @required = "required" })
+                    </div>
+
+                </form>
+                <div class="form-group mb-0">
+                    <div>
+
+                        <button id="SavePosto" class="btn btn-primary waves-effect waves-light">Salvar</button>
+                        <button type="reset" class="btn btn-secondary waves-effect m-l-5" onclick="location.href='@Url.Action("Index", "Posto")'">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#SavePosto").click(function (e) {
+
+            e.preventDefault();
+
+            $.ajax({
+                url: '@Url.Action("Edit","Posto")',
+                type: "POST",
+                datatype: "json",
+                data: $("#form").serialize()
+            })
+            .done(function (data) {
+                if (data.success == true) {
+                    $.notify(data.message, "success");
+                }
+                else {
+                    $.notify(data.message, "error");
+                }
+            })
+        });
+
+
+
+        $('#Excluir').click(function () {
+            $.ajax(
+                {
+                    type: "Delete",
+                    url: "@Url.Action("Delete", "Posto", new { @id = Model.Id})",
+                    success: function (data) {
+                        if (data.success == true) {
+                            window.location.href = '@Url.Action("Index", "Posto", new { @notification = true })';
+                        }
+                        else {
+                            $.notify(data.message, "error");
+                        }
+                    }
+                });
+        });
+    });
+
+</script>
