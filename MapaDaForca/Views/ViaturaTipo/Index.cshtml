@@ -1,14 +1,14 @@
-﻿@model IEnumerable<Batalhao>
+﻿@model IEnumerable<ViaturaTipo>
 @{
-    ViewBag.Title = "Batalhão";
+    ViewBag.Title = "Tipo da Viatura";
     ViewBag.Breadcrumbs = new List<Breadcrumb>()
     {
         new Breadcrumb() { Name = "Dashboard", Link = "/" },
-        new Breadcrumb() { Name = "Batalhão", Link = @Url.Action("Index","Batalhao"), IsActive = true}
+        new Breadcrumb() { Name = "Tipo da Viatura", Link = @Url.Action("Index","ViaturaTipo"), IsActive = true}
     };
 
 
-    ViewData["CreateButtonLink"] = Url.Action("Create", "Batalhao");
+    ViewData["CreateButtonLink"] = Url.Action("Create", "ViaturaTipo");
 }
 
 <div class="row">
@@ -18,15 +18,16 @@
                 <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
-                            <th>Nome do Batalhão</th>
+                            <th>Nome do Tipo da Viatura</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var batalhao in Model)
+                        @foreach (var viaturaTipo in Model)
                         {
-                            <tr>
-                                <td><a href="@Url.Action("Detail", "Batalhao", new {id = batalhao.Id})">@batalhao.Nome</a></td>
-                            </tr>
+                        <tr>
+                            <td><a href="@Url.Action("Detail", "ViaturaTipo", new {id = viaturaTipo.Id})">@viaturaTipo.Sigla</a></td>
+                            <td>@viaturaTipo.Descricao</td>
+                        </tr>
                         }
                     </tbody>
                 </table>

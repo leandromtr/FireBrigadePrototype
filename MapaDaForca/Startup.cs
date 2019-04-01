@@ -57,10 +57,22 @@ namespace MapaDaForca
             services.AddTransient<IBatalhaoStore, BatalhaoStore>();
             services.AddTransient<ICompanhiaStore, CompanhiaStore>();
             services.AddTransient<IQuartelStore, QuartelStore>();
+            services.AddTransient<IEscalaTipoStore, EscalaTipoStore>();
+            services.AddTransient<IFuncaoStore, FuncaoStore>();
+            services.AddTransient<IPostoStore, PostoStore>();
+            services.AddTransient<IQuartelStore, QuartelStore>();
+            services.AddTransient<IViaturaStore, ViaturaStore>();
+            services.AddTransient<IViaturaTipoStore, ViaturaTipoStore>();
 
             services.AddTransient<IBatalhaoRepository, BatalhaoRepository>();
             services.AddTransient<ICompanhiaRepository, CompanhiaRepository>();
+            //services.AddTransient<IQuartelRepository, QuartelRepository>();
+            services.AddTransient<IEscalaTipoRepository, EscalaTipoRepository>();
+            services.AddTransient<IFuncaoRepository, FuncaoRepository>();
+            services.AddTransient<IPostoRepository, PostoRepository>();
             services.AddTransient<IQuartelRepository, QuartelRepository>();
+            services.AddTransient<IViaturaRepository, ViaturaRepository>();
+            services.AddTransient<IViaturaTipoRepository, ViaturaTipoRepository>();
 
         }
 

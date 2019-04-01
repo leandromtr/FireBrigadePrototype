@@ -10,7 +10,7 @@ namespace MapaDaForca.Model
         public Guid BombeiroId { get; set; }
         public Guid FuncaoId { get; set; }
         public Guid QuartelId { get; set; }
-        public Guid TipoEscalaId { get; set; }
+        public Guid EscalaTipoId { get; set; }
         public DateTime Data { get; set; }
         public bool Periodo1 { get; set; }
         public int PrioridadeFerias { get; set; }
@@ -30,9 +30,9 @@ namespace MapaDaForca.Model
         [NotMapped]
         public IEnumerable<Quartel> Quarteis { get; set; }
         [NotMapped]
-        public TipoEscala TipoEscala { get; set; }
+        public EscalaTipo EscalaTipo { get; set; }
         [NotMapped]
-        public IEnumerable<TipoEscala> TipoEscalas { get; set; }
+        public IEnumerable<EscalaTipo> EscalaTipos { get; set; }
     }
 
 

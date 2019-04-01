@@ -4,16 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MapaDaForca.Model
 {
-    public class TipoEscala
+    public class EscalaTipo
     {
         public Guid Id { get; set; }
-        public Guid DetalheTipoId { get; set; }
+        public Guid EscalaTipoDetalheId { get; set; }
         public string Descricao { get; set; }
 
         [NotMapped]
-        public DetalheTipo DetalheTipo { get; set; }
+        public EscalaTipoDetalhe EscalaTipoDetalhe { get; set; }
         [NotMapped]
-        public IEnumerable<DetalheTipo> DetalheTipos { get; set; }
+        public IEnumerable<EscalaTipoDetalhe> EscalaTipoDetalhes { get; set; }
     }
 
 

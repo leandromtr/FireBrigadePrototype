@@ -1,0 +1,39 @@
+﻿@model ViaturaTipo
+@{
+    ViewBag.Title = "Cadastrar Tipo da Viatura";
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+    {
+        new Breadcrumb() { Name = "Dashboard", Link = "/" },
+        new Breadcrumb() { Name = "Tipo da Viatura", Link = @Url.Action("Index","ViaturaTipo") },
+        new Breadcrumb() { Name = "Cadastrar", Link = @Url.Action("Create","ViaturaTipo"), IsActive = true}
+    };    
+}
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" action="/viaturatipo/create">
+                    <div class="form-group">
+                        <label>Sigla</label>
+                        <div>
+                            <input name="sigla" type="text" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <div>
+                            <input name="descricao" type="text" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group mb-0">
+                        <div>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Cadastrar</button>
+                            <button type="reset" class="btn btn-secondary waves-effect m-l-5" onclick="location.href='@Url.Action("Index", "ViaturaTipo")'">Voltar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
