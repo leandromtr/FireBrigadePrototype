@@ -34,8 +34,8 @@ new Breadcrumb() { Name = Model.Nome, Link = @Url.Action("Detail","Quartel", new
                     <div class="form-group">
                         <label>Contabilizar contingente para o Portão?</label>
                         <div>
-                            <input type="checkbox" asp-for="Portao" @*switch="success"*@/>
-                            @*<label for="switch4" data-on-label="Sim" data-off-label="Não"></label>*@
+                            <input type="checkbox" asp-for="Portao" id="Portao" switch="success" @*checked="checked"*@>
+                            <label for="Portao" data-on-label="Sim" data-off-label="Não"></label>
                         </div>
                     </div>
                 </form>
