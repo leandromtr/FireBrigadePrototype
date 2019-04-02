@@ -1,6 +1,48 @@
-﻿
+﻿@model IEnumerable<Viatura>
 @{
-    ViewData["Title"] = "Viatura";
+    ViewBag.Title = "Viatura";
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+    {
+        new Breadcrumb() { Name = "Dashboard", Link = "/" },
+        new Breadcrumb() { Name = "Viatura", Link = @Url.Action("Index","Viatura"), IsActive = true}
+    };
+
+
+    ViewData["CreateButtonLink"] = Url.Action("Create", "Viatura");
 }
+
+<div class="row">
+    <div class="col-12">
+        <div class="card m-b-20">
+            <div class="card-body">
+                <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Matrícula da Viatura</th>
+                            <th>Tipo da Viatura</th>
+                            <th>Ano da Viatura</th>
+                            <th>Dt. Início de Uso</th>
+                            <th>Operacional</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var viatura in Model)
+                        {
+                        <tr>
+                            <td><a href="@Url.Action("Detail", "Viatura", new {id = viatura.Id})">@viatura.Matricula</a></td>
+                            <td>@viatura.ViaturaTipo.Sigla</td>
+                            <td>@viatura.Ano</td>
+                            <td>@viatura.DataInicioUso.ToString("d")</td>
+                            <td>@(viatura.Operacional == true ? "Sim" : "Não")</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 

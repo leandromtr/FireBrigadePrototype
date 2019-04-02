@@ -27,13 +27,15 @@ new Breadcrumb() { Name = "Cadastrar", Link = @Url.Action("Create","Quartel"), I
                                 @*<option value="">None</option>*@
                             </select>
                         </div>
-                    </div>                    
+                    </div>
                     <div class="form-group">
                         <label>Contabilizar contingente para o Portão?</label>
                         <div>
-                            <input type="checkbox" asp-for="Portao" />
+                            <input type="checkbox" asp-for="Portao" id="Portao" switch="success">
+                            <label for="Portao" data-on-label="Sim" data-off-label="Não"></label>
                         </div>
                     </div>
+
                     <div class="form-group mb-0">
                         <div>
                             <button type="submit" class="btn btn-primary waves-effect waves-light">Cadastrar</button>

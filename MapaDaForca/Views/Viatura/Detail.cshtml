@@ -1,0 +1,113 @@
+﻿@model Viatura
+@{
+    ViewBag.Title = "Viatura: " + Model.Matricula;
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+{
+new Breadcrumb() { Name = "Dashboard", Link = "/" },
+new Breadcrumb() { Name = "Viatura", Link = @Url.Action("Index","Viatura")},
+new Breadcrumb() { Name = Model.Matricula, Link = @Url.Action("Detail","Viatura", new { @id = Model.Id }), IsActive = true}
+};
+    ViewData["DeleteButtonLink"] = Url.Action("Delete", "Viatura", new { @id = Model.Id });
+}
+
+
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <form id="form">
+                    @Html.HiddenFor(x => x.Id)
+
+                    <div class="form-group">
+                        <label asp-for="Matricula"></label>
+                        <input asp-for="Matricula" class="form-control" />
+                        <span asp-validation-for="Matricula" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo da Viatura</label>
+                        <div>
+                            <select class="form-control" asp-for="ViaturaTipoId" asp-items="@(new SelectList(@Model.ViaturaTipos,"Id","Sigla"))"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">@Html.DisplayNameFor(m => m.Ano)</label>
+                        <input asp-for="Ano" type="number" value="@Model.Ano" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">@Html.DisplayNameFor(m => m.DataInicioUso)</label>
+                        <div class="input-group">
+                            @*<input asp-for="DataInicioUso" type="date" value="@Model.DataInicioUso" class="form-control" placeholder="dd/mm/yyyy">*@
+                            <input asp-for="DataInicioUso" type="date" asp-format="{0:yyyy-MM-dd}" class="form-control" /> 
+                            <div class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Operacional?</label>
+                        <div>
+                            <input type="checkbox" asp-for="Operacional" id="Operacional" switch="success">
+                            <label for="Operacional" data-on-label="Sim" data-off-label="Não"></label>
+                        </div>
+                    </div>
+
+
+                </form>
+                <div class="form-group mb-0">
+                    <div>
+
+                        <button id="SaveViatura" class="btn btn-primary waves-effect waves-light">Salvar</button>
+                        <button type="reset" class="btn btn-secondary waves-effect m-l-5" onclick="location.href='@Url.Action("Index", "Viatura")'">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#SaveViatura").click(function (e) {
+
+            e.preventDefault();
+
+            $.ajax({
+                url: '@Url.Action("Edit","Viatura")',
+                type: "POST",
+                datatype: "json",
+                data: $("#form").serialize()
+            })
+            .done(function (data) {
+                if (data.success == true) {
+                    $.notify(data.message, "success");
+                }
+                else {
+                    $.notify(data.message, "error");
+                }
+            })
+        });
+
+
+
+        $('#Excluir').click(function () {
+            $.ajax(
+                {
+                    type: "Delete",
+                    url: "@Url.Action("Delete", "Viatura", new { @id = Model.Id})",
+                    success: function (data) {
+                        if (data.success == true) {
+                            window.location.href = '@Url.Action("Index", "Viatura", new { @notification = true })';
+                        }
+                        else {
+                            $.notify(data.message, "error");
+                        }
+                    }
+                });
+        });
+    });
+
+</script>
