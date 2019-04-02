@@ -14,6 +14,8 @@ using Microsoft.Extensions.DependencyInjection;
 using MapaDaForca.Data.Data;
 using MapaDaForca.Core.Store;
 using MapaDaForca.Data.Repository;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace MapaDaForca
 {
@@ -98,6 +100,15 @@ namespace MapaDaForca
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            var cultureInfo = new CultureInfo("pt-PT");
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(cultureInfo),
+                SupportedCultures = new List<CultureInfo> { cultureInfo },
+                SupportedUICultures = new List<CultureInfo> { cultureInfo }
+            });
 
 
             app.UseMvc(routes =>

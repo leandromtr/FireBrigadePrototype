@@ -36,7 +36,7 @@ namespace MapaDaForca.Data.Data
 
         public DbSet<EscalaTipo> EscalaTipos { get; set; }
 
-        public DbSet<EscalaTipoDetalhe> EscalaTipoDetalhes { get; set; }
+        //public DbSet<EscalaTipoDetalhe> EscalaTipoDetalhes { get; set; }
 
         public DbSet<Quartel> Quarteis { get; set; }
 
