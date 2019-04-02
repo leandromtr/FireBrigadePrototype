@@ -1,0 +1,42 @@
+﻿@model EscalaTipo
+@using MapaDaForca.Model.Enums
+
+@{
+    ViewBag.Title = "Cadastrar Tipo da Escala";
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+{
+new Breadcrumb() { Name = "Dashboard", Link = "/" },
+new Breadcrumb() { Name = "Tipo da Escala", Link = @Url.Action("Index","EscalaTipo") },
+new Breadcrumb() { Name = "Cadastrar", Link = @Url.Action("Create","EscalaTipo"), IsActive = true}
+};
+}
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" action="/escalatipo/create">
+                    <div class="form-group">
+                        <label>Tipo da Escala</label>
+                        <div>
+                            <input asp-for="Descricao" type="text" class="form-control" required >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Detalhe</label>
+                        <div>
+                            <select class="form-control" asp-for="EscalaTipoDetalhe" asp-items="Html.GetEnumSelectList<EscalaTipoDetalhe>()">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group mb-0">
+                        <div>
+                            <button type="submit" class="btn btn-primary waves-effect waves-light">Cadastrar</button>
+                            <button type="reset" class="btn btn-secondary waves-effect m-l-5" onclick="location.href='@Url.Action("Index", "EscalaTipo")'">Voltar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

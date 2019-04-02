@@ -13,7 +13,7 @@ namespace MapaDaForca.Model
         public string Matricula { get; set; }
         public int Ano { get; set; }
 
-        //[DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime DataInicioUso { get; set; }
 
         [NotMapped]
