@@ -3,6 +3,7 @@ using MapaDaForca.Data.Repository;
 using MapaDaForca.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MapaDaForca.Core.Store
@@ -10,15 +11,24 @@ namespace MapaDaForca.Core.Store
     public class ViaturaStore : IViaturaStore
     {
         private readonly IViaturaRepository _repository;
+        private readonly IViaturaTipoStore _viaturaTipoStore;
 
-        public ViaturaStore(IViaturaRepository repository)
+        public ViaturaStore(
+            IViaturaRepository repository,
+            IViaturaTipoStore viaturaTipoStore)
         {
             _repository = repository;
+            _viaturaTipoStore = viaturaTipoStore;
         }
 
         public IList<Viatura> GetAll()
         {
-            return _repository.GetAll();
+            var viaturas = _repository.GetAll().OrderBy(x => x.Matricula).ToList();
+            var viaturaTipos = _viaturaTipoStore.GetAll().OrderBy(x => x.Sigla).ToList();
+
+            viaturas.ForEach(v => v.ViaturaTipo = viaturaTipos.FirstOrDefault(vt => vt.Id == v.ViaturaTipoId));
+                       
+            return viaturas;
         }
 
         public Viatura GetById(Guid id)
