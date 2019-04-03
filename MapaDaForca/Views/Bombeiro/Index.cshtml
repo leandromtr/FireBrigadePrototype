@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Bombeiro>
+@using MapaDaForca.Helper;
+
+@{
+    ViewBag.Title = "Bombeiro";
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+{
+new Breadcrumb() { Name = "Dashboard", Link = "/" },
+new Breadcrumb() { Name = "Bombeiro", Link = @Url.Action("Index","Bombeiro"), IsActive = true}
+};
+
+
+    ViewData["CreateButtonLink"] = Url.Action("Create", "Bombeiro");
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card m-b-20">
+            <div class="card-body">
+                <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Nome do Bombeiro</th>
+                            <th>Dt. Início</th>
+                            <th>Posto</th>
+                            <th>Quartel</th>
+                            <th>Turno</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var bombeiro in Model)
+                        {
+                            <tr>
+                                <td><a href="@Url.Action("Detail", "Bombeiro", new {id = bombeiro.Id})">@bombeiro.Nome</a></td>
+                                <td>@bombeiro.DtInicio</td>
+                                <td>@bombeiro.Posto.Nome</td>
+                                <td>@bombeiro.Quartel.Nome</td>
+                                <td>@bombeiro.Turno.EnumDisplayNameFor()</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

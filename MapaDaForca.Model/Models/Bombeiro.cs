@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using MapaDaForca.Model.Enums;
 using System.Text;
 
 namespace MapaDaForca.Model
 {
-
     public class Bombeiro
     {
         public Guid Id { get; set; }
@@ -13,7 +13,7 @@ namespace MapaDaForca.Model
         public DateTime DtInicio { get; set; }
         public Guid PostoId { get; set; }
         public Guid QuartelId { get; set; }
-        public int Turno { get; set; }
+        public Turno Turno { get; set; }
 
         [NotMapped]
         public Posto Posto { get; set; }
