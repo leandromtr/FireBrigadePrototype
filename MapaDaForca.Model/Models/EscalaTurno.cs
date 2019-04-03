@@ -9,7 +9,4 @@ namespace MapaDaForca.Model
         public DateTime Data { get; set; }
         public bool Periodo1 { get; set; }
     }
-
-
-
 }
