@@ -1,0 +1,53 @@
+﻿@using MapaDaForca.Helper;
+@model MapaDaForca.Model.BombeiroFuncao 
+
+
+<div class="card m-b-20">
+    <div class="card-body">
+        <h4 class="mt-0 header-title">Função por Bombeiro</h4>
+        <table class="table table-striped mb-0">
+            <thead>
+                <tr>
+                    <th style="width: 60%;">Função</th>
+                    <th style="width: 30%;">Função Principal</th>
+                    <th style="width: 10%;"></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @*@{
+                var orderResources = Model.Resources.OrderBy(s => (int)s.VolunteerType);
+                foreach (var resource in orderResources)
+                {*@
+                <tr class="bombeiroFuncao" data-bombeiroFuncaoId="12">
+                    <td style="width: 60%;">Motorista</td>
+                    <td style="width: 30%;">Sim</td>
+                    <td style="width: 10%;">
+                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light bombeiroFuncaDelete">Excluir</button>
+                    </td>
+                </tr>
+                <tr class="bombeiroFuncao" data-bombeiroFuncaoId="124">
+                    <td>Linha</td>
+                    <td>Não</td>
+                    <td>
+                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light bombeiroFuncaDelete">Excluir</button>
+                    </td>
+                </tr>
+                @*}
+                }*@
+                <tr>
+                    <td style="width: 60%;">
+                        @*<select class="form-control" asp-for="Bombeiro.Turno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>*@
+                    </td>
+                    <td style="width: 30%;">
+                        @*<select class="form-control" asp-for="Bombeiro.Turno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>*@
+                    </td>
+                    <td style="width: 10%;">
+                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light">Adicionar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+

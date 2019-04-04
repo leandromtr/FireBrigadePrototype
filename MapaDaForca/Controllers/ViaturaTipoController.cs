@@ -37,13 +37,16 @@ namespace MapaDaForca.Controllers
         public ActionResult Create(ViaturaTipo batalhao)
         {
             var newViaturaTipo = _viaturaTipoStore.Save(batalhao);
-            return new RedirectToActionResult("Detail", "ViaturaTipo", new { @id = newViaturaTipo.Id });
+            return new RedirectToActionResult("Detail", "ViaturaTipo", new { @id = newViaturaTipo.Id, @message = true });
         }
 
 
         [HttpGet]
-        public ActionResult Detail(Guid id)
+        public ActionResult Detail(Guid id, bool message)
         {
+            if (message)
+                ViewData["MessageCreate"] = "Tipo da Viatura criado com sucesso!";
+
             var model = _viaturaTipoStore.GetById(id);
             return View(model);
         }

@@ -44,13 +44,16 @@ namespace MapaDaForca.Controllers
         public ActionResult Create(Companhia companhia)
         {
             var newCompanhia = _companhiaStore.Save(companhia);
-            return new RedirectToActionResult("Detail", "Companhia", new { @id = newCompanhia.Id });
+            return new RedirectToActionResult("Detail", "Companhia", new { @id = newCompanhia.Id, @message = true });
         }
 
 
         [HttpGet]
-        public ActionResult Detail(Guid id)
+        public ActionResult Detail(Guid id, bool message)
         {
+            if (message)
+                ViewData["MessageCreate"] = "Companhia criada com sucesso!";
+
             var companhia = _companhiaStore.GetById(id);
             companhia.Batalhoes = _batalhaoStore.GetAll();
 

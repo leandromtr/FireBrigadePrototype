@@ -40,13 +40,16 @@ namespace MapaDaForca.Controllers
         public ActionResult Create(Batalhao batalhao)
         {
             var newBatalhao = _batalhaoStore.Save(batalhao);
-            return new RedirectToActionResult("Detail", "Batalhao", new { @id = newBatalhao.Id });
+            return new RedirectToActionResult("Detail", "Batalhao", new { @id = newBatalhao.Id, @message =true });
         }
 
 
         [HttpGet]
-        public ActionResult Detail(Guid id)
+        public ActionResult Detail(Guid id, bool message)
         {
+            if (message)
+                ViewData["MessageCreate"] = "Batalhao criado com sucesso!";
+
             var model = _batalhaoStore.GetById(id);
             return View(model);
         }

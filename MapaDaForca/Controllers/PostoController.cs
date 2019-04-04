@@ -37,13 +37,16 @@ namespace MapaDaForca.Controllers
         public ActionResult Create(Posto posto)
         {
             var newPosto = _postoStore.Save(posto);
-            return new RedirectToActionResult("Detail", "Posto", new { @id = newPosto.Id });
+            return new RedirectToActionResult("Detail", "Posto", new { @id = newPosto.Id, @message = true });
         }
 
 
         [HttpGet]
-        public ActionResult Detail(Guid id)
+        public ActionResult Detail(Guid id, bool message)
         {
+            if (message)
+                ViewData["MessageCreate"] = "Posto criado com sucesso!";
+
             var model = _postoStore.GetById(id);
             return View(model);
         }
