@@ -9,6 +9,8 @@ namespace MapaDaForca.Core.Store
     {
         IList<Viatura> GetAll();
 
+        IList<Viatura> GetByViaturaTipoId(Guid viaturaTipoId);
+
         Viatura GetById(Guid id);
 
         Viatura Save(Viatura save);

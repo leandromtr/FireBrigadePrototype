@@ -37,9 +37,23 @@
                 }*@
                 <tr>
                     <td style="width: 60%;">
+
+                        <div>
+                            <select class="form-control" data-val="true" data-val-required="The EscalaTipoDetalhe field is required." id="EscalaTipoDetalhe" name="EscalaTipoDetalhe">
+                                <option value="1">Motorista</option>
+                                <option selected="selected" value="2">Linha</option>
+                            </select>
+                        </div>
+
                         @*<select class="form-control" asp-for="Bombeiro.Turno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>*@
                     </td>
                     <td style="width: 30%;">
+                        <div>
+                            <select class="form-control" data-val="true" data-val-required="The EscalaTipoDetalhe field is required." id="EscalaTipoDetalhe" name="EscalaTipoDetalhe">
+                                <option value="1">Sim</option>
+                                <option selected="selected" value="2">Não</option>
+                            </select>
+                        </div>
                         @*<select class="form-control" asp-for="Bombeiro.Turno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>*@
                     </td>
                     <td style="width: 10%;">
