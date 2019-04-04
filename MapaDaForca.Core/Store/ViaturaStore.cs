@@ -31,6 +31,11 @@ namespace MapaDaForca.Core.Store
             return viaturas;
         }
 
+        public IList<Viatura> GetByViaturaTipoId(Guid viaturaTipoId)
+        {
+            return _repository.GetByViaturaTipoId(viaturaTipoId);
+        }
+
         public Viatura GetById(Guid id)
         {
             return _repository.GetById(id);

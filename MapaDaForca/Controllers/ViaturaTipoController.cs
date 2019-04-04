@@ -12,12 +12,15 @@ namespace MapaDaForca.Controllers
     public class ViaturaTipoController : Controller
     {
         private readonly IViaturaTipoStore _viaturaTipoStore;
+        private readonly IViaturaStore _viaturaStore;
 
 
         public ViaturaTipoController(
-            IViaturaTipoStore viaturaTipoStore)
+            IViaturaTipoStore viaturaTipoStore,
+            IViaturaStore viaturaStore)
         {
             _viaturaTipoStore = viaturaTipoStore;
+            _viaturaStore = viaturaStore;
         }
 
 
@@ -70,8 +73,8 @@ namespace MapaDaForca.Controllers
         [HttpDelete]
         public JsonResult Delete(Guid id)
         {
-            //if (_viaturaTipoStore.GetByTipoViaturaId(id).Any())
-            //    return Json(new { success = false, message = "Este Tipo da Viatura possui relações e não poderá ser excluído!" });
+            if (_viaturaStore.GetByViaturaTipoId(id).Any())
+                return Json(new { success = false, message = "Esta Viatura possui relações e não poderá ser excluída!" });
 
             _viaturaTipoStore.Delete(id);
             return Json(new { success = true, message = "Tipo da Viatura excluído!" });

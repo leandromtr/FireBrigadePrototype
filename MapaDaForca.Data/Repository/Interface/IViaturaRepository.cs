@@ -8,6 +8,8 @@ namespace MapaDaForca.Data.Repository
     {
         IList<Viatura> GetAll();
 
+        IList<Viatura> GetByViaturaTipoId(Guid viaturaTipoId);
+
         Viatura GetById(Guid id);
 
         Viatura Create(Viatura create);
