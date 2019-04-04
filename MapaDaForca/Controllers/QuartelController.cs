@@ -40,13 +40,15 @@ namespace MapaDaForca.Controllers
         public ActionResult Create(Quartel quartel)
         {
             var newQuartel= _quartelStore.Save(quartel);
-            return new RedirectToActionResult("Detail", "Quartel", new { @id = newQuartel.Id });
+            return new RedirectToActionResult("Detail", "Quartel", new { @id = newQuartel.Id, @message = true });
         }
 
 
         [HttpGet]
-        public ActionResult Detail(Guid id)
+        public ActionResult Detail(Guid id, bool message)
         {
+            if (message)
+                ViewData["MessageCreate"] = "Quartel criado com sucesso!";
 
             var quartel = _quartelStore.GetById(id);
             quartel.Companhias = _companhiaStore.GetAll();

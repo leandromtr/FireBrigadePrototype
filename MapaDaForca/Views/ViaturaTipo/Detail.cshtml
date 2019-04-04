@@ -47,6 +47,10 @@ new Breadcrumb() { Name = Model.Sigla, Link = @Url.Action("Detail","ViaturaTipo"
 <script type="text/javascript">
     $(document).ready(function () {
 
+        if ("@(ViewData["MessageCreate"])" != "") {
+            $.notify("@(ViewData["MessageCreate"])", "success");
+        }
+
         $("#SaveViaturaTipo").click(function (e) {
 
             e.preventDefault();

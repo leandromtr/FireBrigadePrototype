@@ -40,13 +40,16 @@ namespace MapaDaForca.Controllers
         public ActionResult Create(EscalaTipo escalaTipo)
         {
             var newEscalaTipo = _escalaTipoStore.Save(escalaTipo);
-            return new RedirectToActionResult("Detail", "EscalaTipo", new { @id = newEscalaTipo.Id });
+            return new RedirectToActionResult("Detail", "EscalaTipo", new { @id = newEscalaTipo.Id, @message = true });
         }
 
 
         [HttpGet]
-        public ActionResult Detail(Guid id)
+        public ActionResult Detail(Guid id, bool message)
         {
+            if (message)
+                ViewData["MessageCreate"] = "Tipo da Escala criado com sucesso!";
+
             var model = _escalaTipoStore.GetById(id);
             return View(model);
         }

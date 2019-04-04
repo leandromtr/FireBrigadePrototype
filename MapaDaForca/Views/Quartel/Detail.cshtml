@@ -57,6 +57,10 @@ new Breadcrumb() { Name = Model.Nome, Link = @Url.Action("Detail","Quartel", new
 <script type="text/javascript">
     $(document).ready(function () {
 
+        if ("@(ViewData["MessageCreate"])" != "") {
+            $.notify("@(ViewData["MessageCreate"])", "success");
+        }
+
         $("#SaveQuartel").click(function (e) {
 
             e.preventDefault();

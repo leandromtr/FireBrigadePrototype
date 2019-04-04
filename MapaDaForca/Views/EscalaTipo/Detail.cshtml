@@ -53,6 +53,10 @@ new Breadcrumb() { Name = Model.Descricao, Link = @Url.Action("Detail","EscalaTi
 <script type="text/javascript">
     $(document).ready(function () {
 
+        if ("@(ViewData["MessageCreate"])" != "") {
+            $.notify("@(ViewData["MessageCreate"])", "success");
+        }
+
         $("#SaveEscalaTipo").click(function (e) {
 
             e.preventDefault();

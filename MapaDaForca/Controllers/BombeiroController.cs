@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
+using MapaDaForca.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MapaDaForca.Controllers
@@ -51,17 +52,22 @@ namespace MapaDaForca.Controllers
         public ActionResult Create(Bombeiro bombeiro)
         {
             var newBombeiro = _bombeiroStore.Save(bombeiro);
-            return new RedirectToActionResult("Detail", "Bombeiro", new { @id = newBombeiro.Id });
+            return new RedirectToActionResult("Detail", "Bombeiro", new { @id = newBombeiro.Id, @message = true });
         }
 
 
         [HttpGet]
-        public ActionResult Detail(Guid id)
+        public ActionResult Detail(Guid id, bool message)
         {
-            var bombeiro = _bombeiroStore.GetById(id);
+            if (message)
+                ViewData["MessageCreate"] = "Bombeiro criado com sucesso!";
 
-            bombeiro.Postos = _postoStore.GetAll();
-            bombeiro.Quarteis = _quartelStore.GetAll();
+            var bombeiro = new BombeiroViewModel();
+            bombeiro.Bombeiro = _bombeiroStore.GetById(id);
+            bombeiro.Bombeiro.Postos = _postoStore.GetAll();
+            bombeiro.Bombeiro.Quarteis = _quartelStore.GetAll();
+            //bombeiro.BombeiroFuncoes=_bomb
+
             return View(bombeiro);
         }
 
