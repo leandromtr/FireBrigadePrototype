@@ -12,15 +12,15 @@ namespace MapaDaForca.Controllers
     {
         //private readonly UserManager<User> _userManager;
         private readonly IEscalaTipoStore _escalaTipoStore;
-        //private readonly IEscalaStore _escalaStore;
+        private readonly IEscalaStore _escalaStore;
 
 
         public EscalaTipoController(
-            IEscalaTipoStore escalaTipoStore)
-          //  IEscalaStore escalaStore)
+            IEscalaTipoStore escalaTipoStore,
+            IEscalaStore escalaStore)
         {
             _escalaTipoStore = escalaTipoStore;
-       //     _escalaStore = escalaStore;
+            _escalaStore = escalaStore;
         }
 
 
@@ -73,8 +73,8 @@ namespace MapaDaForca.Controllers
         [HttpDelete]
         public JsonResult Delete(Guid id)
         {
-            //if (_companhiaStore.GetByEscalaTipoId(id).Any())
-            //    return Json(new { success = false, message = "Este batalhão possui relações e não poderá ser excluído!" });
+            if (_escalaStore.GetByEscalaTipoId(id).Any())
+                return Json(new { success = false, message = "Este Tipo da Escala possui relações e não poderá ser excluído!" });
 
             _escalaTipoStore.Delete(id);
             return Json(new { success = true, message = "Tipo da Escala excluído!" });

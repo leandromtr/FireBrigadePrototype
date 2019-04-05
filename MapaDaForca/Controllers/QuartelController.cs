@@ -12,15 +12,18 @@ namespace MapaDaForca.Controllers
     public class QuartelController : Controller
     {
         private readonly ICompanhiaStore _companhiaStore;
+        private readonly IEscalaStore _escalaStore;
         private readonly IQuartelStore _quartelStore;
         private readonly IQuartelViaturaStore _quartelViaturaStore;
 
         public QuartelController(
             ICompanhiaStore companhiaStore,
+            IEscalaStore escalaStore,
             IQuartelStore quartelStore,
             IQuartelViaturaStore quartelViaturaStore)
         {
             _companhiaStore = companhiaStore;
+            _escalaStore = escalaStore;
             _quartelStore = quartelStore;
             _quartelViaturaStore = quartelViaturaStore;
         }
@@ -84,8 +87,8 @@ namespace MapaDaForca.Controllers
         [HttpDelete]
         public JsonResult Delete(Guid id)
         {
-            //if (_companhiaStore.GetByBatalhaoId(id).Any())
-            //    return Json(new { success = false, message = "Este Quartel possui relações e não poderá ser excluído!" });
+            if (_escalaStore.GetByQuartelId(id).Any())
+                return Json(new { success = false, message = "Este Quartel possui relações e não poderá ser excluído!" });
 
             _quartelStore.Delete(id);
             return Json(new { success = true, message = "Quartel excluído!" });
