@@ -76,7 +76,7 @@ new Breadcrumb() { Name = Model.Nome, Link = @Url.Action("Detail","Posto", new {
                     url: "@Url.Action("Delete", "Posto", new { @id = Model.Id})",
                     success: function (data) {
                         if (data.success == true) {
-                            window.location.href = '@Url.Action("Index", "Posto", new { @notification = true })';
+                            window.location.href = '@Url.Action("Index", "Posto")';
                         }
                         else {
                             $.notify(data.message, "error");

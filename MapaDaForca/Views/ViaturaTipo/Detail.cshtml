@@ -84,7 +84,7 @@ new Breadcrumb() { Name = Model.ViaturaTipo.Sigla, Link = @Url.Action("Detail","
                     url: "@Url.Action("Delete", "ViaturaTipo", new { @id = Model.ViaturaTipo.Id })",
                     success: function (data) {
                         if (data.success == true) {
-                            window.location.href = '@Url.Action("Index", "ViaturaTipo", new { @notification = true })';
+                            window.location.href = '@Url.Action("Index", "ViaturaTipo")';
                         }
                         else {
                             $.notify(data.message, "error");
