@@ -1,13 +1,13 @@
-﻿@model ViaturaTipo
+﻿@model ViaturaTipoViewModel
 @{
-    ViewBag.Title = "Tipo da Viatura: " + Model.Sigla;
+    ViewBag.Title = "Tipo da Viatura: " + Model.ViaturaTipo.Sigla;
     ViewBag.Breadcrumbs = new List<Breadcrumb>()
 {
 new Breadcrumb() { Name = "Dashboard", Link = "/" },
 new Breadcrumb() { Name = "Tipo da Viatura", Link = @Url.Action("Index","ViaturaTipo")},
-new Breadcrumb() { Name = Model.Sigla, Link = @Url.Action("Detail","ViaturaTipo", new { @id = Model.Id }), IsActive = true}
+new Breadcrumb() { Name = Model.ViaturaTipo.Sigla, Link = @Url.Action("Detail","ViaturaTipo", new { @id = Model.ViaturaTipo.Id }), IsActive = true}
 };
-    ViewData["DeleteButtonLink"] = Url.Action("Delete", "ViaturaTipo", new { @id = Model.Id });
+    ViewData["DeleteButtonLink"] = Url.Action("Delete", "ViaturaTipo", new { @id = Model.ViaturaTipo.Id });
 }
 
 
@@ -17,16 +17,16 @@ new Breadcrumb() { Name = Model.Sigla, Link = @Url.Action("Detail","ViaturaTipo"
         <div class="card">
             <div class="card-body">
                 <form id="form">
-                    @Html.HiddenFor(x => x.Id)
+                    @Html.HiddenFor(x => x.ViaturaTipo.Id)
 
                     <div class="form-group">
-                        <label class="form-label">@Html.DisplayNameFor(m => m.Sigla)</label>
-                        @Html.TextBoxFor(m => m.Sigla, new { @class = "form-control", @type = "text", @required = "required" })
+                        <label class="form-label">@Html.DisplayNameFor(m => m.ViaturaTipo.Sigla)</label>
+                        @Html.TextBoxFor(m => m.ViaturaTipo.Sigla, new { @class = "form-control", @type = "text", @required = "required" })
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">@Html.DisplayNameFor(m => m.Descricao)</label>
-                        @Html.TextBoxFor(m => m.Descricao, new { @class = "form-control", @type = "text", @required = "required" })
+                        <label class="form-label">@Html.DisplayNameFor(m => m.ViaturaTipo.Descricao)</label>
+                        @Html.TextBoxFor(m => m.ViaturaTipo.Descricao, new { @class = "form-control", @type = "text", @required = "required" })
                     </div>
                 </form>
                 <div class="form-group mb-0">
@@ -38,6 +38,10 @@ new Breadcrumb() { Name = Model.Sigla, Link = @Url.Action("Detail","ViaturaTipo"
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="col-lg-6">
+        <partial name="~/Views/ViaturaTipoFuncao/_ViaturaTipoFuncao.cshtml" model="Model.ViaturaTipoFuncoes" />
     </div>
 </div>
 
@@ -77,7 +81,7 @@ new Breadcrumb() { Name = Model.Sigla, Link = @Url.Action("Detail","ViaturaTipo"
             $.ajax(
                 {
                     type: "Delete",
-                    url: "@Url.Action("Delete", "ViaturaTipo", new { @id = Model.Id})",
+                    url: "@Url.Action("Delete", "ViaturaTipo", new { @id = Model.ViaturaTipo.Id })",
                     success: function (data) {
                         if (data.success == true) {
                             window.location.href = '@Url.Action("Index", "ViaturaTipo", new { @notification = true })';

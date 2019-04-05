@@ -15,16 +15,19 @@ namespace MapaDaForca.Controllers
         private readonly IBombeiroStore _bombeiroStore;
         private readonly IPostoStore _postoStore;
         private readonly IQuartelStore _quartelStore;
+        private readonly IBombeiroFuncaoStore _bombeiroFuncaoStore;
 
 
         public BombeiroController(
             IBombeiroStore bombeiroStore,
             IPostoStore postoStore,
-            IQuartelStore quartelStore)
+            IQuartelStore quartelStore,
+            IBombeiroFuncaoStore bombeiroFuncaoStore)
         {
             _bombeiroStore = bombeiroStore;
             _postoStore = postoStore;
             _quartelStore = quartelStore;
+            _bombeiroFuncaoStore = bombeiroFuncaoStore;
         }
 
 
@@ -66,6 +69,7 @@ namespace MapaDaForca.Controllers
             bombeiro.Bombeiro = _bombeiroStore.GetById(id);
             bombeiro.Bombeiro.Postos = _postoStore.GetAll();
             bombeiro.Bombeiro.Quarteis = _quartelStore.GetAll();
+            //bombeiro.BombeiroFuncoes = _bombeiroFuncaoStore.get();
             //bombeiro.BombeiroFuncoes=_bomb
 
             return View(bombeiro);

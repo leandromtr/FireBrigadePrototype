@@ -39,12 +39,12 @@ namespace MapaDaForca.Core.Store
 
         public IList<Bombeiro> GetByPostoId(Guid postoId)
         {
-            return _repository.GetByPostoId(postoId);
+            return _repository.GetByPostoId(postoId).ToList();
         }
 
         public IList<Bombeiro> GetByQuartelId(Guid quartelId)
         {
-            return _repository.GetByQuartelId(quartelId);
+            return _repository.GetByQuartelId(quartelId).ToList();
         }
 
         public Bombeiro GetById(Guid id)

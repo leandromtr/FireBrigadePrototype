@@ -1,41 +1,41 @@
 ﻿@using MapaDaForca.Helper;
-@model MapaDaForca.Model.BombeiroFuncao 
+@model List<MapaDaForca.Model.ViaturaTipoFuncao>
 
 
-<div class="card m-b-20">
+            <div class="card m-b-20">
     <div class="card-body">
-        <h4 class="mt-0 header-title">Função por Bombeiro</h4>
+        <h4 class="mt-0 header-title">Função por Tipo da Viatura</h4>
         </br>
         <table class="table table-striped mb-0">
             <thead>
                 <tr>
                     <th style="width: 60%;">Função</th>
-                    <th style="width: 30%;">Função Principal</th>
+                    <th style="width: 30%;">Qtde.</th>
                     <th style="width: 10%;"></th>
                 </tr>
             </thead>
 
             <tbody>
                 @*@{
-                var orderResources = Model.Resources.OrderBy(s => (int)s.VolunteerType);
-                foreach (var resource in orderResources)
-                {*@
+            var orderResources = Model.Resources.OrderBy(s => (int)s.VolunteerType);
+            foreach (var resource in orderResources)
+            {*@
                 <tr class="bombeiroFuncao" data-bombeiroFuncaoId="12">
                     <td style="width: 60%;">Motorista</td>
-                    <td style="width: 30%;">Sim</td>
+                    <td style="width: 30%;">1</td>
                     <td style="width: 10%;">
                         <button type="button" class="btn btn-primary btn-sm waves-effect waves-light bombeiroFuncaDelete">Excluir</button>
                     </td>
                 </tr>
                 <tr class="bombeiroFuncao" data-bombeiroFuncaoId="124">
                     <td>Linha</td>
-                    <td>Não</td>
+                    <td>4</td>
                     <td>
                         <button type="button" class="btn btn-primary btn-sm waves-effect waves-light bombeiroFuncaDelete">Excluir</button>
                     </td>
                 </tr>
                 @*}
-                }*@
+}*@
                 <tr>
                     <td style="width: 60%;">
 
@@ -50,11 +50,7 @@
                     </td>
                     <td style="width: 30%;">
                         <div>
-                            <select class="form-control" data-val="true" data-val-required="The EscalaTipoDetalhe field is required." id="EscalaTipoDetalhe" name="EscalaTipoDetalhe">
-                                <option value="1">Sim</option>
-                                <option selected="selected" value="2">Não</option>
-                            </select>
-                        </div>
+                            <input type="number" value="2" class="form-control" required="" data-val="true" data-val-required="The Ano field is required." id="Quantidade" name="Quantidade">                        </div>
                         @*<select class="form-control" asp-for="Bombeiro.Turno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>*@
                     </td>
                     <td style="width: 10%;">
