@@ -12,15 +12,15 @@ namespace MapaDaForca.Controllers
     {
         //private readonly UserManager<User> _userManager;
         private readonly IEscalaTipoStore _escalaTipoStore;
-        private readonly ICompanhiaStore _companhiaStore;
+        //private readonly IEscalaStore _escalaStore;
 
 
         public EscalaTipoController(
-            IEscalaTipoStore escalaTipoStore,
-            ICompanhiaStore companhiaStore)
+            IEscalaTipoStore escalaTipoStore)
+          //  IEscalaStore escalaStore)
         {
             _escalaTipoStore = escalaTipoStore;
-            _companhiaStore = companhiaStore;
+       //     _escalaStore = escalaStore;
         }
 
 

@@ -22,6 +22,14 @@ namespace MapaDaForca.Data.Repository
             }
         }
 
+        public IList<ViaturaTipoFuncao> GetByFuncaoId(Guid funcaoId)
+        {
+            using (var context = new MapaDaForcaDbContext(Options))
+            {
+                return context.ViaturaTipoFuncoes.Where(x => x.FuncaoId == funcaoId).ToList();
+            }
+        }
+
         public IList<ViaturaTipoFuncao> GetByViaturaTipoId(Guid viaturaTipoId)
         {
             using (var context = new MapaDaForcaDbContext(Options))

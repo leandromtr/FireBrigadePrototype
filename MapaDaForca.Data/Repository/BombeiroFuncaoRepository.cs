@@ -22,6 +22,22 @@ namespace MapaDaForca.Data.Repository
             }
         }
 
+        public IList<BombeiroFuncao> GetByBombeiroId(Guid bombeiroId)
+        {
+            using (var context = new MapaDaForcaDbContext(Options))
+            {
+                return context.BombeiroFuncoes.Where(x => x.BombeiroId == bombeiroId).ToList();
+            }
+        }
+
+        public IList<BombeiroFuncao> GetByFuncaoId(Guid funcaoId)
+        {
+            using (var context = new MapaDaForcaDbContext(Options))
+            {
+                return context.BombeiroFuncoes.Where(x => x.FuncaoId == funcaoId).ToList();
+            }
+        }
+
         public BombeiroFuncao GetById(Guid id)
         {
             using (var context = new MapaDaForcaDbContext(Options))

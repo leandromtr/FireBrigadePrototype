@@ -9,6 +9,10 @@ namespace MapaDaForca.Core.Store
     {
         IList<BombeiroFuncao> GetAll();
 
+        IList<BombeiroFuncao> GetByBombeiroId(Guid bombeiroId);
+
+        IList<BombeiroFuncao> GetByFuncaoId(Guid viaturaTipoId);
+
         BombeiroFuncao GetById(Guid id);
 
         BombeiroFuncao Save(BombeiroFuncao save);

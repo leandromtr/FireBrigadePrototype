@@ -11,11 +11,17 @@ namespace MapaDaForca.Controllers
     public class FuncaoController : Controller
     {
         private readonly IFuncaoStore _funcaoStore;
+        private readonly IBombeiroFuncaoStore _bombeiroFuncaoStore;
+        private readonly IViaturaTipoFuncaoStore _viaturaTipoFuncaoStore;
 
         public FuncaoController(
-            IFuncaoStore funcaoStore)
-        {
+            IFuncaoStore funcaoStore,
+            IBombeiroFuncaoStore bombeiroFuncaoStore,
+            IViaturaTipoFuncaoStore viaturaTipoFuncaoStore)
+        { 
             _funcaoStore = funcaoStore;
+            _bombeiroFuncaoStore = bombeiroFuncaoStore;
+            _viaturaTipoFuncaoStore = viaturaTipoFuncaoStore;
         }
 
 
@@ -67,8 +73,11 @@ namespace MapaDaForca.Controllers
         [HttpDelete]
         public JsonResult Delete(Guid id)
         {
-            //if (_companhiaStore.GetByFuncaoId(id).Any())
-            //    return Json(new { success = false, message = "Este Função possui relações e não poderá ser excluída!" });
+            if (_bombeiroFuncaoStore.GetByFuncaoId(id).Any())
+                return Json(new { success = false, message = "Este Função possui relações e não poderá ser excluída!" });
+
+            if (_viaturaTipoFuncaoStore.GetByFuncaoId(id).Any())
+                return Json(new { success = false, message = "Este Função possui relações e não poderá ser excluída!" });
 
             _funcaoStore.Delete(id);
             return Json(new { success = true, message = "Função excluído!" });
