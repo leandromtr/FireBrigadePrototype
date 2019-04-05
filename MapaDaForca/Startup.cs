@@ -60,12 +60,13 @@ namespace MapaDaForca
             services.AddTransient<IBombeiroStore, BombeiroStore>();
             services.AddTransient<IBombeiroFuncaoStore, BombeiroFuncaoStore>();
             services.AddTransient<ICompanhiaStore, CompanhiaStore>();
-            services.AddTransient<IQuartelStore, QuartelStore>();
-            services.AddTransient<IQuartelViaturaStore, QuartelViaturaStore>();
+            services.AddTransient<IEscalaStore, EscalaStore>();
             services.AddTransient<IEscalaTipoStore, EscalaTipoStore>();
             services.AddTransient<IFuncaoStore, FuncaoStore>();
             services.AddTransient<IPostoStore, PostoStore>();
             services.AddTransient<IQuartelStore, QuartelStore>();
+            services.AddTransient<IQuartelStore, QuartelStore>();
+            services.AddTransient<IQuartelViaturaStore, QuartelViaturaStore>();
             services.AddTransient<IViaturaStore, ViaturaStore>();
             services.AddTransient<IViaturaTipoStore, ViaturaTipoStore>();
             services.AddTransient<IViaturaTipoFuncaoStore, ViaturaTipoFuncaoStore>();
@@ -74,7 +75,7 @@ namespace MapaDaForca
             services.AddTransient<IBombeiroFuncaoRepository, BombeiroFuncaoRepository>();
             services.AddTransient<IBombeiroRepository, BombeiroRepository>();
             services.AddTransient<ICompanhiaRepository, CompanhiaRepository>();
-            //services.AddTransient<IQuartelRepository, QuartelRepository>();
+            services.AddTransient<IEscalaRepository, EscalaRepository>();
             services.AddTransient<IEscalaTipoRepository, EscalaTipoRepository>();
             services.AddTransient<IFuncaoRepository, FuncaoRepository>();
             services.AddTransient<IPostoRepository, PostoRepository>();
@@ -122,7 +123,7 @@ namespace MapaDaForca
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{id?}/{action=Index}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

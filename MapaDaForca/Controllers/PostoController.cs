@@ -12,12 +12,15 @@ namespace MapaDaForca.Controllers
     public class PostoController : Controller
     {
         private readonly IPostoStore _postoStore;
+        private readonly IBombeiroStore _bombeiroStore;
 
 
         public PostoController(
-            IPostoStore postoStore)
+            IPostoStore postoStore,
+            IBombeiroStore bombeiroStore)
         {
             _postoStore = postoStore;
+            _bombeiroStore = bombeiroStore;
         }
 
 
@@ -70,8 +73,8 @@ namespace MapaDaForca.Controllers
         [HttpDelete]
         public JsonResult Delete(Guid id)
         {
-            //if (_companhiaStore.GetByPostoId(id).Any())
-            //    return Json(new { success = false, message = "Este batalhão possui relações e não poderá ser excluído!" });
+            if (_bombeiroStore.GetByPostoId(id).Any())
+                return Json(new { success = false, message = "Este Posto possui relações e não poderá ser excluído!" });
 
             _postoStore.Delete(id);
             return Json(new { success = true, message = "Posto excluído!" });
