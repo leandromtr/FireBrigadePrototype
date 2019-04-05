@@ -129,7 +129,7 @@ new Breadcrumb() { Name = Model.Bombeiro.Nome, Link = @Url.Action("Detail","Bomb
                 url: "@Url.Action("Delete", "Bombeiro", new { @id = Model.Bombeiro.Id })",
                 success: function (data) {
                     if (data.success == true) {
-                        window.location.href = '@Url.Action("Index", "Bombeiro", new { @notification = true })';
+                        window.location.href = '@Url.Action("Index", "Bombeiro")';
                     }
                     else {
                         $.notify(data.message, "error");

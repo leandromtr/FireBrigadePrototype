@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MapaDaForca.Controllers
 {
+    [Route("batalhao")]
     public class BatalhaoController : Controller
     {
         //private readonly UserManager<User> _userManager;
@@ -31,12 +32,14 @@ namespace MapaDaForca.Controllers
         }
 
         [HttpGet]
+        [Route("create")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Route("create")]
         public ActionResult Create(Batalhao batalhao)
         {
             var newBatalhao = _batalhaoStore.Save(batalhao);
@@ -45,6 +48,7 @@ namespace MapaDaForca.Controllers
 
 
         [HttpGet]
+        [Route("{id}/detail/{message?}")]
         public ActionResult Detail(Guid id, bool message)
         {
             if (message)
@@ -56,6 +60,7 @@ namespace MapaDaForca.Controllers
 
 
         [HttpPost]
+        [Route("edit")]
         public JsonResult Edit(Batalhao batalhao)
         {
             try
@@ -71,6 +76,7 @@ namespace MapaDaForca.Controllers
 
 
         [HttpDelete]
+        [Route("{id}/delete")]
         public JsonResult Delete(Guid id)
         {
             if (_companhiaStore.GetByBatalhaoId(id).Any())
