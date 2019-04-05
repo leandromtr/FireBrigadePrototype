@@ -3,6 +3,7 @@ using MapaDaForca.Data.Repository;
 using MapaDaForca.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MapaDaForca.Core.Store
@@ -20,7 +21,17 @@ namespace MapaDaForca.Core.Store
 
         public IList<BombeiroFuncao> GetAll()
         {
-            return _repository.GetAll();
+            return _repository.GetAll().ToList(); ;
+        }
+
+        public IList<BombeiroFuncao> GetByBombeiroId(Guid bombeiroId)
+        {
+            return _repository.GetByBombeiroId(bombeiroId).ToList();
+        }
+
+        public IList<BombeiroFuncao> GetByFuncaoId(Guid funcaoId)
+        {
+            return _repository.GetByFuncaoId(funcaoId).ToList();
         }
 
         public BombeiroFuncao GetById(Guid id)

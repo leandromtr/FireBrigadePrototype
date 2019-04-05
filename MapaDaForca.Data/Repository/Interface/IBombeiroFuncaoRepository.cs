@@ -12,6 +12,10 @@ namespace MapaDaForca.Data.Repository
 
         BombeiroFuncao GetById(Guid id);
 
+        IList<BombeiroFuncao> GetByBombeiroId(Guid bombeiroId);
+
+        IList<BombeiroFuncao> GetByFuncaoId(Guid funcaoId);
+
         BombeiroFuncao Create(BombeiroFuncao create);
 
         BombeiroFuncao Update(BombeiroFuncao update);

@@ -22,6 +22,11 @@ namespace MapaDaForca.Core.Store
             return _repository.GetAll().ToList();
         }
 
+        public IList<ViaturaTipoFuncao> GetByFuncaoId(Guid funcaoId)
+        {
+            return _repository.GetByFuncaoId(funcaoId).ToList();
+        }
+
         public IList<ViaturaTipoFuncao> GetByViaturaTipoId(Guid viaturaTipoId)
         {
             return _repository.GetByViaturaTipoId(viaturaTipoId).ToList();
