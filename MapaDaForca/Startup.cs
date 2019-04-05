@@ -61,13 +61,14 @@ namespace MapaDaForca
             services.AddTransient<IBombeiroFuncaoStore, BombeiroFuncaoStore>();
             services.AddTransient<ICompanhiaStore, CompanhiaStore>();
             services.AddTransient<IQuartelStore, QuartelStore>();
+            services.AddTransient<IQuartelViaturaStore, QuartelViaturaStore>();
             services.AddTransient<IEscalaTipoStore, EscalaTipoStore>();
             services.AddTransient<IFuncaoStore, FuncaoStore>();
             services.AddTransient<IPostoStore, PostoStore>();
             services.AddTransient<IQuartelStore, QuartelStore>();
             services.AddTransient<IViaturaStore, ViaturaStore>();
-            services.AddTransient<IViaturaTipoFuncaoStore, ViaturaTipoFuncaoStore>();
             services.AddTransient<IViaturaTipoStore, ViaturaTipoStore>();
+            services.AddTransient<IViaturaTipoFuncaoStore, ViaturaTipoFuncaoStore>();
 
             services.AddTransient<IBatalhaoRepository, BatalhaoRepository>();
             services.AddTransient<IBombeiroFuncaoRepository, BombeiroFuncaoRepository>();
@@ -78,10 +79,10 @@ namespace MapaDaForca
             services.AddTransient<IFuncaoRepository, FuncaoRepository>();
             services.AddTransient<IPostoRepository, PostoRepository>();
             services.AddTransient<IQuartelRepository, QuartelRepository>();
+            services.AddTransient<IQuartelViaturaRepository, QuartelViaturaRepository>();
             services.AddTransient<IViaturaRepository, ViaturaRepository>();
-            services.AddTransient<IViaturaTipoFuncaoRepository, ViaturaTipoFuncaoRepository>();
             services.AddTransient<IViaturaTipoRepository, ViaturaTipoRepository>();
-
+            services.AddTransient<IViaturaTipoFuncaoRepository, ViaturaTipoFuncaoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

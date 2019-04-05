@@ -1,10 +1,11 @@
 ﻿using MapaDaForca.Model;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace MapaDaForca.Data.Repository
+namespace MapaDaForca.Core.Store
 {
-    public interface IQuartelViaturaRepository
+    public interface IQuartelViaturaStore
     {
         IList<QuartelViatura> GetAll();
 
@@ -12,12 +13,8 @@ namespace MapaDaForca.Data.Repository
 
         QuartelViatura GetById(Guid id);
 
-        QuartelViatura Create(QuartelViatura create);
-
-        QuartelViatura Update(QuartelViatura update);
+        QuartelViatura Save(QuartelViatura save);
 
         bool Delete(Guid id);
-
-        bool IsExisting(Guid id);
     }
 }

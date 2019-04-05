@@ -22,6 +22,14 @@ namespace MapaDaForca.Data.Repository
             }
         }
 
+        public IList<QuartelViatura> GetByQuartelId(Guid quartelId)
+        {
+            using (var context = new MapaDaForcaDbContext(Options))
+            {
+                return context.QuartelViaturas.Where(x => x.QuartelId == quartelId).ToList();
+            }
+        }
+
         public QuartelViatura GetById(Guid id)
         {
             using (var context = new MapaDaForcaDbContext(Options))

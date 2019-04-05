@@ -1,0 +1,61 @@
+﻿@using MapaDaForca.Helper;
+@model List<MapaDaForca.Model.QuartelViatura>
+
+
+    <div class="card m-b-20">
+        <div class="card-body">
+            <h4 class="mt-0 header-title">Viatura por Quartel</h4>
+            <br />
+            <table class="table table-striped mb-0">
+                <thead>
+                    <tr>
+                        <th style="width: 60%;">Matrícula</th>
+                        <th style="width: 30%;">Sigla</th>
+                        <th style="width: 10%;"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @*@{
+                        var orderResources = Model.Resources.OrderBy(s => (int)s.VolunteerType);
+                        foreach (var resource in orderResources)
+                        {*@
+                    <tr class="bombeiroFuncao" data-bombeiroFuncaoId="12">
+                        <td style="width: 60%;">PT-23-43-56</td>
+                        <td style="width: 30%;">VE</td>
+                        <td style="width: 10%;">
+                            <button type="button" class="btn btn-primary btn-sm waves-effect waves-light bombeiroFuncaDelete">Excluir</button>
+                        </td>
+                    </tr>
+                    <tr class="bombeiroFuncao" data-bombeiroFuncaoId="124">
+                        <td>PT-88-65-10</td>
+                        <td>VOPE</td>
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm waves-effect waves-light bombeiroFuncaDelete">Excluir</button>
+                        </td>
+                    </tr>
+                    @*}
+                        }*@
+                    <tr>
+                        <td style="width: 60%;">
+
+                            <div>
+                                <select class="form-control" data-val="true" data-val-required="The EscalaTipoDetalhe field is required." id="EscalaTipoDetalhe" name="EscalaTipoDetalhe">
+                                    <option value="1">PT-12-33-12</option>
+                                    <option value="2">PT-41-77-08</option>
+                                    <option value="3">PT-99-00-65</option>
+                                </select>
+                            </div>
+
+                            @*<select class="form-control" asp-for="Bombeiro.Turno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>*@
+                        </td>
+                        <td style="width: 40%;"></td>
+                        <td style="width: 10%;">
+                            <button type="button" class="btn btn-primary btn-sm waves-effect waves-light">Adicionar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+

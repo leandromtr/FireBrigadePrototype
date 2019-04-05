@@ -32,7 +32,7 @@ new Breadcrumb() { Name = "Bombeiro", Link = @Url.Action("Index","Bombeiro"), Is
                         {
                             <tr>
                                 <td><a href="@Url.Action("Detail", "Bombeiro", new {id = bombeiro.Id})">@bombeiro.Nome</a></td>
-                                <td>@bombeiro.DtInicio</td>
+                                <td>@bombeiro.DtInicio.ToString("d")</td>
                                 <td>@bombeiro.Posto.Nome</td>
                                 <td>@bombeiro.Quartel.Nome</td>
                                 <td>@bombeiro.Turno.EnumDisplayNameFor()</td>

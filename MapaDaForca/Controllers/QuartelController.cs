@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
+using MapaDaForca.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MapaDaForca.Controllers
@@ -12,13 +13,16 @@ namespace MapaDaForca.Controllers
     {
         private readonly ICompanhiaStore _companhiaStore;
         private readonly IQuartelStore _quartelStore;
+        private readonly IQuartelViaturaStore _quartelViaturaStore;
 
         public QuartelController(
             ICompanhiaStore companhiaStore,
-            IQuartelStore quartelStore)
+            IQuartelStore quartelStore,
+            IQuartelViaturaStore quartelViaturaStore)
         {
-            _quartelStore = quartelStore;
             _companhiaStore = companhiaStore;
+            _quartelStore = quartelStore;
+            _quartelViaturaStore = quartelViaturaStore;
         }
 
 
@@ -50,10 +54,15 @@ namespace MapaDaForca.Controllers
             if (message)
                 ViewData["MessageCreate"] = "Quartel criado com sucesso!";
 
-            var quartel = _quartelStore.GetById(id);
-            quartel.Companhias = _companhiaStore.GetAll();
+            var quartel = new QuartelViewModel();
+            quartel.Quartel = _quartelStore.GetById(id);
+            quartel.QuartelViaturas = _quartelViaturaStore.GetByQuartelId(id).ToList();
+            quartel.Quartel.Companhias = _companhiaStore.GetAll();
 
             return View(quartel);
+
+            //var quartel = _quartelStore.GetById(id);
+            //return View(quartel);
         }
 
 
