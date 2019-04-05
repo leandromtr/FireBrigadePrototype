@@ -66,6 +66,7 @@ namespace MapaDaForca
             services.AddTransient<IPostoStore, PostoStore>();
             services.AddTransient<IQuartelStore, QuartelStore>();
             services.AddTransient<IViaturaStore, ViaturaStore>();
+            services.AddTransient<IViaturaTipoFuncaoStore, ViaturaTipoFuncaoStore>();
             services.AddTransient<IViaturaTipoStore, ViaturaTipoStore>();
 
             services.AddTransient<IBatalhaoRepository, BatalhaoRepository>();
@@ -78,6 +79,7 @@ namespace MapaDaForca
             services.AddTransient<IPostoRepository, PostoRepository>();
             services.AddTransient<IQuartelRepository, QuartelRepository>();
             services.AddTransient<IViaturaRepository, ViaturaRepository>();
+            services.AddTransient<IViaturaTipoFuncaoRepository, ViaturaTipoFuncaoRepository>();
             services.AddTransient<IViaturaTipoRepository, ViaturaTipoRepository>();
 
         }

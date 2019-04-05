@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
 using Microsoft.AspNetCore.Mvc;
-
+using MapaDaForca.ViewModel;
 
 namespace MapaDaForca.Controllers
 {
@@ -13,14 +13,17 @@ namespace MapaDaForca.Controllers
     {
         private readonly IViaturaTipoStore _viaturaTipoStore;
         private readonly IViaturaStore _viaturaStore;
+        private readonly IViaturaTipoFuncaoStore _viaturaTipoFuncaoStore;
 
 
         public ViaturaTipoController(
             IViaturaTipoStore viaturaTipoStore,
-            IViaturaStore viaturaStore)
+            IViaturaStore viaturaStore,
+            IViaturaTipoFuncaoStore viaturaTipoFuncaoStore)
         {
             _viaturaTipoStore = viaturaTipoStore;
             _viaturaStore = viaturaStore;
+            _viaturaTipoFuncaoStore = viaturaTipoFuncaoStore;
         }
 
 
@@ -50,8 +53,13 @@ namespace MapaDaForca.Controllers
             if (message)
                 ViewData["MessageCreate"] = "Tipo da Viatura criado com sucesso!";
 
-            var model = _viaturaTipoStore.GetById(id);
-            return View(model);
+            var viaturaTipo = new ViaturaTipoViewModel();
+            viaturaTipo.ViaturaTipo = _viaturaTipoStore.GetById(id);
+            viaturaTipo.ViaturaTipoFuncoes = _viaturaTipoFuncaoStore.GetByViaturaTipoId(id).ToList();
+
+            return View(viaturaTipo);
+            //var model = _viaturaTipoStore.GetById(id);
+            //return View(model);
         }
 
 

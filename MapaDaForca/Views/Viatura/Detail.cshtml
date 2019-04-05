@@ -37,8 +37,7 @@ new Breadcrumb() { Name = Model.Matricula, Link = @Url.Action("Detail","Viatura"
                     <div class="form-group">
                         <label class="form-label">@Html.DisplayNameFor(m => m.DataInicioUso)</label>
                         <div class="input-group">
-                            @*<input asp-for="DataInicioUso" type="date" value="@Model.DataInicioUso" class="form-control" placeholder="dd/mm/yyyy">*@
-                            <input asp-for="DataInicioUso" type="date" asp-format="{0:yyyy-MM-dd}" class="form-control" /> 
+                            <input asp-for="DataInicioUso" type="date" asp-format="{0:yyyy-MM-dd}" class="form-control" />
                             <div class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                         </div>
                     </div>
@@ -50,12 +49,9 @@ new Breadcrumb() { Name = Model.Matricula, Link = @Url.Action("Detail","Viatura"
                             <label for="Operacional" data-on-label="Sim" data-off-label="Não"></label>
                         </div>
                     </div>
-
-
                 </form>
                 <div class="form-group mb-0">
                     <div>
-
                         <button id="SaveViatura" class="btn btn-primary waves-effect waves-light">Salvar</button>
                         <button type="reset" class="btn btn-secondary waves-effect m-l-5" onclick="location.href='@Url.Action("Index", "Viatura")'">Cancelar</button>
                     </div>
