@@ -9,23 +9,27 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MapaDaForca.Controllers
 {
+    [Route("quartel")]
     public class QuartelController : Controller
     {
         private readonly ICompanhiaStore _companhiaStore;
         private readonly IEscalaStore _escalaStore;
         private readonly IQuartelStore _quartelStore;
         private readonly IQuartelViaturaStore _quartelViaturaStore;
+        private readonly IViaturaStore _viaturaStore;
 
         public QuartelController(
             ICompanhiaStore companhiaStore,
             IEscalaStore escalaStore,
             IQuartelStore quartelStore,
-            IQuartelViaturaStore quartelViaturaStore)
+            IQuartelViaturaStore quartelViaturaStore,
+            IViaturaStore viaturaStore)
         {
             _companhiaStore = companhiaStore;
             _escalaStore = escalaStore;
             _quartelStore = quartelStore;
             _quartelViaturaStore = quartelViaturaStore;
+            _viaturaStore = viaturaStore;
         }
 
 
@@ -36,6 +40,7 @@ namespace MapaDaForca.Controllers
         }
 
         [HttpGet]
+        [Route("create")]
         public ActionResult Create()
         {
             var quartel = new Quartel();
@@ -44,6 +49,7 @@ namespace MapaDaForca.Controllers
         }
 
         [HttpPost]
+        [Route("create")]
         public ActionResult Create(Quartel quartel)
         {
             var newQuartel= _quartelStore.Save(quartel);
@@ -52,6 +58,7 @@ namespace MapaDaForca.Controllers
 
 
         [HttpGet]
+        [Route("{id}/detail/{message?}")]
         public ActionResult Detail(Guid id, bool message)
         {
             if (message)
@@ -61,6 +68,7 @@ namespace MapaDaForca.Controllers
             quartel.Quartel = _quartelStore.GetById(id);
             quartel.QuartelViaturas = _quartelViaturaStore.GetByQuartelId(id).ToList();
             quartel.Quartel.Companhias = _companhiaStore.GetAll();
+            quartel.Viaturas = _viaturaStore.GetAll().ToList();
 
             return View(quartel);
 
@@ -70,6 +78,7 @@ namespace MapaDaForca.Controllers
 
 
         [HttpPost]
+        [Route("edit")]
         public JsonResult Edit(Quartel quartel)
         {
             try
@@ -85,6 +94,7 @@ namespace MapaDaForca.Controllers
 
 
         [HttpDelete]
+        [Route("{id}/delete")]
         public JsonResult Delete(Guid id)
         {
             if (_escalaStore.GetByQuartelId(id).Any())

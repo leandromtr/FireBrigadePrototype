@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace MapaDaForca.ViewModel
 {
-    public class QuartelViewModel
+    public class QuartelViaturaViewModel
     {
-        public Quartel Quartel { get; set; }
-
         public List<QuartelViatura> QuartelViaturas { get; set; }
         public List<Viatura> Viaturas { get; set; }
-        
+
     }
 }
