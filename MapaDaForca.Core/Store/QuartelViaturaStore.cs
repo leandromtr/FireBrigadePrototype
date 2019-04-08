@@ -11,10 +11,17 @@ namespace MapaDaForca.Core.Store
     public class QuartelViaturaStore : IQuartelViaturaStore
     {
         private readonly IQuartelViaturaRepository _repository;
+        private readonly IViaturaStore _viaturaStore;
+        private readonly IViaturaTipoStore _viaturaTipoStore;
 
-        public QuartelViaturaStore(IQuartelViaturaRepository repository)
+        public QuartelViaturaStore(
+            IQuartelViaturaRepository repository,
+            IViaturaStore viaturaStore,
+            IViaturaTipoStore viaturaTipoStore)
         {
             _repository = repository;
+            _viaturaStore = viaturaStore;
+            _viaturaTipoStore = viaturaTipoStore;
         }
 
         public IList<QuartelViatura> GetAll()
@@ -24,6 +31,16 @@ namespace MapaDaForca.Core.Store
 
         public IList<QuartelViatura> GetByQuartelId(Guid quartelId)
         {
+            var quarteis = _repository.GetByQuartelId(quartelId).ToList();
+            var viaturas = _viaturaStore.GetAll().ToList();
+            var viaturaTipos = _viaturaTipoStore.GetAll().ToList();
+
+            quarteis.ForEach(q => q.Viatura = viaturas.FirstOrDefault(v => v.Id == q.ViaturaId));
+            quarteis.ForEach(q => q.Viatura.ViaturaTipo = viaturaTipos.FirstOrDefault(vt => vt.Id == q.Viatura.ViaturaTipoId));
+
+            return quarteis;
+
+
             return _repository.GetByQuartelId(quartelId).ToList();
         }
 

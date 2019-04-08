@@ -51,7 +51,48 @@ new Breadcrumb() { Name = Model.Quartel.Nome, Link = @Url.Action("Detail","Quart
     </div>
 
     <div class="col-lg-6">
-        <partial name="~/Views/QuartelViatura/_QuartelViatura.cshtml" model="Model.QuartelViaturas" />
+        @*<partial name="~/Views/QuartelViatura/_QuartelViatura.cshtml" model="Model.QuartelViaturas" />*@
+
+        <div class="card m-b-20">
+            <div class="card-body">
+                <h4 class="mt-0 header-title">Viatura por Quartel</h4>
+                <br />
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th style="width: 60%;">Matrícula</th>
+                            <th style="width: 30%;">Sigla</th>
+                            <th style="width: 10%;"></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @{
+                            foreach (var quartelViatura in Model.QuartelViaturas.OrderBy(x => x.Viatura.Matricula))
+                            {
+                                <tr class="quartelViaturaLine" data-quartelViaturaId="@quartelViatura.Id">
+                                    <td style="width: 60%;">@quartelViatura.Viatura.Matricula</td>
+                                    <td style="width: 30%;">@quartelViatura.Viatura.ViaturaTipo.Sigla</td>
+                                    <td style="width: 10%;">
+                                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light quartelViaturaDelete">Excluir</button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        <tr>
+                            <td style="width: 60%;">
+                                <select id="ddlViaturas" class="form-control" asp-items="@(new SelectList(Model.Viaturas,"Id","Matricula"))"></select>
+                            <td style="width: 40%;"></td>
+                            <td style="width: 10%;">
+                                <button id="quartelViaturaSave" type="button" class="btn btn-primary btn-sm waves-effect waves-light">Adicionar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
     </div>
 </div>
 
@@ -102,6 +143,48 @@ new Breadcrumb() { Name = Model.Quartel.Nome, Link = @Url.Action("Detail","Quart
                     }
                 });
         });
+
+
+
+        $("#quartelViaturaSave").click(function (element) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Create", "QuartelViatura")",
+                data: {
+                    quartelId: $("#Quartel_Id").val(),
+                    viaturaId: $("#ddlViaturas option:selected").val()
+                },
+                success: function (data) {
+                    if (data.success == true) {
+                        $.notify(data.message, "success");
+                    }
+                    else {
+                        $.notify(data.message, "error");
+                    }
+                }
+            });
+        });
+
+
+        $(".quartelViaturaDelete").click(function (element) {
+            var id = $(element.currentTarget).closest('.quartelViaturaLine').attr("data-quartelViaturaId");
+             $.ajax(
+                {
+                    type: "Delete",
+                    url: "@Url.Action("Delete", "QuartelViatura")",
+                    data: { id: id},
+                    success: function (data) {
+                        if (data.success == true) {
+                            $(element.currentTarget).closest('.quartelViaturaLine').remove();
+                            $.notify(data.message, "success");
+                        }
+                        else {
+                            $.notify(data.message, "error");
+                        }
+                    }
+                });
+        })
+
     });
 
 </script>
