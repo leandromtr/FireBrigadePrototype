@@ -11,10 +11,15 @@ namespace MapaDaForca.Core.Store
     public class ViaturaTipoFuncaoStore : IViaturaTipoFuncaoStore
     {
         private readonly IViaturaTipoFuncaoRepository _repository;
+        private readonly IFuncaoStore _funcaoStore;
 
-        public ViaturaTipoFuncaoStore(IViaturaTipoFuncaoRepository repository)
+        public ViaturaTipoFuncaoStore(
+            IViaturaTipoFuncaoRepository repository,
+            IFuncaoStore funcaoStore
+            )
         {
             _repository = repository;
+            _funcaoStore = funcaoStore;
         }
 
         public IList<ViaturaTipoFuncao> GetAll()
@@ -28,8 +33,13 @@ namespace MapaDaForca.Core.Store
         }
 
         public IList<ViaturaTipoFuncao> GetByViaturaTipoId(Guid viaturaTipoId)
-        {
-            return _repository.GetByViaturaTipoId(viaturaTipoId).ToList();
+        {           
+            var viaturaTipos = _repository.GetByViaturaTipoId(viaturaTipoId).ToList();
+            var funcoes = _funcaoStore.GetAll().ToList();
+
+            viaturaTipos.ForEach(v => v.Funcao = funcoes.FirstOrDefault(f => f.Id == v.FuncaoId));
+
+            return viaturaTipos;
         }
 
         public ViaturaTipoFuncao GetById(Guid id)

@@ -27,8 +27,6 @@ namespace MapaDaForca.Controllers
         [Route("quartelviatura/{quartelId}")]
         public PartialViewResult QuartelViatura(Guid quartelId)
         {
-            ViewBag.Viaturas = new SelectList(_viaturaStore.GetAll().ToList(), "Id", "Matricula");
-
             var quartelViaturas = new QuartelViaturaViewModel();
             quartelViaturas.QuartelId = quartelId;
             quartelViaturas.QuartelViaturas = _quartelViaturaStore.GetByQuartelId(quartelId).ToList();

@@ -1,0 +1,10 @@
+﻿@using MapaDaForca.Helper;
+@model ViaturaTipoFuncao
+
+<tr class="viaturaTipoFuncaoLine" data-viaturatipofuncaoid="@Model.Id">
+    <td style="width: 60%;">@Model.Funcao.Nome</td>
+    <td style="width: 30%;">@Model.Quantidade</td>
+    <td style="width: 10%;">
+        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light viaturaTipoFuncaoDelete">Excluir</button>
+    </td>
+</tr>

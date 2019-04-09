@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace MapaDaForca.ViewModel
 {
-    public class ViaturaTipoViewModel
+    public class ViaturaTipoFuncaoViewModel
     {
-        public ViaturaTipo ViaturaTipo { get; set; }
 
+        public Guid ViaturaTipoId { get; set; }
         public List<ViaturaTipoFuncao> ViaturaTipoFuncoes { get; set; }
+        public List<ViaturaTipo> ViaturaTipos { get; set; }
+        public List<Funcao> Funcoes { get; set; }
 
-        public ViaturaTipoFuncaoViewModel ViaturaTipoFuncaoViewModel { get; set; }
     }
 }

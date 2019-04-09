@@ -9,11 +9,9 @@ namespace MapaDaForca.ViewModel
     public class QuartelViewModel
     {
         public Quartel Quartel { get; set; }
-
-        //public List<QuartelViatura> QuartelViaturas { get; set; }
+        
         public QuartelViaturaViewModel QuartelViaturaViewModel { get; set; }
 
-        public List<Viatura> Viaturas { get; set; }
-        
+        public List<Viatura> Viaturas { get; set; }        
     }
 }
