@@ -66,14 +66,15 @@ namespace MapaDaForca.Controllers
 
             var quartel = new QuartelViewModel();
             quartel.Quartel = _quartelStore.GetById(id);
-            quartel.QuartelViaturas = _quartelViaturaStore.GetByQuartelId(id).ToList();
             quartel.Quartel.Companhias = _companhiaStore.GetAll();
-            quartel.Viaturas = _viaturaStore.GetAll().ToList();
+
+            var quartelViatura = new QuartelViaturaViewModel();
+            quartelViatura.QuartelId = id;
+            quartelViatura.QuartelViaturas = _quartelViaturaStore.GetByQuartelId(id).ToList();
+            quartelViatura.Viaturas=_viaturaStore.GetAll().ToList();
+            quartel.QuartelViaturaViewModel = quartelViatura;
 
             return View(quartel);
-
-            //var quartel = _quartelStore.GetById(id);
-            //return View(quartel);
         }
 
 

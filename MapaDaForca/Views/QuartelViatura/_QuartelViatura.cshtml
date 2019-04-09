@@ -19,13 +19,7 @@
                 @{
                     foreach (var quartelViatura in Model.QuartelViaturas.OrderBy(x => x.Viatura.Matricula))
                     {
-                        <tr class="quartelViaturaLine" data-quartelViaturaId="@quartelViatura.Id">
-                            <td style="width: 60%;">@quartelViatura.Viatura.Matricula</td>
-                            <td style="width: 30%;">@quartelViatura.Viatura.ViaturaTipo.Sigla</td>
-                            <td style="width: 10%;">
-                                <button type="button" class="btn btn-primary btn-sm waves-effect waves-light quartelViaturaDelete">Excluir</button>
-                            </td>
-                        </tr>
+                        <partial name="~/Views/QuartelViatura/_QuartelViaturaLine.cshtml" model="quartelViatura" />
                     }
                 }
                 <tr>
@@ -41,7 +35,9 @@
     </div>
 </div>
 
+
 <script type="text/javascript">
+
     $(document).ready(function () {
 
         $("#quartelViaturaSave").click(function (element) {
@@ -55,7 +51,7 @@
                 success: function (data) {
                     if (data.success == true) {
                         $(".quarteViaturaSection").remove()
-                        $("#myPartialViewContainer").load('/quartelviatura/d1e6aa25-497a-42c3-98a1-2aa8e8f50651');
+                        $("#myPartialViewContainer").load('/quartelviatura/@Model.QuartelId');
                         $.notify(data.message, "success");
                     }
                     else {

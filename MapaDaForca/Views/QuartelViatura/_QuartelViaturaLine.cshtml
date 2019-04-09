@@ -1,0 +1,10 @@
+﻿@using MapaDaForca.Helper;
+@model QuartelViatura
+
+<tr class="quartelViaturaLine" data-quartelViaturaId="@Model.Id">
+    <td style="width: 60%;">@Model.Viatura.Matricula</td>
+    <td style="width: 30%;">@Model.Viatura.ViaturaTipo.Sigla</td>
+    <td style="width: 10%;">
+        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light quartelViaturaDelete">Excluir</button>
+    </td>
+</tr>
