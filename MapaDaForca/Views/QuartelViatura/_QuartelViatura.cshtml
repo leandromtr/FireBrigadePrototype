@@ -1,8 +1,8 @@
 ﻿@using MapaDaForca.Helper;
-@model QuartelViewModel
+@model QuartelViaturaViewModel
 
 
-<div class="card m-b-20">
+<div class="card m-b-20 quarteViaturaSection">
     <div class="card-body">
         <h4 class="mt-0 header-title">Viatura por Quartel</h4>
         <br />
@@ -54,6 +54,8 @@
                 },
                 success: function (data) {
                     if (data.success == true) {
+                        $(".quarteViaturaSection").remove()
+                        $("#myPartialViewContainer").load('/quartelviatura/d1e6aa25-497a-42c3-98a1-2aa8e8f50651');
                         $.notify(data.message, "success");
                     }
                     else {
@@ -66,20 +68,21 @@
 
         $(".quartelViaturaDelete").click(function (element) {
             var id = $(element.currentTarget).closest('.quartelViaturaLine').attr("data-quartelViaturaId");
-            $(element.currentTarget).closest('.quartelViaturaLine').remove();
-             @*$.ajax(
+             $.ajax(
                 {
                     type: "Delete",
-                    url: "@Url.Action("Delete", "BombeiroFuncao", new { @id = Model.Id})",
+                    url: "@Url.Action("Delete", "QuartelViatura")",
+                    data: { id: id},
                     success: function (data) {
                         if (data.success == true) {
-                            $(element.currentTarget).closest('.bombeiroFuncao').remove();
+                            $(element.currentTarget).closest('.quartelViaturaLine').remove();
+                            $.notify(data.message, "success");
                         }
                         else {
                             $.notify(data.message, "error");
                         }
                     }
-                });*@
+                });
         })
     });
 
