@@ -23,8 +23,8 @@ namespace MapaDaForca.Controllers
             _viaturaStore = viaturaStore;
         }
 
-        [HttpPost]
-        [Route("quartel/{quartelId}/detail")]
+        [HttpGet]
+        [Route("quartelviatura/{quartelId}")]
         public PartialViewResult QuartelViatura(Guid quartelId)
         {
             ViewBag.Viaturas = new SelectList(_viaturaStore.GetAll().ToList(), "Id", "Matricula");

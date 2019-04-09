@@ -53,7 +53,7 @@ new Breadcrumb() { Name = Model.Quartel.Nome, Link = @Url.Action("Detail","Quart
     <div class="col-lg-6">
         @*<partial name="~/Views/QuartelViatura/_QuartelViatura.cshtml" model="Model.QuartelViaturas" />*@
 
-        <div class="card m-b-20">
+        @*<div class="card m-b-20">
             <div class="card-body">
                 <h4 class="mt-0 header-title">Viatura por Quartel</h4>
                 <br />
@@ -90,6 +90,10 @@ new Breadcrumb() { Name = Model.Quartel.Nome, Link = @Url.Action("Detail","Quart
                     </tbody>
                 </table>
             </div>
+        </div>*@
+
+        <div id="myPartialViewContainer">
+
         </div>
 
 
@@ -97,6 +101,11 @@ new Breadcrumb() { Name = Model.Quartel.Nome, Link = @Url.Action("Detail","Quart
 </div>
 
 
+<button id="teste" type="button" class="btn btn-primary btn-sm waves-effect waves-light">Adicionar</button>
+
+<div id="myPartialViewContainer">
+
+</div>
 
 
 <script type="text/javascript">
@@ -146,7 +155,7 @@ new Breadcrumb() { Name = Model.Quartel.Nome, Link = @Url.Action("Detail","Quart
 
 
 
-        $("#quartelViaturaSave").click(function (element) {
+        @*$("#quartelViaturaSave").click(function (element) {
             $.ajax({
                 type: "POST",
                 url: "@Url.Action("Create", "QuartelViatura")",
@@ -183,8 +192,11 @@ new Breadcrumb() { Name = Model.Quartel.Nome, Link = @Url.Action("Detail","Quart
                         }
                     }
                 });
-        })
+        })*@
 
+        $('#teste').click(function (element) {      
+           $("#myPartialViewContainer").load('/quartelviatura/@Model.Quartel.Id');
+        });
     });
 
 </script>
