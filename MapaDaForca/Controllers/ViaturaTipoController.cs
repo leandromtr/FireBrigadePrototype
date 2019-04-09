@@ -14,16 +14,19 @@ namespace MapaDaForca.Controllers
         private readonly IViaturaTipoStore _viaturaTipoStore;
         private readonly IViaturaStore _viaturaStore;
         private readonly IViaturaTipoFuncaoStore _viaturaTipoFuncaoStore;
+        private readonly IFuncaoStore _funcaoStore;
 
 
         public ViaturaTipoController(
             IViaturaTipoStore viaturaTipoStore,
             IViaturaStore viaturaStore,
-            IViaturaTipoFuncaoStore viaturaTipoFuncaoStore)
+            IViaturaTipoFuncaoStore viaturaTipoFuncaoStore,
+            IFuncaoStore funcaoStore)
         {
             _viaturaTipoStore = viaturaTipoStore;
             _viaturaStore = viaturaStore;
             _viaturaTipoFuncaoStore = viaturaTipoFuncaoStore;
+            _funcaoStore = funcaoStore;
         }
 
 
@@ -57,9 +60,15 @@ namespace MapaDaForca.Controllers
             viaturaTipo.ViaturaTipo = _viaturaTipoStore.GetById(id);
             viaturaTipo.ViaturaTipoFuncoes = _viaturaTipoFuncaoStore.GetByViaturaTipoId(id).ToList();
 
+            var viaturaTipoFuncao = new ViaturaTipoFuncaoViewModel();
+            viaturaTipoFuncao.ViaturaTipoId = id;
+            viaturaTipoFuncao.ViaturaTipoFuncoes = _viaturaTipoFuncaoStore.GetByViaturaTipoId(id).ToList();
+            viaturaTipoFuncao.Funcoes = _funcaoStore.GetAll().ToList();
+
+            viaturaTipo.ViaturaTipoFuncaoViewModel = viaturaTipoFuncao;
+
             return View(viaturaTipo);
-            //var model = _viaturaTipoStore.GetById(id);
-            //return View(model);
+            
         }
 
 

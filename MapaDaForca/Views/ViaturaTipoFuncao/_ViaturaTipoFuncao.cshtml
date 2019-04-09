@@ -1,11 +1,11 @@
 ﻿@using MapaDaForca.Helper;
-@model List<MapaDaForca.Model.ViaturaTipoFuncao>
+@model ViaturaTipoFuncaoViewModel
 
 
-            <div class="card m-b-20">
+<div class="card m-b-20 viaturatipofuncaoSection">
     <div class="card-body">
         <h4 class="mt-0 header-title">Função por Tipo da Viatura</h4>
-        <br/>
+        <br />
         <table class="table table-striped mb-0">
             <thead>
                 <tr>
@@ -16,45 +16,22 @@
             </thead>
 
             <tbody>
-                @*@{
-            var orderResources = Model.Resources.OrderBy(s => (int)s.VolunteerType);
-            foreach (var resource in orderResources)
-            {*@
-                <tr class="bombeiroFuncao" data-bombeiroFuncaoId="12">
-                    <td style="width: 60%;">Motorista</td>
-                    <td style="width: 30%;">1</td>
-                    <td style="width: 10%;">
-                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light bombeiroFuncaDelete">Excluir</button>
-                    </td>
-                </tr>
-                <tr class="bombeiroFuncao" data-bombeiroFuncaoId="124">
-                    <td>Linha</td>
-                    <td>4</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light bombeiroFuncaDelete">Excluir</button>
-                    </td>
-                </tr>
-                @*}
-}*@
+                @{
+                    foreach (var viaturaTipoFuncao in Model.ViaturaTipoFuncoes.OrderBy(x => x.Funcao.Nome))
+                    {
+                        <partial name="~/Views/ViaturaTipoFuncao/_ViaturaTipoFuncaoLine.cshtml" model="viaturaTipoFuncao" />
+                    }
+                }
                 <tr>
                     <td style="width: 60%;">
-
+                        <select id="ddlViaturas" class="form-control" asp-items="@(new SelectList(Model.Funcoes,"Id","Nome"))"></select>
+                    <td style="width: 40%;">
                         <div>
-                            <select class="form-control" data-val="true" data-val-required="The EscalaTipoDetalhe field is required." id="EscalaTipoDetalhe" name="EscalaTipoDetalhe">
-                                <option value="1">Motorista</option>
-                                <option selected="selected" value="2">Linha</option>
-                            </select>
+                            <input type="number" value="1" class="form-control" required="" data-val="true" data-val-required="The Ano field is required." id="Quantidade" name="Quantidade">
                         </div>
-
-                        @*<select class="form-control" asp-for="Bombeiro.Turno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>*@
-                    </td>
-                    <td style="width: 30%;">
-                        <div>
-                            <input type="number" value="2" class="form-control" required="" data-val="true" data-val-required="The Ano field is required." id="Quantidade" name="Quantidade">                        </div>
-                        @*<select class="form-control" asp-for="Bombeiro.Turno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>*@
                     </td>
                     <td style="width: 10%;">
-                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light">Adicionar</button>
+                        <button id="viaturaTipoFuncaoSave" type="button" class="btn btn-primary btn-sm waves-effect waves-light">Adicionar</button>
                     </td>
                 </tr>
             </tbody>
@@ -62,3 +39,52 @@
     </div>
 </div>
 
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#viaturaTipoFuncaoSave").click(function (element) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Create", "ViaturaTipoFuncao")",
+                data: {
+                    viaturaTipoId: $("#ViaturaTipo_Id").val(),
+                    quantidade: $("#Quantidade").val(),
+                    funcaoId: $("#ddlViaturas option:selected").val()
+                },
+                success: function (data) {
+                    if (data.success == true) {
+                        $(".viaturatipofuncaoSection").remove()
+                        $("#myPartialViewContainer").load('/viaturatipofuncao/@Model.ViaturaTipoId');
+                        $.notify(data.message, "success");
+                    }
+                    else {
+                        $.notify(data.message, "error");
+                    }
+                }
+            });
+        });
+
+
+        $(".viaturaTipoFuncaoDelete").click(function (element) {
+            var id = $(element.currentTarget).closest('.viaturaTipoFuncaoLine').attr("data-viaturatipofuncaoid");
+             $.ajax(
+                {
+                    type: "Delete",
+                    url: "@Url.Action("Delete", "ViaturaTipoFuncao")",
+                    data: { id: id},
+                    success: function (data) {
+                        if (data.success == true) {
+                            $(element.currentTarget).closest('.viaturaTipoFuncaoLine').remove();
+                            $.notify(data.message, "success");
+                        }
+                        else {
+                            $.notify(data.message, "error");
+                        }
+                    }
+                });
+        })
+    });
+
+</script>

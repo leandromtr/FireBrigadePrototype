@@ -40,9 +40,17 @@ new Breadcrumb() { Name = Model.ViaturaTipo.Sigla, Link = @Url.Action("Detail","
         </div>
     </div>
 
+    @*<div class="col-lg-6">
+            <partial name="~/Views/ViaturaTipoFuncao/_ViaturaTipoFuncao.cshtml" model="Model.ViaturaTipoFuncoes" />
+        </div>*@
+
     <div class="col-lg-6">
-        <partial name="~/Views/ViaturaTipoFuncao/_ViaturaTipoFuncao.cshtml" model="Model.ViaturaTipoFuncoes" />
+        <partial name="~/Views/ViaturaTipoFuncao/_ViaturaTipoFuncao.cshtml" model="Model.ViaturaTipoFuncaoViewModel" />
+        <div id="myPartialViewContainer">
+
+        </div>
     </div>
+
 </div>
 
 
