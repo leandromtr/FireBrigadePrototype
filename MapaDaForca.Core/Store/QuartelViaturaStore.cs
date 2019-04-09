@@ -38,15 +38,16 @@ namespace MapaDaForca.Core.Store
             quarteis.ForEach(q => q.Viatura = viaturas.FirstOrDefault(v => v.Id == q.ViaturaId));
             quarteis.ForEach(q => q.Viatura.ViaturaTipo = viaturaTipos.FirstOrDefault(vt => vt.Id == q.Viatura.ViaturaTipoId));
 
-            return quarteis;
-
-
-            return _repository.GetByQuartelId(quartelId).ToList();
+            return quarteis;            
         }
 
         public QuartelViatura GetById(Guid id)
         {
-            return _repository.GetById(id);
+            var quartelViatura = _repository.GetById(id);
+            quartelViatura.Viatura = _viaturaStore.GetById(quartelViatura.ViaturaId);
+            quartelViatura.Viatura.ViaturaTipo = _viaturaTipoStore.GetById(quartelViatura.Viatura.ViaturaTipoId);
+
+            return quartelViatura;
         }
 
         public QuartelViatura Save(QuartelViatura save)

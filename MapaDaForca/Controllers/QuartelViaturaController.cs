@@ -30,11 +30,30 @@ namespace MapaDaForca.Controllers
             ViewBag.Viaturas = new SelectList(_viaturaStore.GetAll().ToList(), "Id", "Matricula");
 
             var quartelViaturas = new QuartelViaturaViewModel();
+            quartelViaturas.QuartelId = quartelId;
             quartelViaturas.QuartelViaturas = _quartelViaturaStore.GetByQuartelId(quartelId).ToList();
             quartelViaturas.Viaturas = _viaturaStore.GetAll().ToList();
 
             return PartialView("../QuartelViatura/_QuartelViatura", quartelViaturas);
         }
+
+        //[HttpGet]        
+        //public PartialViewResult QuartelViaturaLine(Guid quartelViaturaId)
+        //{
+        //    quartelViaturaId = new Guid("23a9e5f4-daed-4d4d-b759-781f6d85e273");
+        //    QuartelViatura quartelViatura = _quartelViaturaStore.GetById(quartelViaturaId);
+
+        //    return PartialView("../QuartelViatura/_QuartelViaturaLine", quartelViatura);
+        //}
+
+        //[HttpPost]        
+        //public PartialViewResult QuartelViaturaLine()
+        //{
+        //    //quartelViaturaId = new Guid("23a9e5f4-daed-4d4d-b759-781f6d85e273");
+        //    //var quartelViatura = _quartelViaturaStore.GetById(quartelViaturaId);
+
+        //    return PartialView("../QuartelViatura/_QuartelViaturaLine"/*, quartelViatura*/);
+        //}
 
 
         [HttpPost]
