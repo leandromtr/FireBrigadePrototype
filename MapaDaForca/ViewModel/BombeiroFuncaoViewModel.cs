@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace MapaDaForca.ViewModel
 {
-    public class BombeiroViewModel
+    public class BombeiroFuncaoViewModel
     {
-        public Bombeiro Bombeiro { get; set; }
-
+        public Guid BombeiroId { get; set; }
         public List<BombeiroFuncao> BombeiroFuncoes { get; set; }
+        public List<Funcao> Funcoes { get; set; }
 
-        public BombeiroFuncaoViewModel BombeiroFuncaoViewModel { get; set; }
     }
 }

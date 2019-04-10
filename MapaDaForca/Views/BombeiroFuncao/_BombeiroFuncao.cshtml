@@ -1,11 +1,11 @@
 ﻿@using MapaDaForca.Helper;
-@model MapaDaForca.Model.BombeiroFuncao 
+@model BombeiroFuncaoViewModel
 
 
-<div class="card m-b-20">
+<div class="card m-b-20 bombeiroFuncaoSection">
     <div class="card-body">
         <h4 class="mt-0 header-title">Função por Bombeiro</h4>
-        </br>
+        <br />
         <table class="table table-striped mb-0">
             <thead>
                 <tr>
@@ -16,49 +16,23 @@
             </thead>
 
             <tbody>
-                @*@{
-                var orderResources = Model.Resources.OrderBy(s => (int)s.VolunteerType);
-                foreach (var resource in orderResources)
-                {*@
-                <tr class="bombeiroFuncao" data-bombeiroFuncaoId="12">
-                    <td style="width: 60%;">Motorista</td>
-                    <td style="width: 30%;">Sim</td>
-                    <td style="width: 10%;">
-                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light bombeiroFuncaDelete">Excluir</button>
-                    </td>
-                </tr>
-                <tr class="bombeiroFuncao" data-bombeiroFuncaoId="124">
-                    <td>Linha</td>
-                    <td>Não</td>
-                    <td>
-                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light bombeiroFuncaDelete">Excluir</button>
-                    </td>
-                </tr>
-                @*}
-                }*@
+                @{
+                    foreach (var bombeiroFuncao in Model.BombeiroFuncoes.OrderBy(x => x.Funcao.Nome))
+                    {
+                        <partial name="~/Views/BombeiroFuncao/_BombeiroFuncaoLine.cshtml" model="bombeiroFuncao" />
+                    }
+                }
                 <tr>
                     <td style="width: 60%;">
-
+                        <select id="ddlFuncoes" class="form-control" asp-items="@(new SelectList(Model.Funcoes,"Id","Nome"))"></select>
+                    <td style="width: 40%;">
                         <div>
-                            <select class="form-control" data-val="true" data-val-required="The EscalaTipoDetalhe field is required." id="EscalaTipoDetalhe" name="EscalaTipoDetalhe">
-                                <option value="1">Motorista</option>
-                                <option selected="selected" value="2">Linha</option>
-                            </select>
+                            <input type="checkbox" id="chkFuncaoPrincipal" switch="success">
+                            <label for="chkFuncaoPrincipal" data-on-label="Sim" data-off-label="Não"></label>
                         </div>
-
-                        @*<select class="form-control" asp-for="Bombeiro.Turno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>*@
-                    </td>
-                    <td style="width: 30%;">
-                        <div>
-                            <select class="form-control" data-val="true" data-val-required="The EscalaTipoDetalhe field is required." id="EscalaTipoDetalhe" name="EscalaTipoDetalhe">
-                                <option value="1">Sim</option>
-                                <option selected="selected" value="2">Não</option>
-                            </select>
-                        </div>
-                        @*<select class="form-control" asp-for="Bombeiro.Turno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>*@
                     </td>
                     <td style="width: 10%;">
-                        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light">Adicionar</button>
+                        <button id="bombeiroFuncaoSave" type="button" class="btn btn-primary btn-sm waves-effect waves-light">Adicionar</button>
                     </td>
                 </tr>
             </tbody>
@@ -66,3 +40,52 @@
     </div>
 </div>
 
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#bombeiroFuncaoSave").click(function (element) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Create", "BombeiroFuncao")",
+                data: {
+                    bombeiroId: $("#Bombeiro_Id").val(),
+                    funcaoPrincipal: $('#chkFuncaoPrincipal').prop('checked'),
+                    funcaoId: $("#ddlFuncoes option:selected").val()
+                },
+                success: function (data) {
+                    if (data.success == true) {
+                        $(".bombeiroFuncaoSection").remove()
+                        $("#myPartialViewContainer").load('/bombeiroFuncao/@Model.BombeiroId');
+                        $.notify(data.message, "success");
+                    }
+                    else {
+                        $.notify(data.message, "error");
+                    }
+                }
+            });
+        });
+
+
+        $(".bombeiroFuncaoDelete").click(function (element) {
+            var id = $(element.currentTarget).closest('.bombeiroFuncaoLine').attr("data-bombeiroFuncaoId");
+             $.ajax(
+                {
+                    type: "Delete",
+                    url: "@Url.Action("Delete", "BombeiroFuncao")",
+                    data: { id: id},
+                    success: function (data) {
+                        if (data.success == true) {
+                            $(element.currentTarget).closest('.bombeiroFuncaoLine').remove();
+                            $.notify(data.message, "success");
+                        }
+                        else {
+                            $.notify(data.message, "error");
+                        }
+                    }
+                });
+        })
+    });
+
+</script>

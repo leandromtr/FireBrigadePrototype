@@ -12,8 +12,6 @@ new Breadcrumb() { Name = Model.Bombeiro.Nome, Link = @Url.Action("Detail","Bomb
     ViewData["DeleteButtonLink"] = Url.Action("Delete", "Bombeiro", new { @id = Model.Bombeiro.Id });
 }
 
-
-
 <div class="row">
     <div class="col-lg-6">
         <div class="card">
@@ -68,29 +66,14 @@ new Breadcrumb() { Name = Model.Bombeiro.Nome, Link = @Url.Action("Detail","Bomb
     </div>
 
     <div class="col-lg-6">
-        <partial name="~/Views/BombeiroFuncao/_BombeiroFuncao.cshtml" model="Model.BombeiroFuncoes"/>               
+        <partial name="~/Views/BombeiroFuncao/_BombeiroFuncao.cshtml" model="Model.BombeiroFuncaoViewModel" />
+        <div id="myPartialViewContainer">
+
+        </div>
     </div>
 </div>
 
 
-@*<button type="button" class="float-right btn btn-primary waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-center">Excluir</button>
-<div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title mt-0">Excluir @ViewData["DeleteButton"]</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body">
-                <p>Você confirma a exclusão deste registro?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="ExcluirBombeiroFuncao()" data-dismiss="modal">Confirmar</button>
-                <button type="button" class="btn btn-secondary" id="CloseModal" data-dismiss="modal">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</div>*@
 
 
 <script type="text/javascript">
@@ -137,26 +120,6 @@ new Breadcrumb() { Name = Model.Bombeiro.Nome, Link = @Url.Action("Detail","Bomb
                 }
             });
         });
-    });
-
-
-
-    $(".bombeiroFuncaDelete").click(function (element) {
-        var id = $(element.currentTarget).closest('.bombeiroFuncao').attr("data-bombeiroFuncaoId");
-        $(element.currentTarget).closest('.bombeiroFuncao').remove();
-        @*$.ajax(
-                {
-                    type: "Delete",
-                    url: "@Url.Action("Delete", "BombeiroFuncao", new { @id = Model.Id})",
-                    success: function (data) {
-                        if (data.success == true) {
-                            $(element.currentTarget).closest('.bombeiroFuncao').remove();
-                        }
-                        else {
-                            $.notify(data.message, "error");
-                        }
-                    }
-                });*@
     })
 
 </script>
