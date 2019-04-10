@@ -1,0 +1,10 @@
+﻿@using MapaDaForca.Helper;
+@model BombeiroFuncao
+
+<tr class="bombeiroFuncaoLine" data-bombeiroFuncaoId="@Model.Id">
+    <td style="width: 60%;">@Model.Funcao.Nome</td>
+    <td style="width: 30%;">@(Model.FuncaoPrincipal ? "Sim": "Não" )</td>
+    <td style="width: 10%;">
+        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light bombeiroFuncaoDelete">Excluir</button>
+    </td>
+</tr>

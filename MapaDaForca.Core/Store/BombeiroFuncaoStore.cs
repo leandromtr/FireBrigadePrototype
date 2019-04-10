@@ -11,11 +11,15 @@ namespace MapaDaForca.Core.Store
     public class BombeiroFuncaoStore : IBombeiroFuncaoStore
     {
         private readonly IBombeiroFuncaoRepository _repository;
+        private readonly IFuncaoStore _funcaoStore;
         //private readonly ICompanhiaRepository _companhiaRepository;
 
-        public BombeiroFuncaoStore(IBombeiroFuncaoRepository repository)
+        public BombeiroFuncaoStore(
+            IBombeiroFuncaoRepository repository,
+            IFuncaoStore funcaoStore)
         {
             _repository = repository;
+            _funcaoStore = funcaoStore;
             //_companhiaRepository = companhiaRepository;
         }
 
@@ -26,7 +30,12 @@ namespace MapaDaForca.Core.Store
 
         public IList<BombeiroFuncao> GetByBombeiroId(Guid bombeiroId)
         {
-            return _repository.GetByBombeiroId(bombeiroId).ToList();
+            var bombeiros = _repository.GetByBombeiroId(bombeiroId).ToList();
+            var funcoes = _funcaoStore.GetAll().ToList();
+
+            bombeiros.ForEach(b => b.Funcao = funcoes.FirstOrDefault(f => f.Id == b.FuncaoId));
+
+            return bombeiros;
         }
 
         public IList<BombeiroFuncao> GetByFuncaoId(Guid funcaoId)
