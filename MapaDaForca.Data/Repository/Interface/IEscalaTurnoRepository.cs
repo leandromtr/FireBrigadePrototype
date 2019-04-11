@@ -10,6 +10,8 @@ namespace MapaDaForca.Data.Repository
     {
         IList<EscalaTurno> GetAll();
 
+        IList<EscalaTurno> GetByDtEscalaTurno(DateTime dtEscalaTurno);
+
         EscalaTurno GetById(Guid id);
 
         EscalaTurno Create(EscalaTurno create);

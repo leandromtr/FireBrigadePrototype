@@ -9,6 +9,7 @@ namespace MapaDaForca.Model
         public Guid Id { get; set; }
         public string Nome { get; set; }
         public Guid BatalhaoId { get; set; }
+        public DateTime DtLog { get; set; }
 
         [NotMapped]
         public Batalhao Batalhao { get; set; }

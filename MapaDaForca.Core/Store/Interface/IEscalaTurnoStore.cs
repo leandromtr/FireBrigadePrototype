@@ -9,6 +9,8 @@ namespace MapaDaForca.Core.Store
     {
         IList<EscalaTurno> GetAll();
 
+        IList<EscalaTurno> GetByDtEscalaTurno(DateTime dtEscalaTurno);
+
         EscalaTurno GetById(Guid id);
 
         EscalaTurno Save(EscalaTurno save);

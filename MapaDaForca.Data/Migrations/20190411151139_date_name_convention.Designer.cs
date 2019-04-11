@@ -4,14 +4,16 @@ using MapaDaForca.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MapaDaForca.Data.Migrations
 {
     [DbContext(typeof(MapaDaForcaDbContext))]
-    partial class MapaDaForcaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190411151139_date_name_convention")]
+    partial class date_name_convention
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,7 +134,7 @@ namespace MapaDaForca.Data.Migrations
 
                     b.Property<DateTime>("DtEscalaTurno");
 
-                    b.Property<bool>("PeriodoDiurno");
+                    b.Property<bool>("Periodo1");
 
                     b.Property<int>("Turno");
 
