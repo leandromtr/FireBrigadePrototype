@@ -6,7 +6,7 @@ namespace MapaDaForca.Model
     {
         public Guid Id { get; set; }
         public int Turno { get; set; }
-        public DateTime Data { get; set; }
-        public bool Periodo1 { get; set; }
+        public DateTime DtEscalaTurno { get; set; }
+        public bool PeriodoDiurno { get; set; }
     }
 }

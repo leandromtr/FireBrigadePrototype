@@ -3,6 +3,7 @@ using MapaDaForca.Data.Repository;
 using MapaDaForca.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MapaDaForca.Core.Store
@@ -19,6 +20,11 @@ namespace MapaDaForca.Core.Store
         public IList<EscalaTurno> GetAll()
         {
             return _repository.GetAll();
+        }
+
+        public IList<EscalaTurno> GetByDtEscalaTurno(DateTime dtEscalaTurno)
+        {
+            return _repository.GetByDtEscalaTurno(dtEscalaTurno).ToList();
         }
 
         public EscalaTurno GetById(Guid id)

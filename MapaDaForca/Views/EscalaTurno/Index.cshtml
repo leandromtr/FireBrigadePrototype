@@ -1,8 +1,54 @@
-﻿
+﻿@model EscalaTurno
+@using MapaDaForca.Model.Enums
+
+@{
+    ViewBag.Title = "Escala x Turno: ";
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+{
+new Breadcrumb() { Name = "Dashboard", Link = "/" },
+new Breadcrumb() { Name = "Escala x Turno", Link = @Url.Action("Index","EscalaTurno")},
+};
+}
+
+
+
 <div class="row">
-    <div class="col-1">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <form id="form">
+                    <input id="PeriodoDiurnoId" type="hidden" value="">
+                    <input id="PeriodoNoturnoId" type="hidden" value="">
+
+                    <div class="form-group">
+                        <label class="form-label">@Html.DisplayNameFor(m => m.DtEscalaTurno)</label>
+                        @*@Html.TextBoxFor(m => m.Data, new { @class = "form-control", @type = "text", @required = "required" })*@
+                        <div class="input-group">
+                            <input asp-for="DtEscalaTurno" value="DateTime.Now()" type="date" class="form-control" placeholder="dd/mm/yyyy">
+                            <div class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Período Diurno</label>
+                        <select class="form-control" id="TurnoDiurno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Período Noturno</label>
+                        <select class="form-control" id="TurnoNoturno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>
+                    </div>
+                </form>
+                <div class="form-group mb-0">
+                    <div>
+                        <button id="SaveEscalaTurno" class="btn btn-primary waves-effect waves-light">Salvar</button>
+                        <button type="reset" class="btn btn-secondary waves-effect m-l-5" onclick="location.href='@Url.Action("Index", "EscalaTurno")'">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-10">
+
+    <div class="col-8">
         <div class="card m-b-30">
             <div class="card-body">
                 <div id="calendar"></div>
@@ -12,67 +58,127 @@
     </div>
 </div>
 
+<div id="calendarModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span> <span class="sr-only">close</span></button>
+                <h4 id="modalTitle" class="modal-title"></h4>
+                <h5 id="modalPeriodo" class="modal-periodo"></h5>
+                <h5 id="modalstart" class="modal-start"></h5>
+            </div>
+            <div id="modalBody" class="modal-body"> </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script>
     $(document).ready(function () {
-        var e = new Date, t = e.getDate(), a = e.getMonth(), l = e.getFullYear();
-        $("#external-events div.external-event").each(function () {
-            var e = {
-                title: $.trim($(this).text())
-            };
-            $(this).data("eventObject", e), $(this).draggable({
-                zIndex: 999, revert: !0, revertDuration: 0
-            })
-        });
+        var currentDate = $.datepicker.formatDate('yy-mm-dd', new Date());
+        SetDate(currentDate);
+
         var n = $("#calendar").fullCalendar({
+            ignoreTimezone: false,
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+            titleFormat: {
+                month: 'MMMM yyyy',
+            },
+            buttonText: {
+                today: "Hoje",
+            },
             header: {
                 left: "title", right: "prev,next today"
-            }
-            , editable: !0, firstDay: 1, selectable: !0, defaultView: "month", axisFormat: "h:mm", columnFormat: {
-                month: "ddd", week: "ddd d", day: "dddd M/d", agendaDay: "dddd d"
-            }
-            , titleFormat: {
+            },
+            titleFormat: {
                 month: "MMMM YYYY", week: "MMMM YYYY", day: "MMMM YYYY"
-            }
-            , allDaySlot: !1, selectHelper: !0, select: function (e, t, a) {
-                var l = prompt("Event Title:");
-                l && n.fullCalendar("renderEvent", {
-                    title: l, start: e, end: t, allDay: a
-                }
-                    , !0), n.fullCalendar("unselect")
-            }
-            , droppable: !0, drop: function (e, t) {
-                var a = $(this).data("eventObject"), l = $.extend({}
-                    , a);
-                l.start = e, l.allDay = t, $("#calendar").fullCalendar("renderEvent", l, !0), $("#drop-remove").is(":checked") && $(this).remove()
-            }
-            , events: [{
-                title: "All Day Event", start: new Date(l, a, 1)
-            }
-                , {
-                id: 999, title: "Repeating Event", start: new Date(l, a, t - 5, 18, 0), allDay: !1, className: "bg-teal"
-            }
-                , {
-                id: 999, title: "Meeting", start: new Date(l, a, t - 3, 16, 0), allDay: !1, className: "bg-purple"
-            }
-                , {
-                id: 999, title: "Meeting", start: new Date(l, a, t + 4, 16, 0), allDay: !1, className: "bg-warning"
-            }
-                , {
-                title: "Meeting", start: new Date(l, a, t, 10, 30), allDay: !1, className: "bg-danger"
-            }
-                , {
-                title: "Lunch", start: new Date(l, a, t, 12, 0), end: new Date(l, a, t, 14, 0), allDay: !1, className: "bg-success"
-            }
-                , {
-                title: "Birthday Party", start: new Date(l, a, t + 1, 19, 0), end: new Date(l, a, t + 1, 22, 30), allDay: !1, className: "bg-brown"
-            }
-                , {
-                title: "Click for Google", start: new Date(l, a, 28), end: new Date(l, a, 29), url: "http://google.com/", className: "bg-pink"
-            }
+            },
+            dayClick: function (date, jsEvent, view) {
+                SetDate(date.format())
+            },
+            eventClick: function (calEvent, jsEvent, view) {
+                $("#Data").val(calEvent.start.format());
+                //alert('Clicked oon: ' + calEvent.start.format());
+            },
+            events: [
+                { id: "fbcce3fc-0a5c-47f1-902b-0cc6394a2fcc", title: "Manha - Turno1", description: "description", periodo: "sss", start: new Date("2019/04/05"), allDay: true }
+                , { id: "334956ba-1189-4930-849c-ea4ff4e21de5", title: "Noite - Turno4", start: new Date("2019/04/05"), allDay: true }
+                , { id: "8c64f69d-a1b6-432a-84e1-a61ac56fe834", title: "Noite - Turno2", start: new Date("2019/04/06"), allDay: true }
+                , { id: "32555164-7446-4d9d-835f-3dd90dfba16f", title: "Noite - Turno3", start: new Date("2019/04/06"), allDay: true }
+                , { id: "0d5cbc08-c2fc-492d-8efc-3844b46d3352", title: "Noite - Turno1", start: new Date("2019/04/07"), allDay: true }
+                , { id: "b0fd50a5-bee4-4b74-aee9-35823b3c9512", title: "Noite - Turno2", start: new Date("2019/04/07"), allDay: true }
+                , { id: "1735d474-de86-409f-8f34-7cb680338ae0", title: "Noite - Turno4", start: new Date("2019/04/08"), allDay: true }
+                , { id: "8949d8df-1062-4e74-b88c-81b339017362", title: "Noite - Turno2", start: new Date("2019/04/08"), allDay: true }
+                , { id: "65b6f3bb-00e3-48e0-ab79-28108240ae4a", title: "Noite - Turno1", start: new Date("2019/04/09"), allDay: true }
+                , { id: "92622ea7-5f45-41b5-8c92-6078e08a2a26", title: "Noite - Turno4", start: new Date("2019/04/09"), allDay: true }
+                , { id: "733808b4-76a0-4cee-8766-59b3b6eafdf0", title: "Noite - Turno3", start: new Date("2019/04/10"), allDay: true }
+                , { id: "335318db-e0a2-4c65-9e58-080019e5a5d4", title: "Noite - Turno2", start: new Date("2019/04/10"), allDay: true }
+                , { id: "c7e47461-54bc-4b9a-9e79-4f157dfc193b", title: "Noite - Turno1", start: new Date("2019/04/11"), allDay: true }
+                , { id: "5107fdb6-eae5-4060-b59c-4568b20ea860", title: "Noite - Turno3", start: new Date("2019/04/11"), allDay: true }
+                , { id: "163335ea-a6ab-430e-a8c4-e72cab0ddbbb", title: "Noite - Turno4", start: new Date("2019/04/12"), allDay: true }
+                , { id: "047975cd-9077-415e-854f-6fe394b48556", title: "Noite - Turno1", start: new Date("2019/04/12"), allDay: true }
             ]
-        }
-        )
+        })
+    });
+
+    function SaveEscalaTurno() {
+
     }
-    );
+
+    function SetDate(dtEscalaTurno) {
+        $("#DtEscalaTurno").val(dtEscalaTurno);
+                $.ajax({
+                    dataType: "json",
+                    url: "@Url.Action("GetByData", "EscalaTurno")",
+                    data: {
+                        dtEscalaTurno: dtEscalaTurno
+                    },
+                    success: function (data) {
+                        $.each(data.escalaTurnos, function (key, escalaTurno) {
+                            if (escalaTurno.periodoDiurno == true) {
+                                $("#PeriodoDiurnoId").val(escalaTurno.id);
+                                $("#TurnoDiurno").val(escalaTurno.turno);
+                            }
+                            else
+                            {
+                                $("#PeriodoNoturnoId").val(escalaTurno.id);
+                                $("#TurnoNoturno").val(escalaTurno.turno);
+                            }
+                        });
+
+
+                    @*if (data.success == true) {
+                        $(".bombeiroFuncaoSection").remove()
+                        $("#myPartialViewContainer").load('/bombeiroFuncao/@Model.BombeiroId');
+                        $.notify(data.message, "success");
+                    }
+                    else {
+                        $.notify(data.message, "error");
+                    }*@
+                    }
+                });
+    }
+
+
+
 </script>
+
+
+
+@*Add*@
+@*$('#calendar').fullCalendar( 'renderEvent', {
+        id: '047975cd-9077-415e-854f-6fe394b48556',
+        title: 'Some Title',
+        start: '2019-03-30',
+        end: '2019-03-30'
+    }, true );*@
+
+
+@*Remove*@
+@*$("#calendar").fullCalendar('removeEvents', '047975cd-9077-415e-854f-6fe394b48556');*@

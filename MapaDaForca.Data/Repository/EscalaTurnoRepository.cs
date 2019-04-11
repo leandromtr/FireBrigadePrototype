@@ -22,6 +22,15 @@ namespace MapaDaForca.Data.Repository
             }
         }
 
+        public IList<EscalaTurno> GetByDtEscalaTurno(DateTime dtEscalaTurno)
+        {
+            using (var context = new MapaDaForcaDbContext(Options))
+            {
+                return context.EscalaTurnos.Where(x => x.DtEscalaTurno == dtEscalaTurno).ToList();
+            }
+        }
+
+
         public EscalaTurno GetById(Guid id)
         {
             using (var context = new MapaDaForcaDbContext(Options))
@@ -29,6 +38,7 @@ namespace MapaDaForca.Data.Repository
                 return context.EscalaTurnos.FirstOrDefault(x => x.Id == id);
             }
         }
+
 
         public EscalaTurno Create(EscalaTurno escalaTurno)
         {

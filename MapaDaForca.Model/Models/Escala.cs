@@ -11,7 +11,7 @@ namespace MapaDaForca.Model
         public Guid FuncaoId { get; set; }
         public Guid QuartelId { get; set; }
         public Guid EscalaTipoId { get; set; }
-        public DateTime Data { get; set; }
+        public DateTime DtEscala { get; set; }
         public bool Periodo1 { get; set; }
         public int PrioridadeFerias { get; set; }
         public Guid AprovadoPor { get; set; }
