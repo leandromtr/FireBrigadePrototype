@@ -50,6 +50,11 @@ namespace MapaDaForca.Core.Store
             return _repository.GetByQuartelId(quartelId).ToList();
         }
 
+        public IList<Escala> GetByBombeiroAndMonthYear(Guid bombeiroId, int month, int year)
+        {
+            return _repository.GetByBombeiroAndMonthYear(bombeiroId, month, year).ToList();
+        }
+
         public Escala GetById(Guid id)
         {
             return _repository.GetById(id);

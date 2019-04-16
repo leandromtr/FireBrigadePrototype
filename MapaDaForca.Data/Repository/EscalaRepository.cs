@@ -54,6 +54,15 @@ namespace MapaDaForca.Data.Repository
             }
         }
 
+
+        public IList<Escala> GetByBombeiroAndMonthYear(Guid bombeiroId, int month, int year)
+        {
+            using (var context = new MapaDaForcaDbContext(Options))
+            {
+                return context.Escalas.Where(x => x.BombeiroId == bombeiroId && x.DtEscala.Month == month && x.DtEscala.Year == year).ToList();
+            }
+        }
+
         public Escala GetById(Guid id)
         {
             using (var context = new MapaDaForcaDbContext(Options))
