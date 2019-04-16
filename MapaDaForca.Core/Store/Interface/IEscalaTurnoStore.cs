@@ -11,6 +11,8 @@ namespace MapaDaForca.Core.Store
 
         IList<EscalaTurno> GetByDtEscalaTurno(DateTime dtEscalaTurno);
 
+        IList<EscalaTurno> GetByMonthYear(int month, int year);
+
         EscalaTurno GetById(Guid id);
 
         EscalaTurno Save(EscalaTurno save);

@@ -30,6 +30,13 @@ namespace MapaDaForca.Data.Repository
             }
         }
 
+        public IList<EscalaTurno> GetByMonthYear(int month, int year)
+        {
+            using (var context = new MapaDaForcaDbContext(Options))
+            {
+                return context.EscalaTurnos.Where(x => x.DtEscalaTurno.Month == month && x.DtEscalaTurno.Year == year).ToList();
+            }
+        }
 
         public EscalaTurno GetById(Guid id)
         {
@@ -69,13 +76,22 @@ namespace MapaDaForca.Data.Repository
             }
         }
 
-        public bool IsExisting(DateTime dtEscalaTurno, bool periodoDiurno)
+        public bool IsExisting(Guid id)
         {
             using (var context = new MapaDaForcaDbContext(Options))
             {
-                return context.EscalaTurnos.Any(x => x.DtEscalaTurno == dtEscalaTurno && x.PeriodoDiurno == periodoDiurno);
+                return context.EscalaTurnos.Any(x => x.Id == id);
             }
         }
+
+        public EscalaTurno IsExistingByDateAndTurno(DateTime dtEscalaTurno, bool periodoDiurno)
+        {
+            using (var context = new MapaDaForcaDbContext(Options))
+            {
+                return context.EscalaTurnos.FirstOrDefault(x => x.DtEscalaTurno == dtEscalaTurno && x.PeriodoDiurno == periodoDiurno);
+            }
+        }
+
 
         public bool Delete(Guid id)
         {

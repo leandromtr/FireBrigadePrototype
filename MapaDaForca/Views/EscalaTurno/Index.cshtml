@@ -1,6 +1,5 @@
-﻿@model IEnumerable<EscalaTurno>
+﻿@model EscalaTurno
 @using MapaDaForca.Model.Enums
-@inject IJsonHelper Json;
 
 @{
     ViewBag.Title = "Escala x Turno: ";
@@ -79,74 +78,133 @@ new Breadcrumb() { Name = "Escala x Turno", Link = @Url.Action("Index","EscalaTu
 
 <script type="text/javascript">
 
-			$(document).ready(function () {
+$(document).ready(function () {
+    var currentDate = $.datepicker.formatDate('yy-mm-dd', new Date());
+    @*var tt = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model) as String);*@
+    SetForm(currentDate);
 
-				var $calendar = $('#calendar');
+    var $calendar = $('#calendar');
 
-                $calendar.fullCalendar({
-                    ignoreTimezone: false,
-                    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-                    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-                    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
-                    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-                    titleFormat: {
-                            month: 'MMMM yyyy',
-                    },
-                    buttonText: {
-                            today: "Hoje",
-                    },
-                    viewRender: function (view, element) {
-                        var currentDay = $('#calendar').fullCalendar('getDate');
-                        //alert(currentDay.format());
+        $calendar.fullCalendar({
+            ignoreTimezone: false,
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+            titleFormat: {
+                    month: 'MMMM yyyy',
+            },
+            buttonText: {
+                    today: "Hoje",
+            },
+            viewRender: function (view, element) {
+                var currentDay=$('#calendar').fullCalendar('getDate');
+                $("#calendar").fullCalendar('removeEvents');
+                $.ajax( {
+                    type: "POST",
+                    url: '@Url.RouteUrl(new{ action= "GetEvents", controller="EscalaTurno"})',
+                    data: {
+                        calendarDate: currentDay.format()
+                    }
+                    , success: function (data) {
+                        renderEvents(data);
+                    }
+                    , error: function (error) {
+                        alert('failed');
+                    }
+                });
+            },
+            dayClick: function (date, jsEvent, view) {
+                SetForm(date.format())
+            },
+            eventClick: function (calEvent, jsEvent, view) {
+                SetForm(calEvent.start.format())
+            },
+            header: {
+                    left: "title", right: "prev,next today"
+            },
+            titleFormat: {
+                    month: "MMMM YYYY", week: "MMMM YYYY", day: "MMMM YYYY"
+            },
+        	firstDay: 1, //The day that each week begins (Monday=1)
+        });
 
-                        $.ajax({
-                	    type: "GET",
-                	    url: '@Url.RouteUrl(new{ action= "GetEvents1", controller="EscalaTurno"})',
-                	    success: function (data) {
-					    	renderEvents(data);
-                	    },
-                	    error: function (error) {
-                        	alert('failed');
-                	    }
-    			        });
-
-                    },
-                    header: {
-                            left: "title", right: "prev,next today"
-                    },
-                    titleFormat: {
-                            month: "MMMM YYYY", week: "MMMM YYYY", day: "MMMM YYYY"
-                    },
-            		firstDay: 1, //The day that each week begins (Monday=1)
-        		});
-
-
-
-				function renderEvents(data) {
-					$.each(data, function (i, event) {
-						$calendar.fullCalendar('renderEvent',
-						{
-							id: event.id,
-                           	title: event.title,
-                            start: moment(event.start),
-                            allDay: true
-						}, true);
-                    });
-
-                }
+		function renderEvents(data) {
+			$.each(data, function (i, event) {
+				$calendar.fullCalendar('renderEvent',
+				{
+					id: event.id,
+                   	title: event.title,
+                    start: moment(event.start),
+                    allDay: true
+				}, true);
+            });
+        }
 
     });
 
 
 
+    $("#SaveEscalaTurno").click(function () {
+        $.ajax({
+            url: '@Url.Action("SaveByDate", "EscalaTurno")',
+            type: "POST",
+            data: {
+                dtEscalaTurno: $("#DtEscalaTurno").val(),
+                periodoDiurnoId: $("#PeriodoDiurnoId").val(),
+                periodoNoturnoId: $("#PeriodoNoturnoId").val(),
+                turnoDiurno: $("#TurnoDiurno").val(),
+                turnoNoturno: $("#TurnoNoturno").val()
+            }
+        })
+        .done(function (data) {
+            $.notify(data.message, "success");
+            $("#calendar").fullCalendar('removeEvents', $("#PeriodoDiurnoId").val());
+            $('#calendar').fullCalendar('renderEvent', { id: $("#PeriodoDiurnoId").val(), title: 'D - Turno ' + $("#TurnoDiurno").val(), start: $("#DtEscalaTurno").val()}, true );
+            $("#calendar").fullCalendar('removeEvents', $("#PeriodoNoturnoId").val());
+            $('#calendar').fullCalendar('renderEvent', { id: $("#PeriodoNoturnoId").val(), title: 'N - Turno ' + $("#TurnoNoturno").val(), start: $("#DtEscalaTurno").val() }, true);
 
+        })
+    });
 
+    function SetForm(dtEscalaTurno) {
+        $("#DtEscalaTurno").val(dtEscalaTurno);
+            $.ajax({
+                dataType: "json",
+                url: "@Url.Action("GetByData", "EscalaTurno")",
+                data: {
+                    dtEscalaTurno: dtEscalaTurno
+                },
+                success: function (data) {
+                    $.each(data.escalaTurnos, function (key, escalaTurno) {
+                        if (escalaTurno.periodoDiurno == true) {
+                            $("#PeriodoDiurnoId").val(escalaTurno.id);
+                            $("#TurnoDiurno").val(escalaTurno.turno);
+                        }
+                        else
+                        {
+                            $("#PeriodoNoturnoId").val(escalaTurno.id);
+                            $("#TurnoNoturno").val(escalaTurno.turno);
+                        }
+                    });
+                }
+            });
 
+    }   
 
-
-
-
-
+     $("#SaveEscalaTurnoAno").click(function () {
+            var year = prompt("Favor informar o ano", (new Date).getFullYear());
+            $.ajax({
+                url: '@Url.Action("SaveYear", "EscalaTurno")',
+                type: "POST",
+                data: {
+                    year: year
+                }
+            })
+            .done(function () {
+                window.location.href = '@Url.Action("Index", "EscalaTurno")';
+            })
+        });
 
 </script>
 
@@ -156,104 +214,10 @@ new Breadcrumb() { Name = "Escala x Turno", Link = @Url.Action("Index","EscalaTu
 @*$('#calendar').fullCalendar( 'renderEvent', {
         id: '047975cd-9077-415e-854f-6fe394b48556',
         title: 'Some Title',
-        start: '2019-03-30',
-        end: '2019-03-30'
+        start: '2019-03-30'
     }, true );*@
 
 
 @*Remove*@
 @*$("#calendar").fullCalendar('removeEvents', '047975cd-9077-415e-854f-6fe394b48556');*@
 
-
-
-
-
-
-
-
-@*<div class="row">
-
-    <script>
-        $(document).ready(function () {
-
-            //var n = $("#calendar").fullCalendar({
-            //    ignoreTimezone: false,
-            //    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            //    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-            //    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
-            //    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
-            //    titleFormat: {
-            //            month: 'MMMM yyyy',
-            //    },
-            //    buttonText: {
-            //            today: "Hoje",
-            //    },
-            //    header: {
-            //            left: "title", right: "prev,next today"
-            //    },
-            //    titleFormat: {
-            //            month: "MMMM YYYY", week: "MMMM YYYY", day: "MMMM YYYY"
-            //    },
-            //    dayClick: function (date, jsEvent, view) {
-            //            SetDate(date.format())
-            //    },
-            //    eventClick: function (calEvent, jsEvent, view) {
-            //        SetDate(calEvent.start.format())
-            //    },
-            //    events: [
-            //        { id: "fbcce3fc-0a5c-47f1-902b-0cc6394a2fcc", title: "Manha - Turno1", start: new Date("2019/04/05"), allDay: true },
-            //        { id: "334956ba-1189-4930-849c-ea4ff4e21de5", title: "Noite - Turno4", start: new Date("2019/04/05"), allDay: true },
-            //        { id: "8c64f69d-a1b6-432a-84e1-a61ac56fe834", title: "Noite - Turno2", start: new Date("2019/04/06"), allDay: true },
-            //        { id: "32555164-7446-4d9d-835f-3dd90dfba16f", title: "Noite - Turno3", start: new Date("2019/04/06"), allDay: true },
-            //        { id: "0d5cbc08-c2fc-492d-8efc-3844b46d3352", title: "Noite - Turno1", start: new Date("2019/04/07"), allDay: true },
-            //        { id: "b0fd50a5-bee4-4b74-aee9-35823b3c9512", title: "Noite - Turno2", start: new Date("2019/04/07"), allDay: true },
-            //        { id: "1735d474-de86-409f-8f34-7cb680338ae0", title: "Noite - Turno4", start: new Date("2019/04/08"), allDay: true },
-            //        { id: "8949d8df-1062-4e74-b88c-81b339017362", title: "Noite - Turno2", start: new Date("2019/04/08"), allDay: true },
-            //        { id: "65b6f3bb-00e3-48e0-ab79-28108240ae4a", title: "Noite - Turno1", start: new Date("2019/04/09"), allDay: true },
-            //        { id: "92622ea7-5f45-41b5-8c92-6078e08a2a26", title: "Noite - Turno4", start: new Date("2019/04/09"), allDay: true },
-            //        { id: "733808b4-76a0-4cee-8766-59b3b6eafdf0", title: "Noite - Turno3", start: new Date("2019/04/10"), allDay: true },
-            //        { id: "335318db-e0a2-4c65-9e58-080019e5a5d4", title: "Noite - Turno2", start: new Date("2019/04/10"), allDay: true },
-            //        { id: "c7e47461-54bc-4b9a-9e79-4f157dfc193b", title: "Noite - Turno1", start: new Date("2019/04/11"), allDay: true },
-            //        { id: "5107fdb6-eae5-4060-b59c-4568b20ea860", title: "Noite - Turno3", start: new Date("2019/04/11"), allDay: true },
-            //        { id: "163335ea-a6ab-430e-a8c4-e72cab0ddbbb", title: "Noite - Turno4", start: new Date("2019/04/12"), allDay: true },
-            //        { id: "047975cd-9077-415e-854f-6fe394b48556", title: "Noite - Turno1", start: new Date("2019/04/12"), allDay: true }
-            //    ]
-            //})
-
-
-
-            $('#calendar').fullCalendar({
-                events: function (start, end, callback) {
-                    $.ajax({
-                        type: "GET",
-                        url: @Url.Action("GetAll", "EscalaTurno"),
-                        dataType: 'json',
-                        contentType: "application/json; charset=utf-8",
-                        data: {
-                            // requires UNIX timestamps
-                            start: Math.round(start.getTime() / 1000),
-                            end: Math.round(end.getTime() / 1000)
-                        },
-                        success: function (doc) {
-                            var events = [];
-
-                            // loop through each event and make an array of events
-                            $.each(doc.d, function (index, calendarEventItem) {
-                                events.push({
-                                    title: calendarEventItem.Title,
-                                    start: calendarEventItem.StartDate,
-                                    allDay: true
-                                    //,
-                                    //end: calendarEventItem.EndDate,
-                                    //className: calendarEventItem.CssClass,
-                                    //url: calendarEventItem.URL
-                                });
-                            });
-
-                            callback(events);
-                        }
-                    });
-                }
-            });
-        });
-    </script>*@

@@ -12,6 +12,8 @@ namespace MapaDaForca.Data.Repository
 
         IList<EscalaTurno> GetByDtEscalaTurno(DateTime dtEscalaTurno);
 
+        IList<EscalaTurno> GetByMonthYear(int month, int year);
+
         EscalaTurno GetById(Guid id);
 
         EscalaTurno Create(EscalaTurno create);
@@ -20,6 +22,8 @@ namespace MapaDaForca.Data.Repository
 
         bool Delete(Guid id);
 
-        bool IsExisting(DateTime dtEscalaTurno, bool periodoDiurno);
+        bool IsExisting(Guid id);
+
+        EscalaTurno IsExistingByDateAndTurno(DateTime dtEscalaTurno, bool periodoDiurno);
     }
 }
