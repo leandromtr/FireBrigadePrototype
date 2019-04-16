@@ -28,6 +28,11 @@ namespace MapaDaForca.Core.Store
             return _repository.GetByDtEscalaTurno(dtEscalaTurno).ToList();
         }
 
+        public IList<EscalaTurno> GetByMonthYear(int month, int year)
+        {
+            return _repository.GetByMonthYear(month, year).ToList();
+        }
+
         public EscalaTurno GetById(Guid id)
         {
             return _repository.GetById(id);
@@ -36,8 +41,11 @@ namespace MapaDaForca.Core.Store
         public EscalaTurno Save(EscalaTurno save)
         {
             EscalaTurno saved = null;
+            var escalaTurno = _repository.IsExistingByDateAndTurno(save.DtEscalaTurno, save.PeriodoDiurno);
+            if (escalaTurno != null)
+                save.Id = escalaTurno.Id;
 
-            if (_repository.IsExisting(save.DtEscalaTurno, save.PeriodoDiurno ))
+            if (_repository.IsExisting(save.Id))
             {
                 saved = _repository.Update(save);
             }
@@ -56,9 +64,10 @@ namespace MapaDaForca.Core.Store
 
             for (DateTime dt = firstDay; dt <= lastDay; dt = dt.AddDays(1))
             {
-                var escalaTurno = new EscalaTurno() { DtEscalaTurno = dt, PeriodoDiurno = true, Turno = 1 };
+                var escalaTurno = new EscalaTurno() { Id = Guid.Empty, DtEscalaTurno = dt, PeriodoDiurno = true, Turno = 1 };
                 Save(escalaTurno);
 
+                escalaTurno.Id = Guid.Empty;
                 escalaTurno.PeriodoDiurno = false;
                 Save(escalaTurno);
             }
