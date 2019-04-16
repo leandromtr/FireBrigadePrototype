@@ -96,8 +96,9 @@ $(document).ready(function () {
                 $("#calendar").fullCalendar('removeEvents');
                 $.ajax( {
                     type: "POST",
-                    url: '@Url.RouteUrl(new{ action= "GetEvents", controller="EscalaTurno"})',
+                    url: '@Url.RouteUrl(new{ action= "GetEvents", controller="Bombeiro"})',
                     data: {
+                        bombeiroId: '@Model.Bombeiro.Id',
                         calendarDate: currentDay.format()
                     }
                     , success: function (data) {

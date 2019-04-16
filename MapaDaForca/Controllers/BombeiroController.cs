@@ -147,5 +147,24 @@ namespace MapaDaForca.Controllers
         {
             _escalaStore.SaveYear(bombeiroId, year);
         }
+
+
+        [HttpPost]
+        public JsonResult GetEvents(Guid bombeiroId, DateTime calendarDate)
+        {
+            var events = new List<EventViewModel>();
+            var escalas = _escalaStore.GetByBombeiroAndMonthYear(bombeiroId, calendarDate.Month, calendarDate.Year);
+
+            foreach (var item in escalas)
+            {
+                events.Add(new EventViewModel()
+                {
+                    id = item.Id,
+                    title = (item.PeriodoDiurno ? "D - " : "N - ") + item.FuncaoId.ToString(),
+                    start = item.DtEscala
+                });
+            }
+            return Json(events.ToArray());
+        }
     }
 }

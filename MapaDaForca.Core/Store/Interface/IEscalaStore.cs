@@ -17,6 +17,8 @@ namespace MapaDaForca.Core.Store
 
         IList<Escala> GetByQuartelId(Guid viaturaTipoId);
 
+        IList<Escala> GetByBombeiroAndMonthYear(Guid bombeiroId, int month, int year);
+
         Escala GetById(Guid id);
 
         Escala Save(Escala save);

@@ -20,6 +20,8 @@ namespace MapaDaForca.Data.Repository
 
         IList<Escala> GetByQuartelId(Guid quartelId);
 
+        IList<Escala> GetByBombeiroAndMonthYear(Guid bombeiroId, int month, int year);
+
         Escala Create(Escala create);
 
         Escala Update(Escala update);
