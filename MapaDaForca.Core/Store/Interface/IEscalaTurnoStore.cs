@@ -15,6 +15,8 @@ namespace MapaDaForca.Core.Store
 
         EscalaTurno Save(EscalaTurno save);
 
+        void SaveYear(int year);
+
         bool Delete(Guid id);
     }
 }

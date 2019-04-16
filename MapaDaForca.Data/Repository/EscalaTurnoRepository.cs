@@ -69,11 +69,11 @@ namespace MapaDaForca.Data.Repository
             }
         }
 
-        public bool IsExisting(Guid id)
+        public bool IsExisting(DateTime dtEscalaTurno, bool periodoDiurno)
         {
             using (var context = new MapaDaForcaDbContext(Options))
             {
-                return context.EscalaTurnos.Any(x => x.Id == id);
+                return context.EscalaTurnos.Any(x => x.DtEscalaTurno == dtEscalaTurno && x.PeriodoDiurno == periodoDiurno);
             }
         }
 

@@ -12,7 +12,8 @@ namespace MapaDaForca.Core.Store
     {
         private readonly IEscalaTurnoRepository _repository;
 
-        public EscalaTurnoStore(IEscalaTurnoRepository repository)
+        public EscalaTurnoStore(
+            IEscalaTurnoRepository repository)
         {
             _repository = repository;
         }
@@ -36,7 +37,7 @@ namespace MapaDaForca.Core.Store
         {
             EscalaTurno saved = null;
 
-            if (_repository.IsExisting(save.Id))
+            if (_repository.IsExisting(save.DtEscalaTurno, save.PeriodoDiurno ))
             {
                 saved = _repository.Update(save);
             }
@@ -46,6 +47,21 @@ namespace MapaDaForca.Core.Store
             }
 
             return saved;
+        }
+
+        public void SaveYear(int year)
+        {
+            DateTime firstDay = new DateTime(year, 1, 1);
+            DateTime lastDay = new DateTime(year, 12, 31);
+
+            for (DateTime dt = firstDay; dt <= lastDay; dt = dt.AddDays(1))
+            {
+                var escalaTurno = new EscalaTurno() { DtEscalaTurno = dt, PeriodoDiurno = true, Turno = 1 };
+                Save(escalaTurno);
+
+                escalaTurno.PeriodoDiurno = false;
+                Save(escalaTurno);
+            }
         }
 
         public bool Delete(Guid id)

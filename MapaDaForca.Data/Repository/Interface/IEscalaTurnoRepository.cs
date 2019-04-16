@@ -20,6 +20,6 @@ namespace MapaDaForca.Data.Repository
 
         bool Delete(Guid id);
 
-        bool IsExisting(Guid id);
+        bool IsExisting(DateTime dtEscalaTurno, bool periodoDiurno);
     }
 }
