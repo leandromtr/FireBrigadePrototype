@@ -65,10 +65,24 @@ new Breadcrumb() { Name = Model.Bombeiro.Nome, Link = @Url.Action("Detail","Bomb
         </div>
     </div>
 
+
     <div class="col-lg-6">
         <partial name="~/Views/BombeiroFuncao/_BombeiroFuncao.cshtml" model="Model.BombeiroFuncaoViewModel" />
         <div id="myPartialViewContainer">
 
+        </div>
+    </div>
+
+
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group mb-0">
+                    <div>
+                        <button class="btn btn-primary waves-effect waves-light" onclick="location.href='@Url.Action("Escala", "Bombeiro")'">Escala</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -102,7 +116,6 @@ new Breadcrumb() { Name = Model.Bombeiro.Nome, Link = @Url.Action("Detail","Bomb
                 }
             })
         });
-
 
 
         $('#Excluir').click(function () {

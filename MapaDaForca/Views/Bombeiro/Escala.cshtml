@@ -1,15 +1,16 @@
-﻿@model EscalaTurno
+﻿@model BombeiroViewModel
 @using MapaDaForca.Model.Enums
 
 @{
-    ViewBag.Title = "Escala x Turno: ";
+    ViewBag.Title = "Bombeiro: " + Model.Bombeiro.Nome;
     ViewBag.Breadcrumbs = new List<Breadcrumb>()
 {
 new Breadcrumb() { Name = "Dashboard", Link = "/" },
-new Breadcrumb() { Name = "Escala x Turno", Link = @Url.Action("Index","EscalaTurno")},
+new Breadcrumb() { Name = "Bombeiro", Link = @Url.Action("Index","Bombeiro")},
+new Breadcrumb() { Name = Model.Bombeiro.Nome, Link = @Url.Action("Detail","Bombeiro", new { @id = Model.Bombeiro.Id })},
+new Breadcrumb() { Name = "Escala", Link = @Url.Action("Escala","Bombeiro", new { @id = Model.Bombeiro.Id }), IsActive = true}
 };
 }
-
 
 
 <div class="row">
@@ -17,12 +18,11 @@ new Breadcrumb() { Name = "Escala x Turno", Link = @Url.Action("Index","EscalaTu
         <div class="card">
             <div class="card-body">
                 <form id="form">
-                    <input id="PeriodoDiurnoId" type="hidden" value="">
+                    <input id="BombeiroId" type="hidden" value="">
                     <input id="PeriodoNoturnoId" type="hidden" value="">
 
                     <div class="form-group">
-                        <label class="form-label">@Html.DisplayNameFor(m => m.DtEscalaTurno)</label>
-                        @*@Html.TextBoxFor(m => m.Data, new { @class = "form-control", @type = "text", @required = "required" })*@
+                        <label>Dia</label>
                         <div class="input-group">
                             <input id="DtEscalaTurno" type="date" class="form-control" placeholder="dd/mm/yyyy">
                             <div class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
@@ -30,18 +30,29 @@ new Breadcrumb() { Name = "Escala x Turno", Link = @Url.Action("Index","EscalaTu
                     </div>
 
                     <div class="form-group">
-                        <label>Período Diurno</label>
+                        <label>Função</label>
                         <select class="form-control" id="TurnoDiurno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>
                     </div>
+
                     <div class="form-group">
-                        <label>Período Noturno</label>
-                        <select class="form-control" id="TurnoNoturno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>
+                        <label>Quartel</label>
+                        <select class="form-control" id="TurnoDiurno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tipo Escala</label>
+                        <select class="form-control" id="TurnoDiurno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Período Diurno</label>
+                        <select class="form-control" id="TurnoDiurno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>
                     </div>
                 </form>
                 <div class="form-group mb-0">
                     <div>
-                        <button id="SaveEscalaTurno" class="btn btn-primary waves-effect waves-light">Salvar</button>
-                        <button id="SaveEscalaTurnoAno" class="btn btn-primary waves-effect waves-light">Salvar Ano</button>
+                        <button id="SaveBombeiroEscala" class="btn btn-primary waves-effect waves-light">Salvar</button>
+                        <button id="SaveBombeiroEscalaAno" class="btn btn-primary waves-effect waves-light">Salvar Ano</button>
                     </div>
                 </div>
             </div>
@@ -123,9 +134,7 @@ $(document).ready(function () {
 				}, true);
             });
         }
-
     });
-
 
 
     $("#SaveEscalaTurno").click(function () {
@@ -152,42 +161,42 @@ $(document).ready(function () {
 
     function SetForm(dtEscalaTurno) {
         $("#DtEscalaTurno").val(dtEscalaTurno);
-            $.ajax({
-                dataType: "json",
-                url: "@Url.Action("GetByData", "EscalaTurno")",
-                data: {
-                    dtEscalaTurno: dtEscalaTurno
-                },
-                success: function (data) {
-                    $.each(data.escalaTurnos, function (key, escalaTurno) {
-                        if (escalaTurno.periodoDiurno == true) {
-                            $("#PeriodoDiurnoId").val(escalaTurno.id);
-                            $("#TurnoDiurno").val(escalaTurno.turno);
-                        }
-                        else
-                        {
-                            $("#PeriodoNoturnoId").val(escalaTurno.id);
-                            $("#TurnoNoturno").val(escalaTurno.turno);
-                        }
-                    });
-                }
-            });
-
-    }   
-
-     $("#SaveEscalaTurnoAno").click(function () {
-            var year = prompt("Favor informar o ano", (new Date).getFullYear());
-            $.ajax({
-                url: '@Url.Action("SaveYear", "EscalaTurno")',
-                type: "POST",
-                data: {
-                    year: year
-                }
-            })
-            .done(function () {
-                window.location.href = '@Url.Action("Index", "EscalaTurno")';
-            })
+        $.ajax({
+            dataType: "json",
+            url: "@Url.Action("GetByData", "EscalaTurno")",
+            data: {
+                dtEscalaTurno: dtEscalaTurno
+            },
+            success: function (data) {
+                $.each(data.escalaTurnos, function (key, escalaTurno) {
+                    if (escalaTurno.periodoDiurno == true) {
+                        $("#PeriodoDiurnoId").val(escalaTurno.id);
+                        $("#TurnoDiurno").val(escalaTurno.turno);
+                    }
+                    else
+                    {
+                        $("#PeriodoNoturnoId").val(escalaTurno.id);
+                        $("#TurnoNoturno").val(escalaTurno.turno);
+                    }
+                });
+            }
         });
+    }
+
+    $("#SaveBombeiroEscalaAno").click(function () {
+         var year = prompt("Favor informar o ano", (new Date).getFullYear());
+         $.ajax({
+             url: '@Url.Action("SaveYear", "Bombeiro")',
+             type: "POST",
+             data: {
+                 bombeiroId: '@Model.Bombeiro.Id', 
+                 year: year
+             }
+         })
+         .done(function () {
+             window.location.href = '@Url.Action("Escala","Bombeiro", new { @id = Model.Bombeiro.Id })';
+         })
+    });
 
 </script>
 

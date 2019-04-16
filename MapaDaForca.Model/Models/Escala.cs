@@ -12,7 +12,7 @@ namespace MapaDaForca.Model
         public Guid QuartelId { get; set; }
         public Guid EscalaTipoId { get; set; }
         public DateTime DtEscala { get; set; }
-        public bool Periodo1 { get; set; }
+        public bool PeriodoDiurno { get; set; }
         public int PrioridadeFerias { get; set; }
         public Guid AprovadoPor { get; set; }
         public DateTime AprovadoEm { get; set; }
