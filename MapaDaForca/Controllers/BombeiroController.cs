@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MapaDaForca.Controllers
 {
+    [Route("bombeiro")]
     public class BombeiroController : Controller
     {
         //private readonly UserManager<User> _userManager;
@@ -17,6 +18,7 @@ namespace MapaDaForca.Controllers
         private readonly IQuartelStore _quartelStore;
         private readonly IBombeiroFuncaoStore _bombeiroFuncaoStore;
         private readonly IFuncaoStore _funcaoStore;
+        private readonly IEscalaStore _escalaStore;
 
 
         public BombeiroController(
@@ -24,13 +26,15 @@ namespace MapaDaForca.Controllers
             IPostoStore postoStore,
             IQuartelStore quartelStore,
             IBombeiroFuncaoStore bombeiroFuncaoStore,
-            IFuncaoStore funcaoStore)
+            IFuncaoStore funcaoStore,
+            IEscalaStore escalaStore)
         {
             _bombeiroStore = bombeiroStore;
             _postoStore = postoStore;
             _quartelStore = quartelStore;
             _bombeiroFuncaoStore = bombeiroFuncaoStore;
             _funcaoStore = funcaoStore;
+            _escalaStore = escalaStore;
         }
 
 
@@ -44,6 +48,7 @@ namespace MapaDaForca.Controllers
         }
 
         [HttpGet]
+        [Route("create")]
         public ActionResult Create()
         {
             var bombeiro = new Bombeiro();
@@ -55,6 +60,7 @@ namespace MapaDaForca.Controllers
         }
 
         [HttpPost]
+        [Route("create")]
         public ActionResult Create(Bombeiro bombeiro)
         {
             var newBombeiro = _bombeiroStore.Save(bombeiro);
@@ -63,7 +69,30 @@ namespace MapaDaForca.Controllers
 
 
         [HttpGet]
+        [Route("{id}/detail/{message?}")]
         public ActionResult Detail(Guid id, bool message)
+        {
+            if (message)
+                ViewData["MessageCreate"] = "Bombeiro criado com sucesso!";
+
+            var bombeiro = new BombeiroViewModel();
+            bombeiro.Bombeiro = _bombeiroStore.GetById(id);
+            bombeiro.Bombeiro.Postos = _postoStore.GetAll();
+            bombeiro.Bombeiro.Quarteis = _quartelStore.GetAll();
+            bombeiro.BombeiroFuncoes = _bombeiroFuncaoStore.GetByBombeiroId(id).ToList();
+
+            var bombeiroFuncao = new BombeiroFuncaoViewModel();
+            bombeiroFuncao.BombeiroId = id;
+            bombeiroFuncao.BombeiroFuncoes = _bombeiroFuncaoStore.GetByBombeiroId(id).ToList();
+            bombeiroFuncao.Funcoes = _funcaoStore.GetAll().ToList();
+            bombeiro.BombeiroFuncaoViewModel = bombeiroFuncao;
+
+            return View(bombeiro);
+        }
+
+        [HttpGet]
+        [Route("{id}/escala")]
+        public ActionResult Escala(Guid id, bool message)
         {
             if (message)
                 ViewData["MessageCreate"] = "Bombeiro criado com sucesso!";
@@ -85,6 +114,7 @@ namespace MapaDaForca.Controllers
 
 
         [HttpPost]
+        [Route("edit")]
         public JsonResult Edit(Bombeiro bombeiro)
         {
             try
@@ -100,6 +130,7 @@ namespace MapaDaForca.Controllers
 
 
         [HttpDelete]
+        [Route("{id}/delete")]
         public JsonResult Delete(Guid id)
         {
             //if (_companhiaStore.GetByBombeiroId(id).Any())
@@ -107,6 +138,14 @@ namespace MapaDaForca.Controllers
 
             _bombeiroStore.Delete(id);
             return Json(new { success = true, message = "Bombeiro excluído!" });
+        }
+
+
+        [HttpPost]
+        [Route("saveyear")]
+        public void SaveYear(Guid bombeiroId, int year)
+        {
+            _escalaStore.SaveYear(bombeiroId, year);
         }
     }
 }

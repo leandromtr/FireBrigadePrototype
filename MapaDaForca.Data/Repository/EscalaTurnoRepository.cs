@@ -7,6 +7,7 @@ using System.Text;
 using System.Linq;
 using Microsoft.Extensions.Options;
 using MapaDaForca.Data.Repository.Base;
+using MapaDaForca.Model.Enums;
 
 namespace MapaDaForca.Data.Repository
 {
@@ -19,6 +20,14 @@ namespace MapaDaForca.Data.Repository
             using (var context = new MapaDaForcaDbContext(Options))
             {
                 return context.EscalaTurnos.ToList();
+            }
+        }
+
+        public IList<EscalaTurno> GetByTurno(Turno turno)
+        {
+            using (var context = new MapaDaForcaDbContext(Options))
+            {
+                return context.EscalaTurnos.Where(x => x.Turno == turno).ToList();
             }
         }
 

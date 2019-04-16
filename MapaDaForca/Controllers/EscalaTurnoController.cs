@@ -29,7 +29,7 @@ namespace MapaDaForca.Controllers
 
         [HttpPost]
         [Route("escalaturno/SaveYear")]
-        public void PopulateYear(int year)
+        public void SaveYear(int year)
         {
             _escalaTurnoStore.SaveYear(year);
         }
@@ -39,11 +39,11 @@ namespace MapaDaForca.Controllers
         [Route("escalaturno/SaveByDate")]
         public JsonResult SaveByDate(DateTime dtEscalaTurno, Guid periodoDiurnoId, Guid periodoNoturnoId, int turnoDiurno, int turnoNoturno)
         {
-            EscalaTurno escalaTurno = new EscalaTurno { Id = periodoDiurnoId, Turno = turnoDiurno, DtEscalaTurno = dtEscalaTurno, PeriodoDiurno = true };
+            EscalaTurno escalaTurno = new EscalaTurno { Id = periodoDiurnoId, Turno = (Turno)turnoDiurno, DtEscalaTurno = dtEscalaTurno, PeriodoDiurno = true };
             _escalaTurnoStore.Save(escalaTurno);
 
             escalaTurno.Id = periodoNoturnoId;
-            escalaTurno.Turno = turnoNoturno;
+            escalaTurno.Turno = (Turno)turnoNoturno;
             escalaTurno.PeriodoDiurno = false;
             _escalaTurnoStore.Save(escalaTurno);
             return Json(new { success = true, message = "Data salva com sucesso!" });
@@ -70,7 +70,7 @@ namespace MapaDaForca.Controllers
                 events.Add(new EventViewModel()
                 {
                     id = item.Id,
-                    title = (item.PeriodoDiurno ? "D - Turno": "N - Turno") + " " + item.Turno.ToString(),
+                    title = (item.PeriodoDiurno ? "D - ": "N - ") + item.Turno.ToString(),
                     start = item.DtEscalaTurno
                 });
             }

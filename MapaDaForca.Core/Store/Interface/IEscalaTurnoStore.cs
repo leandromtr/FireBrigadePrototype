@@ -1,4 +1,5 @@
 ﻿using MapaDaForca.Model;
+using MapaDaForca.Model.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,8 @@ namespace MapaDaForca.Core.Store
     public interface IEscalaTurnoStore
     {
         IList<EscalaTurno> GetAll();
+
+        IList<EscalaTurno> GetByTurno(Turno turno);
 
         IList<EscalaTurno> GetByDtEscalaTurno(DateTime dtEscalaTurno);
 

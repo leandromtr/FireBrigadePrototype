@@ -21,6 +21,8 @@ namespace MapaDaForca.Core.Store
 
         Escala Save(Escala save);
 
+        void SaveYear(Guid bombeiroId, int year);
+
         bool Delete(Guid id);
     }
 }
