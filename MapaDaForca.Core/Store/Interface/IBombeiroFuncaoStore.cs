@@ -15,6 +15,8 @@ namespace MapaDaForca.Core.Store
 
         BombeiroFuncao GetById(Guid id);
 
+        BombeiroFuncao GetPrincipalByBombeiroId(Guid bombeiroId);
+
         BombeiroFuncao Save(BombeiroFuncao save);
 
         bool Delete(Guid id);

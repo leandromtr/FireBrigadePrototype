@@ -67,7 +67,7 @@ namespace MapaDaForca.Core.Store
         {
             DateTime firstDay = new DateTime(year, 1, 1);
             DateTime lastDay = new DateTime(year, 12, 31);
-            Random random = new Random();
+            int nTurno = 1;
             var escalaTurno = new EscalaTurno();
 
             for (DateTime dt = firstDay; dt <= lastDay; dt = dt.AddDays(1))
@@ -75,13 +75,19 @@ namespace MapaDaForca.Core.Store
                 escalaTurno.Id = Guid.Empty;
                 escalaTurno.DtEscalaTurno = dt;
                 escalaTurno.PeriodoDiurno = true;
-                escalaTurno.Turno = (Turno)random.Next(1, 4);
+                escalaTurno.Turno = (Turno)nTurno;
                 Save(escalaTurno);
+                nTurno++;
+                if (nTurno == 5)
+                    nTurno = 1;
 
                 escalaTurno.Id = Guid.Empty;
                 escalaTurno.PeriodoDiurno = false;
-                escalaTurno.Turno = (Turno)random.Next(1, 4);
+                escalaTurno.Turno = (Turno)nTurno;
                 Save(escalaTurno);
+                nTurno++;
+                if (nTurno == 5)
+                    nTurno = 1;
             }
         }
 

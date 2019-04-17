@@ -67,14 +67,6 @@ new Breadcrumb() { Name = Model.Bombeiro.Nome, Link = @Url.Action("Detail","Bomb
 
 
     <div class="col-lg-6">
-        <partial name="~/Views/BombeiroFuncao/_BombeiroFuncao.cshtml" model="Model.BombeiroFuncaoViewModel" />
-        <div id="myPartialViewContainer">
-
-        </div>
-    </div>
-
-
-    <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
                 <div class="form-group mb-0">
@@ -84,7 +76,13 @@ new Breadcrumb() { Name = Model.Bombeiro.Nome, Link = @Url.Action("Detail","Bomb
                 </div>
             </div>
         </div>
+
+        <partial name="~/Views/BombeiroFuncao/_BombeiroFuncao.cshtml" model="Model.BombeiroFuncaoViewModel" />
+        <div id="myPartialViewContainer">
+
+        </div>
     </div>
+
 </div>
 
 

@@ -63,6 +63,15 @@ namespace MapaDaForca.Data.Repository
             }
         }
 
+        public Escala GetByBombeiroIdAndDate(Guid bombeiroId, DateTime dtEscala)
+        {
+            using (var context = new MapaDaForcaDbContext(Options))
+            {
+                return context.Escalas.FirstOrDefault(x => x.DtEscala == dtEscala && x.BombeiroId == bombeiroId);
+            }
+        }
+
+
         public Escala GetById(Guid id)
         {
             using (var context = new MapaDaForcaDbContext(Options))
