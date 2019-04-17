@@ -1,4 +1,4 @@
-﻿@model BombeiroViewModel
+﻿@model BombeiroEscalaViewModel
 @using MapaDaForca.Model.Enums
 
 @{
@@ -12,15 +12,22 @@ new Breadcrumb() { Name = "Escala", Link = @Url.Action("Escala","Bombeiro", new 
 };
 }
 
+<style>
+    .fc-event-time, .fc-event-title {
+        padding: 0 1px;
+        white-space: nowrap;
+    }
+
+    .fc-title {
+        white-space: normal;
+    }
+</style>
 
 <div class="row">
     <div class="col-4">
         <div class="card">
             <div class="card-body">
                 <form id="form">
-                    <input id="BombeiroId" type="hidden" value="">
-                    <input id="PeriodoNoturnoId" type="hidden" value="">
-
                     <div class="form-group">
                         <label>Dia</label>
                         <div class="input-group">
@@ -31,22 +38,31 @@ new Breadcrumb() { Name = "Escala", Link = @Url.Action("Escala","Bombeiro", new 
 
                     <div class="form-group">
                         <label>Função</label>
-                        <select class="form-control" id="TurnoDiurno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>
+                        <div>
+                            <select class="form-control" asp-for="Escala.FuncaoId" asp-items="@(new SelectList(@Model.Funcoes,"Id","Nome"))"></select>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label>Quartel</label>
-                        <select class="form-control" id="TurnoDiurno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>
+                        <div>
+                            <select class="form-control" asp-for="Escala.QuartelId" asp-items="@(new SelectList(@Model.Quarteis,"Id","Nome"))"></select>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label>Tipo Escala</label>
-                        <select class="form-control" id="TurnoDiurno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>
+                        <div>
+                            <select class="form-control" asp-for="Escala.EscalaTipoId" asp-items="@(new SelectList(@Model.EscalaTipos,"Id","Descricao"))"></select>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label>Período Diurno</label>
-                        <select class="form-control" id="TurnoDiurno" asp-items="@Html.GetEnumSelectList<Turno>()"></select>
+                        <div>
+                            <input type="checkbox" asp-for="Escala.PeriodoDiurno" id="PeriodoDiurno" switch="success" @*checked="checked" *@>
+                            <label for="PeriodoDiurno" data-on-label="Sim" data-off-label="Não"></label>
+                        </div>
                     </div>
                 </form>
                 <div class="form-group mb-0">
@@ -164,22 +180,19 @@ $(document).ready(function () {
         $("#DtEscalaTurno").val(dtEscalaTurno);
         $.ajax({
             dataType: "json",
-            url: "@Url.Action("GetByData", "EscalaTurno")",
+            type: "POST",
+            url: "@Url.Action("GetEscalaByData", "Bombeiro")",
             data: {
+                bombeiroId : '@Model.Bombeiro.Id',
                 dtEscalaTurno: dtEscalaTurno
             },
             success: function (data) {
-                $.each(data.escalaTurnos, function (key, escalaTurno) {
-                    if (escalaTurno.periodoDiurno == true) {
-                        $("#PeriodoDiurnoId").val(escalaTurno.id);
-                        $("#TurnoDiurno").val(escalaTurno.turno);
-                    }
-                    else
-                    {
-                        $("#PeriodoNoturnoId").val(escalaTurno.id);
-                        $("#TurnoNoturno").val(escalaTurno.turno);
-                    }
-                });
+                if (data.escala != null) {
+                    $("#Escala_FuncaoId").val(data.escala.funcaoId);
+                    $("#Escala_QuartelId").val(data.escala.quartelId);
+                    $("#Escala_EscalaTipoId").val(data.escala.escalaTipoId);
+                    $("#PeriodoDiurno").prop("checked", data.escala.periodoDiurno);
+                }
             }
         });
     }
@@ -190,7 +203,7 @@ $(document).ready(function () {
              url: '@Url.Action("SaveYear", "Bombeiro")',
              type: "POST",
              data: {
-                 bombeiroId: '@Model.Bombeiro.Id', 
+                 bombeiroId: '@Model.Bombeiro.Id',
                  year: year
              }
          })

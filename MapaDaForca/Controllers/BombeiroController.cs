@@ -19,6 +19,7 @@ namespace MapaDaForca.Controllers
         private readonly IBombeiroFuncaoStore _bombeiroFuncaoStore;
         private readonly IFuncaoStore _funcaoStore;
         private readonly IEscalaStore _escalaStore;
+        private readonly IEscalaTipoStore _escalaTipoStore;
 
 
         public BombeiroController(
@@ -27,7 +28,8 @@ namespace MapaDaForca.Controllers
             IQuartelStore quartelStore,
             IBombeiroFuncaoStore bombeiroFuncaoStore,
             IFuncaoStore funcaoStore,
-            IEscalaStore escalaStore)
+            IEscalaStore escalaStore,
+            IEscalaTipoStore escalaTipoStore)
         {
             _bombeiroStore = bombeiroStore;
             _postoStore = postoStore;
@@ -35,6 +37,7 @@ namespace MapaDaForca.Controllers
             _bombeiroFuncaoStore = bombeiroFuncaoStore;
             _funcaoStore = funcaoStore;
             _escalaStore = escalaStore;
+            _escalaTipoStore = escalaTipoStore;
         }
 
 
@@ -97,19 +100,21 @@ namespace MapaDaForca.Controllers
             if (message)
                 ViewData["MessageCreate"] = "Bombeiro criado com sucesso!";
 
-            var bombeiro = new BombeiroViewModel();
-            bombeiro.Bombeiro = _bombeiroStore.GetById(id);
-            bombeiro.Bombeiro.Postos = _postoStore.GetAll();
-            bombeiro.Bombeiro.Quarteis = _quartelStore.GetAll();
-            bombeiro.BombeiroFuncoes = _bombeiroFuncaoStore.GetByBombeiroId(id).ToList();
+            var bombeiroEscalaViewModel = new BombeiroEscalaViewModel();
+            bombeiroEscalaViewModel.Funcoes = new List<Funcao>();
 
-            var bombeiroFuncao = new BombeiroFuncaoViewModel();
-            bombeiroFuncao.BombeiroId = id;
-            bombeiroFuncao.BombeiroFuncoes = _bombeiroFuncaoStore.GetByBombeiroId(id).ToList();
-            bombeiroFuncao.Funcoes = _funcaoStore.GetAll().ToList();
-            bombeiro.BombeiroFuncaoViewModel = bombeiroFuncao;
+            bombeiroEscalaViewModel.Bombeiro = _bombeiroStore.GetById(id);
+            bombeiroEscalaViewModel.Quarteis = _quartelStore.GetAll().ToList();
+            bombeiroEscalaViewModel.EscalaTipos = _escalaTipoStore.GetAll().ToList();
 
-            return View(bombeiro);
+            var bombeiroFuncoes = _bombeiroFuncaoStore.GetByBombeiroId(id).ToList();
+            foreach(var bombeiroFuncao in bombeiroFuncoes)
+            {
+                var funcao = _funcaoStore.GetById(bombeiroFuncao.FuncaoId);
+                bombeiroEscalaViewModel.Funcoes.Add(funcao);
+            }
+
+            return View(bombeiroEscalaViewModel);
         }
 
 
@@ -160,11 +165,20 @@ namespace MapaDaForca.Controllers
                 events.Add(new EventViewModel()
                 {
                     id = item.Id,
-                    title = (item.PeriodoDiurno ? "D - " : "N - ") + item.FuncaoId.ToString(),
+                    title = (item.PeriodoDiurno ? "Diurno - " : "Noturno - ") + item.Funcao.Nome.ToString() + " - " +  item.Quartel.Nome.ToString(),
                     start = item.DtEscala
                 });
             }
             return Json(events.ToArray());
+        }
+
+
+        [HttpPost]
+        [Route("getescalabydata")]
+        public JsonResult GetEscalaByData(Guid bombeiroId, DateTime dtEscalaTurno)
+        {
+            var escala = _escalaStore.GetByBombeiroIdAndDate(bombeiroId, dtEscalaTurno);
+            return Json(new { escala = escala });
         }
     }
 }

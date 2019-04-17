@@ -48,6 +48,15 @@ namespace MapaDaForca.Core.Store
             return _repository.GetById(id);
         }
 
+
+        public BombeiroFuncao GetPrincipalByBombeiroId(Guid bombeiroId)
+        {
+            var bombeiroFuncao = _repository.GetByBombeiroId(bombeiroId).Where(x=> x.FuncaoPrincipal== true).FirstOrDefault();
+            bombeiroFuncao.Funcao = _funcaoStore.GetById(bombeiroFuncao.FuncaoId);
+
+            return bombeiroFuncao;
+        }
+
         public BombeiroFuncao Save(BombeiroFuncao save)
         {
             BombeiroFuncao saved = null;

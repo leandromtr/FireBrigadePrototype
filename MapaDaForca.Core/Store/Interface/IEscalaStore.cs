@@ -19,6 +19,8 @@ namespace MapaDaForca.Core.Store
 
         IList<Escala> GetByBombeiroAndMonthYear(Guid bombeiroId, int month, int year);
 
+        Escala GetByBombeiroIdAndDate(Guid bombeiroId, DateTime dtEscala);
+
         Escala GetById(Guid id);
 
         Escala Save(Escala save);

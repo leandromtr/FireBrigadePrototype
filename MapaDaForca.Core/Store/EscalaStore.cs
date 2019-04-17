@@ -13,15 +13,24 @@ namespace MapaDaForca.Core.Store
         private readonly IEscalaRepository _repository;
         private readonly IBombeiroStore _bombeiroStore;
         private readonly IEscalaTurnoStore _escalaTurnoStore;
+        private readonly IBombeiroFuncaoStore _bombeiroFuncaoStore;
+        private readonly IQuartelStore _quartelStore;
+        private readonly IFuncaoStore _funcaoStore;
 
         public EscalaStore(
             IEscalaRepository repository,
             IBombeiroStore bombeiroStore,
-            IEscalaTurnoStore escalaTurnoStore)
+            IEscalaTurnoStore escalaTurnoStore,
+            IBombeiroFuncaoStore bombeiroFuncaoStore,
+            IQuartelStore quartelStore,
+            IFuncaoStore funcaoStore)
         {
             _repository = repository;
             _bombeiroStore = bombeiroStore;
             _escalaTurnoStore = escalaTurnoStore;
+            _bombeiroFuncaoStore = bombeiroFuncaoStore;
+            _quartelStore = quartelStore;
+            _funcaoStore = funcaoStore;
             //_companhiaRepository = companhiaRepository;
         }
 
@@ -52,7 +61,21 @@ namespace MapaDaForca.Core.Store
 
         public IList<Escala> GetByBombeiroAndMonthYear(Guid bombeiroId, int month, int year)
         {
-            return _repository.GetByBombeiroAndMonthYear(bombeiroId, month, year).ToList();
+            //var bombeiro = _repository.GetByBombeiroId(bombeiroId).ToList();
+            var funcoes = _funcaoStore.GetAll().ToList();
+            var quarteis = _quartelStore.GetAll().ToList();
+
+            var escalas = _repository.GetByBombeiroAndMonthYear(bombeiroId, month, year).ToList();
+
+            escalas.ForEach(e => e.Funcao = funcoes.FirstOrDefault(f => f.Id == e.FuncaoId));
+            escalas.ForEach(e => e.Quartel = quarteis.FirstOrDefault(q => q.Id == e.QuartelId));
+
+            return escalas;
+        }
+
+        public Escala GetByBombeiroIdAndDate(Guid bombeiroId, DateTime dtEscala)
+        {
+            return _repository.GetByBombeiroIdAndDate(bombeiroId, dtEscala);
         }
 
         public Escala GetById(Guid id)
@@ -82,12 +105,13 @@ namespace MapaDaForca.Core.Store
             DateTime lastDay = new DateTime(year, 12, 31);
 
             var bombeiro = _bombeiroStore.GetById(bombeiroId);
+            var bombeiroFuncao = _bombeiroFuncaoStore.GetPrincipalByBombeiroId(bombeiroId);
             var escalaTurnos = _escalaTurnoStore.GetByTurno(bombeiro.Turno).ToList();
             var escala = new Escala() {
                 BombeiroId = bombeiro.Id,
-                FuncaoId = new Guid("5b103770-d975-4242-a222-db07974f63b7"),
+                FuncaoId = bombeiroFuncao.FuncaoId,
                 QuartelId = bombeiro.QuartelId,
-                EscalaTipoId = new Guid(), // FUNCAO PRINCIPAL
+                EscalaTipoId = Guid.Empty, // FUNCAO PRINCIPAL
             };
 
             foreach (var escalaTurno in escalaTurnos)
