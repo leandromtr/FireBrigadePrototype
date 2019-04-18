@@ -28,10 +28,12 @@ new Breadcrumb() { Name = "Escala", Link = @Url.Action("Escala","Bombeiro", new 
         <div class="card">
             <div class="card-body">
                 <form id="form">
+                    <input type="hidden" id="EscalaId">
+
                     <div class="form-group">
                         <label>Dia</label>
                         <div class="input-group">
-                            <input id="DtEscalaTurno" type="date" class="form-control" placeholder="dd/mm/yyyy">
+                            <input id="DtEscala" type="date" class="form-control" placeholder="dd/mm/yyyy">
                             <div class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
                         </div>
                     </div>
@@ -68,6 +70,7 @@ new Breadcrumb() { Name = "Escala", Link = @Url.Action("Escala","Bombeiro", new 
                 <div class="form-group mb-0">
                     <div>
                         <button id="SaveBombeiroEscala" class="btn btn-primary waves-effect waves-light">Salvar</button>
+                        <button id="DeleteBombeiroEscala" class="btn btn-primary waves-effect waves-light">Excluir</button>
                         <button id="SaveBombeiroEscalaAno" class="btn btn-primary waves-effect waves-light">Salvar Ano</button>
                     </div>
                 </div>
@@ -154,44 +157,70 @@ $(document).ready(function () {
     });
 
 
-    $("#SaveEscalaTurno").click(function () {
+    $("#SaveBombeiroEscala").click(function () {
         $.ajax({
-            url: '@Url.Action("SaveByDate", "EscalaTurno")',
+            url: '@Url.Action("SaveBombeiroEscala", "Bombeiro")',
+            dataType: "json",
             type: "POST",
             data: {
-                dtEscalaTurno: $("#DtEscalaTurno").val(),
-                periodoDiurnoId: $("#PeriodoDiurnoId").val(),
-                periodoNoturnoId: $("#PeriodoNoturnoId").val(),
-                turnoDiurno: $("#TurnoDiurno").val(),
-                turnoNoturno: $("#TurnoNoturno").val()
+                escalaId: $("#EscalaId").val(),
+                bombeiroId: '@Model.Bombeiro.Id',
+                dtEscala: $("#DtEscala").val(),
+                funcaoId: $("#Escala_FuncaoId").val(),
+                quartelId: $("#Escala_QuartelId").val(),
+                escalaTipoId: $("#Escala_EscalaTipoId").val(),
+                periodoDiurno: $('#PeriodoDiurno').is(":checked")
             }
         })
         .done(function (data) {
             $.notify(data.message, "success");
-            $("#calendar").fullCalendar('removeEvents', $("#PeriodoDiurnoId").val());
-            $('#calendar').fullCalendar('renderEvent', { id: $("#PeriodoDiurnoId").val(), title: 'D - Turno ' + $("#TurnoDiurno").val(), start: $("#DtEscalaTurno").val()}, true );
-            $("#calendar").fullCalendar('removeEvents', $("#PeriodoNoturnoId").val());
-            $('#calendar').fullCalendar('renderEvent', { id: $("#PeriodoNoturnoId").val(), title: 'N - Turno ' + $("#TurnoNoturno").val(), start: $("#DtEscalaTurno").val() }, true);
-
+            $("#calendar").fullCalendar('removeEvents', $("#EscalaId").val());
+            $('#calendar').fullCalendar('renderEvent', { id: data.id, title: data.title, start: $("#DtEscala").val()}, true );
         })
     });
 
-    function SetForm(dtEscalaTurno) {
-        $("#DtEscalaTurno").val(dtEscalaTurno);
+
+    $("#DeleteBombeiroEscala").click(function () {
+        if ($("#EscalaId").val() != "@(Guid.Empty)")
+        {
+            $.ajax(
+            {
+                type: "Delete",
+                url: "/bombeiro/deleteescala/" + $("#EscalaId").val(),
+                success: function (data) {
+                    if (data.success == true) {
+                        $.notify(data.message, "success");
+                        $("#calendar").fullCalendar('removeEvents', $("#EscalaId").val());
+                    }
+                    else {
+                        $.notify(data.message, "error");
+                    }
+                }
+            });
+        }
+    });
+
+    function SetForm(dtEscala) {
+        $("#DtEscala").val(dtEscala);
+        $("#EscalaId").val("@(Guid.Empty)");
         $.ajax({
             dataType: "json",
             type: "POST",
             url: "@Url.Action("GetEscalaByData", "Bombeiro")",
             data: {
                 bombeiroId : '@Model.Bombeiro.Id',
-                dtEscalaTurno: dtEscalaTurno
+                dtEscala: dtEscala
             },
             success: function (data) {
                 if (data.escala != null) {
+                    $("#EscalaId").val(data.escala.id);
                     $("#Escala_FuncaoId").val(data.escala.funcaoId);
                     $("#Escala_QuartelId").val(data.escala.quartelId);
                     $("#Escala_EscalaTipoId").val(data.escala.escalaTipoId);
                     $("#PeriodoDiurno").prop("checked", data.escala.periodoDiurno);
+                }
+                else {
+                    $("#EscalaId").val();
                 }
             }
         });
