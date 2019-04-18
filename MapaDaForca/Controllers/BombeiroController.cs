@@ -175,10 +175,41 @@ namespace MapaDaForca.Controllers
 
         [HttpPost]
         [Route("getescalabydata")]
-        public JsonResult GetEscalaByData(Guid bombeiroId, DateTime dtEscalaTurno)
+        public JsonResult GetEscalaByData(Guid bombeiroId, DateTime dtEscala)
         {
-            var escala = _escalaStore.GetByBombeiroIdAndDate(bombeiroId, dtEscalaTurno);
+            var escala = _escalaStore.GetByBombeiroIdAndDate(bombeiroId, dtEscala);
             return Json(new { escala = escala });
+        }
+
+
+        [HttpPost]
+        [Route("SaveBombeiroEscala")]
+        public JsonResult SaveBombeiroEscala(DateTime dtEscala, Guid escalaId, Guid bombeiroId, Guid funcaoId, Guid quartelId, Guid escalaTipoId, bool periodoDiurno)
+        {
+            var escala = _escalaStore.GetByBombeiroIdAndDate(bombeiroId, dtEscala);
+            if (escala == null)
+                escala = new Escala();
+
+            escala.BombeiroId = bombeiroId;
+            escala.DtEscala = dtEscala;
+            escala.FuncaoId = funcaoId;
+            escala.QuartelId = quartelId;
+            escala.EscalaTipoId = escalaTipoId;
+            escala.PeriodoDiurno = periodoDiurno;
+
+            var newBombeiroEscala =  _escalaStore.Save(escala);
+            string title = (newBombeiroEscala.PeriodoDiurno ? "Diurno - " : "Noturno - ") + _funcaoStore.GetById(funcaoId).Nome + " - " + _quartelStore.GetById(quartelId).Nome;
+
+            return Json(new { success = true, message = "Data salva com sucesso!", id= newBombeiroEscala.Id , title = title });
+        }
+
+
+        [HttpDelete]
+        [Route("deleteescala/{id}")]
+        public JsonResult DeleteEscala(Guid id)
+        {
+            _escalaStore.Delete(id);
+            return Json(new { success = true, message = "Data da Escala excluída!" });
         }
     }
 }
