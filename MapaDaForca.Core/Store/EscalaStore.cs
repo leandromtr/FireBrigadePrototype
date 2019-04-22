@@ -59,13 +59,13 @@ namespace MapaDaForca.Core.Store
             return _repository.GetByQuartelId(quartelId).ToList();
         }
 
-        public IList<Escala> GetByBombeiroAndMonthYear(Guid bombeiroId, int month, int year)
+        public IList<Escala> GetByBombeiroIdAndMonthYear(Guid bombeiroId, int month, int year)
         {
             //var bombeiro = _repository.GetByBombeiroId(bombeiroId).ToList();
             var funcoes = _funcaoStore.GetAll().ToList();
             var quarteis = _quartelStore.GetAll().ToList();
 
-            var escalas = _repository.GetByBombeiroAndMonthYear(bombeiroId, month, year).ToList();
+            var escalas = _repository.GetByBombeiroIdAndMonthYear(bombeiroId, month, year).ToList();
 
             escalas.ForEach(e => e.Funcao = funcoes.FirstOrDefault(f => f.Id == e.FuncaoId));
             escalas.ForEach(e => e.Quartel = quarteis.FirstOrDefault(q => q.Id == e.QuartelId));
@@ -73,9 +73,14 @@ namespace MapaDaForca.Core.Store
             return escalas;
         }
 
-        public Escala GetByBombeiroIdAndDate(Guid bombeiroId, DateTime dtEscala)
+        public IList<Escala> GetByQuartelIdAndDtEscala(Guid quartelId, DateTime dtEscala)
         {
-            return _repository.GetByBombeiroIdAndDate(bombeiroId, dtEscala);
+            return _repository.GetByQuartelIdAndDtEscala(quartelId, dtEscala);
+        }
+
+        public Escala GetByBombeiroIdAndDtEscala(Guid bombeiroId, DateTime dtEscala)
+        {
+            return _repository.GetByBombeiroIdAndDtEscala(bombeiroId, dtEscala);
         }
 
         public Escala GetById(Guid id)

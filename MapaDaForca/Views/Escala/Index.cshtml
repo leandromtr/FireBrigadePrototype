@@ -1,4 +1,99 @@
-﻿
+﻿@model Escala
+
 @{
-    ViewData["Title"] = "Escala";
+    ViewBag.Title = "Quartel";
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+{
+new Breadcrumb() { Name = "Dashboard", Link = "/" },
+new Breadcrumb() { Name = "Escala", Link = @Url.Action("Index","Escala"), IsActive = true}
+};
 }
+
+<div class="row">
+
+    <input id="dtEscala" type="hidden" value="">
+
+    <div class="col-lg-5">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Quartel</label>
+                    <div>
+                        <select class="form-control" id="quartelId" asp-items="@(new SelectList(@Model.Quarteis,"Id","Nome"))">
+                            @*<option value="">None</option>*@
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="calendar"></div>
+                <div style="clear:both"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-7">
+        <div class="card m-b-30">
+            <div class="card-body">
+                <div id="bombeirosByDataAndQuartelContainer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function () 
+{
+    var currentDate = $.datepicker.formatDate('yy-mm-dd', new Date());    
+    SetForm(currentDate);
+
+    var $calendar = $('#calendar');
+
+    $calendar.fullCalendar({
+        ignoreTimezone: false,
+        monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+        dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sabado'],
+        dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+        titleFormat: {
+                month: 'MMMM yyyy',
+        },
+        buttonText: {
+                today: "Hoje",
+        },
+        dayClick: function (date, jsEvent, view) {
+            SetForm(date.format())
+        },
+        eventClick: function (calEvent, jsEvent, view) {
+            SetForm(calEvent.start.format())
+        },
+        header: {
+                left: "title", right: "prev,next today"
+        },
+        titleFormat: {
+                month: "MMMM YYYY", week: "MMMM YYYY", day: "MMMM YYYY"
+        },
+    	firstDay: 1, //The day that each week begins (Monday=1)
+    });
+});
+
+
+    function SetForm(dtEscala) {
+        $("#dtEscala").val(dtEscala);        
+
+        $(".viaturatipofuncaoSection").remove();
+        $("#bombeirosByDataAndQuartelContainer").load('/escala/getBombeirosByDataAndQuartel',
+            {
+                quartelId: $("#quartelId").val(),
+                dtEscala: dtEscala
+            });        
+    }
+
+
+    $("#quartelId").change(function () {        
+        SetForm($("#dtEscala").val());
+    });
+
+</script>
