@@ -9,6 +9,7 @@ namespace MapaDaForca.Model
     public class Bombeiro
     {
         public Guid Id { get; set; }
+        public int NumeroMecanografico { get; set; }
         public string Nome { get; set; }
         public DateTime DtInicio { get; set; }
         public Guid PostoId { get; set; }

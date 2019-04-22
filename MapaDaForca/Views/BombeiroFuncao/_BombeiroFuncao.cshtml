@@ -24,7 +24,7 @@
                 }
                 <tr>
                     <td style="width: 60%;">
-                        <select id="ddlFuncoes" class="form-control" asp-items="@(new SelectList(Model.Funcoes,"Id","Nome"))"></select>
+                        <select id="ddlFuncoes" class="form-control" asp-items="@(new SelectList(Model.Funcoes.OrderBy(x=> x.Nome),"Id","Nome"))"></select>
                     <td style="width: 40%;">
                         <div>
                             <input type="checkbox" id="chkFuncaoPrincipal" switch="success">
