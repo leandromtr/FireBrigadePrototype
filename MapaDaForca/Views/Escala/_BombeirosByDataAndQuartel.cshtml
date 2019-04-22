@@ -4,27 +4,27 @@
 
 <div class="card m-b-20 bombeiroEscalaSection">
     <div class="card-body">
-        <h4 class="mt-0 header-title">Escala de <span id="dtEscalaList"></span> do quartel <span id="quartelList"></span></h4>
+        <h5 class="mt-0 header-title">Escala de <span id="dtEscalaList"></span> do quartel <span id="quartelList"></span></h5>
         <br />
         <table class="table table-striped mb-0">
             <tbody>
 
-                <h5>Período Diúrno</h5>
+                <label>Período Diúrno</label>
             <thead>
                 <tr>
-                    <th style="width: 25%;">Nº Mecanogr.</th>
+                    <th style="width: 20%;">Nº Mecanogr.</th>
                     <th style="width: 25%;">Bombeiro</th>
                     <th style="width: 25%;">Função</th>
-                    <th style="width: 25%;">Posto</th>
+                    <th style="width: 30%;">Posto</th>
                 </tr>
             </thead>
             @{ foreach (var escala in Model.Where(x => x.PeriodoDiurno == true).OrderBy(x => x.Bombeiro.Nome))
                 {
                     <tr class="escalaLine" data-escalaLineiD="@escala.Id">
-                        <td style="width: 25%;">@escala.Id</td>
+                        <td style="width: 20%;">@escala.Bombeiro.NumeroMecanografico</td>
                         <td style="width: 25%;">@escala.Bombeiro.Nome</td>
                         <td style="width: 25%;">@escala.Funcao.Nome</td>
-                        <td style="width: 25%;">@escala.Bombeiro.Posto.Nome</td>
+                        <td style="width: 30%;">@escala.Bombeiro.Posto.Nome</td>
                     </tr>
                 }
             }
@@ -33,22 +33,22 @@
         <hr/>
         <br/>
         <table class="table table-striped mb-0">
-            <h5>Período Noturno</h5>
+            <label>Período Noturno</label>
             <thead>
                 <tr>
-                    <th style="width: 25%;">Nº Mecanogr.</th>
+                    <th style="width: 20%;">Nº Mecanogr.</th>
                     <th style="width: 25%;">Bombeiro</th>
                     <th style="width: 25%;">Função</th>
-                    <th style="width: 25%;">Posto</th>
+                    <th style="width: 20%;">Posto</th>
                 </tr>
             </thead>
             @{ foreach (var escala in Model.Where(x => x.PeriodoDiurno == false).OrderBy(x => x.Bombeiro.Nome))
                 {
                     <tr class="escalaLine" data-escalaLineiD="@escala.Id">
-                        <td style="width: 25%;">@escala.Id</td>
+                        <td style="width: 20%;">@escala.Bombeiro.NumeroMecanografico</td>
                         <td style="width: 25%;">@escala.Bombeiro.Nome</td>
                         <td style="width: 25%;">@escala.Funcao.Nome</td>
-                        <td style="width: 25%;">@escala.Bombeiro.Posto.Nome</td>
+                        <td style="width: 30%;">@escala.Bombeiro.Posto.Nome</td>
                     </tr>
                 }
             }
