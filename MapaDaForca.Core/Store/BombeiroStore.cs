@@ -13,15 +13,18 @@ namespace MapaDaForca.Core.Store
         private readonly IBombeiroRepository _repository;
         private readonly IPostoRepository _postoStore;
         private readonly IQuartelRepository _quartelStore;
+        private readonly IEscalaRepository _escalaStore;
 
         public BombeiroStore(
             IBombeiroRepository repository,
             IPostoRepository postoStore,
-            IQuartelRepository quartelStore)
+            IQuartelRepository quartelStore,
+            IEscalaRepository escalaStore)
         {
             _repository = repository;
             _postoStore = postoStore;
             _quartelStore = quartelStore;
+            _escalaStore = escalaStore;
         }
 
         public IList<Bombeiro> GetAll()
@@ -36,6 +39,24 @@ namespace MapaDaForca.Core.Store
 
             return bombeiros;
         }
+
+
+        //public IList<Bombeiro> BombeirosByDataAndQuartel(Guid quartelId, DateTime dtEscala)
+        //{
+        //    var escalas = _escalaStore.GetByQuartelIdAndDtEscala(quartelId, dtEscala).ToList();
+        //    var bombeirosList = _repository.GetAll().OrderBy(x => x.Nome).ToList();
+        //    var bombeiros = new List<Bombeiro>();
+
+        //    escalas.ForEach(e => e.Bombeiro = bombeirosList.FirstOrDefault(b => b.Id == e.BombeiroId));
+
+        //    foreach (var escala in escalas)
+        //    {
+        //        bombeiros.Add(escala.Bombeiro);
+        //    }
+
+        //    return bombeiros;
+        //}
+
 
         public IList<Bombeiro> GetByPostoId(Guid postoId)
         {

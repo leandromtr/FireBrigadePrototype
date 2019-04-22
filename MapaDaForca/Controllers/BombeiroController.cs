@@ -158,7 +158,7 @@ namespace MapaDaForca.Controllers
         public JsonResult GetEvents(Guid bombeiroId, DateTime calendarDate)
         {
             var events = new List<EventViewModel>();
-            var escalas = _escalaStore.GetByBombeiroAndMonthYear(bombeiroId, calendarDate.Month, calendarDate.Year);
+            var escalas = _escalaStore.GetByBombeiroIdAndMonthYear(bombeiroId, calendarDate.Month, calendarDate.Year);
 
             foreach (var item in escalas)
             {
@@ -177,7 +177,7 @@ namespace MapaDaForca.Controllers
         [Route("getescalabydata")]
         public JsonResult GetEscalaByData(Guid bombeiroId, DateTime dtEscala)
         {
-            var escala = _escalaStore.GetByBombeiroIdAndDate(bombeiroId, dtEscala);
+            var escala = _escalaStore.GetByBombeiroIdAndDtEscala(bombeiroId, dtEscala);
             return Json(new { escala = escala });
         }
 
@@ -186,7 +186,7 @@ namespace MapaDaForca.Controllers
         [Route("SaveBombeiroEscala")]
         public JsonResult SaveBombeiroEscala(DateTime dtEscala, Guid escalaId, Guid bombeiroId, Guid funcaoId, Guid quartelId, Guid escalaTipoId, bool periodoDiurno)
         {
-            var escala = _escalaStore.GetByBombeiroIdAndDate(bombeiroId, dtEscala);
+            var escala = _escalaStore.GetByBombeiroIdAndDtEscala(bombeiroId, dtEscala);
             if (escala == null)
                 escala = new Escala();
 

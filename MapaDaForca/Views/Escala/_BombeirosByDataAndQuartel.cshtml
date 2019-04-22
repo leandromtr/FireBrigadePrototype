@@ -1,0 +1,65 @@
+﻿@using MapaDaForca.Helper;
+@model IEnumerable<Escala>
+
+
+<div class="card m-b-20 bombeiroEscalaSection">
+    <div class="card-body">
+        <h4 class="mt-0 header-title">Escala de <span id="dtEscalaList"></span> do quartel <span id="quartelList"></span></h4>
+        <br />
+        <table class="table table-striped mb-0">
+            <tbody>
+
+                <h5>Período Diúrno</h5>
+            <thead>
+                <tr>
+                    <th style="width: 25%;">Nº Mecanogr.</th>
+                    <th style="width: 25%;">Bombeiro</th>
+                    <th style="width: 25%;">Função</th>
+                    <th style="width: 25%;">Posto</th>
+                </tr>
+            </thead>
+            @{ foreach (var escala in Model.Where(x => x.PeriodoDiurno == true).OrderBy(x => x.Bombeiro.Nome))
+                {
+                    <tr class="escalaLine" data-escalaLineiD="@escala.Id">
+                        <td style="width: 25%;">@escala.Id</td>
+                        <td style="width: 25%;">@escala.Bombeiro.Nome</td>
+                        <td style="width: 25%;">@escala.Funcao.Nome</td>
+                        <td style="width: 25%;">@escala.Bombeiro.Posto.Nome</td>
+                    </tr>
+                }
+            }
+        </table>
+        <br/>
+        <hr/>
+        <br/>
+        <table class="table table-striped mb-0">
+            <h5>Período Noturno</h5>
+            <thead>
+                <tr>
+                    <th style="width: 25%;">Nº Mecanogr.</th>
+                    <th style="width: 25%;">Bombeiro</th>
+                    <th style="width: 25%;">Função</th>
+                    <th style="width: 25%;">Posto</th>
+                </tr>
+            </thead>
+            @{ foreach (var escala in Model.Where(x => x.PeriodoDiurno == false).OrderBy(x => x.Bombeiro.Nome))
+                {
+                    <tr class="escalaLine" data-escalaLineiD="@escala.Id">
+                        <td style="width: 25%;">@escala.Id</td>
+                        <td style="width: 25%;">@escala.Bombeiro.Nome</td>
+                        <td style="width: 25%;">@escala.Funcao.Nome</td>
+                        <td style="width: 25%;">@escala.Bombeiro.Posto.Nome</td>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#dtEscalaList").text($("#dtEscala").val());
+        $("#quartelList").text($("#quartelId option:selected").text());
+    });
+</script>
