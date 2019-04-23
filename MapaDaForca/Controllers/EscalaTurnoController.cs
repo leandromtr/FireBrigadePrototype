@@ -70,7 +70,7 @@ namespace MapaDaForca.Controllers
                 events.Add(new EventViewModel()
                 {
                     id = item.Id,
-                    title = (item.PeriodoDiurno ? "D - ": "N - ") + item.Turno.ToString(),
+                    title = (item.PeriodoDiurno ? "D - ": "N - ") + item.Turno,
                     start = item.DtEscalaTurno
                 });
             }

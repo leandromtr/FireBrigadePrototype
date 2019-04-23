@@ -24,7 +24,7 @@
                 }
                 <tr>
                     <td style="width: 60%;">
-                        <select id="ddlViaturas" class="form-control" asp-items="@(new SelectList(Model.Funcoes,"Id","Nome"))"></select>
+                        <select id="ddlViaturas" class="form-control" asp-items="@(new SelectList(Model.Funcoes.OrderBy(x=> x.Nome),"Id","Nome"))"></select>
                     <td style="width: 40%;">
                         <div>
                             <input type="number" value="1" class="form-control" required="" data-val="true" data-val-required="The Ano field is required." id="Quantidade" name="Quantidade">
