@@ -1,12 +1,12 @@
 ﻿@model Escala
 
 @{
-    ViewBag.Title = "Quartel";
+    ViewBag.Title = "Escala";
     ViewBag.Breadcrumbs = new List<Breadcrumb>()
-{
-new Breadcrumb() { Name = "Dashboard", Link = "/" },
-new Breadcrumb() { Name = "Escala", Link = @Url.Action("Index","Escala"), IsActive = true}
-};
+    {
+    new Breadcrumb() { Name = "Dashboard", Link = "/" },
+    new Breadcrumb() { Name = "Escala", Link = @Url.Action("Index","Escala"), IsActive = true}
+    };
 }
 
 <div class="row">
@@ -69,14 +69,42 @@ $(document).ready(function ()
         eventClick: function (calEvent, jsEvent, view) {
             SetForm(calEvent.start.format())
         },
+        viewRender: function (view, element) {
+                var currentDay=$('#calendar').fullCalendar('getDate');
+                $("#calendar").fullCalendar('removeEvents');
+                $.ajax( {
+                    type: "POST",
+                    url: '@Url.RouteUrl(new{ action= "GetEvents", controller="EscalaTurno"})',
+                    data: {
+                        calendarDate: currentDay.format()
+                    }
+                    , success: function (data) {
+                        renderEvents(data);
+                    }
+                    , error: function (error) {
+                        alert('failed');
+                    }
+                });
+            },
         header: {
                 left: "title", right: "prev,next today"
         },
         titleFormat: {
                 month: "MMMM YYYY", week: "MMMM YYYY", day: "MMMM YYYY"
         },
-    	firstDay: 1, //The day that each week begins (Monday=1)
+        firstDay: 1, //The day that each week begins (Monday=1)
     });
+    function renderEvents(data) {
+        $.each(data, function (i, event) {
+            $calendar.fullCalendar('renderEvent',
+                {
+                    id: event.id,
+                    title: event.title,
+                    start: moment(event.start),
+                    allDay: true
+                }, true);
+        });
+    }
 });
 
 

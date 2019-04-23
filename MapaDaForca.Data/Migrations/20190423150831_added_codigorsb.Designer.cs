@@ -4,14 +4,16 @@ using MapaDaForca.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MapaDaForca.Data.Migrations
 {
     [DbContext(typeof(MapaDaForcaDbContext))]
-    partial class MapaDaForcaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190423150831_added_codigorsb")]
+    partial class added_codigorsb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -230,7 +232,11 @@ namespace MapaDaForca.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("Ano");
+
                     b.Property<string>("CodigoRSB");
+
+                    b.Property<DateTime>("DataInicioUso");
 
                     b.Property<string>("Matricula");
 

@@ -29,32 +29,12 @@ new Breadcrumb() { Name = "Cadastrar", Link = @Url.Action("Create","Viatura"), I
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Ano</label>
+                        <label>Codigo RSB</label>
                         <div class="form-group">
-                            <input asp-for="Ano" type="number" value="2000" class="form-control" required>
+                            <input asp-for="CodigoRSB" class="form-control" required>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label>Dt. Início de Uso</label>
-                        <div>
-                            <div class="input-group">
-                                <input asp-for="DataInicioUso" type="date"  class="form-control"  placeholder="dd/mm/yyyy" >
-                                <div class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
-                            </div>
-                        </div>
-                    </div> 
                     
-                    @*<div class="form-group">
-                        <label>Dt. Início de Uso</label>
-                        <div>
-                            <div class="input-group">
-                                <input asp-for="DataInicioUso" value="@(DateTime.Now)" type="text" class="form-control" placeholder="dd/mm/yyyy" id="datepicker-autoclose">
-                                <div class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
-                            </div>
-                        </div>
-                    </div>*@
-
                     <div class="form-group">
                         <label>Operacional?</label>
                         <div>

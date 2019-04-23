@@ -9,7 +9,6 @@ namespace MapaDaForca.Model
         public Guid Id { get; set; }
         public Guid BombeiroId { get; set; }
         public Guid FuncaoId { get; set; }
-        public string Nome { get; set; }
         public bool FuncaoPrincipal { get; set; }
 
         [NotMapped]

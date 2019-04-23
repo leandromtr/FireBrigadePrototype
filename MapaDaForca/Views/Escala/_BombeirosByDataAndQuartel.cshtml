@@ -22,7 +22,7 @@
                 {
                     <tr class="escalaLine" data-escalaLineiD="@escala.Id">
                         <td style="width: 20%;">@escala.Bombeiro.NumeroMecanografico</td>
-                        <td style="width: 25%;">@escala.Bombeiro.Nome</td>
+                        <td style="width: 25%;"><a href=@Url.Action("Detail", "Bombeiro", new { @id = escala.BombeiroId })>@escala.Bombeiro.Nome</a></td>
                         <td style="width: 25%;">@escala.Funcao.Nome</td>
                         <td style="width: 30%;">@escala.Bombeiro.Posto.Nome</td>
                     </tr>
@@ -30,7 +30,6 @@
             }
         </table>
         <br/>
-        <hr/>
         <br/>
         <table class="table table-striped mb-0">
             <label>Período Noturno</label>
@@ -46,7 +45,7 @@
                 {
                     <tr class="escalaLine" data-escalaLineiD="@escala.Id">
                         <td style="width: 20%;">@escala.Bombeiro.NumeroMecanografico</td>
-                        <td style="width: 25%;">@escala.Bombeiro.Nome</td>
+                        <td style="width: 25%;"><a href=@Url.Action("Detail", "Bombeiro", new { @id = escala.BombeiroId })>@escala.Bombeiro.Nome</a></td>
                         <td style="width: 25%;">@escala.Funcao.Nome</td>
                         <td style="width: 30%;">@escala.Bombeiro.Posto.Nome</td>
                     </tr>
