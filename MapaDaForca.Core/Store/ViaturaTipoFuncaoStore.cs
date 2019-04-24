@@ -12,14 +12,23 @@ namespace MapaDaForca.Core.Store
     {
         private readonly IViaturaTipoFuncaoRepository _repository;
         private readonly IFuncaoStore _funcaoStore;
+        //private readonly IViaturaTipoFuncaoStore _viaturaTipoFuncaoStore;
+        private readonly IViaturaStore _viaturaStore;
+        private readonly IQuartelViaturaStore _quartelViaturaStore;
 
         public ViaturaTipoFuncaoStore(
             IViaturaTipoFuncaoRepository repository,
-            IFuncaoStore funcaoStore
+            IFuncaoStore funcaoStore,
+            //IViaturaTipoFuncaoStore viaturaTipoFuncaoStore
+            IViaturaStore viaturaStore,
+            IQuartelViaturaStore quartelViaturaStore
             )
         {
             _repository = repository;
             _funcaoStore = funcaoStore;
+            //_viaturaTipoFuncaoStore = viaturaTipoFuncaoStore;
+            _viaturaStore = viaturaStore;
+            _quartelViaturaStore = quartelViaturaStore;
         }
 
         public IList<ViaturaTipoFuncao> GetAll()
@@ -66,6 +75,60 @@ namespace MapaDaForca.Core.Store
         public bool Delete(Guid id)
         {
             return _repository.Delete(id);
+        }
+
+
+
+        public IList<ViaturaTipoFuncao> GetByQuartelId(Guid quartelId)
+        {
+            //var quartel = GetById(id);
+            var quartelViaturas = _quartelViaturaStore.GetByQuartelId(quartelId);
+            var viaturas = new List<Viatura>();
+            var viaturatipoFuncoesGrouped = new List<ViaturaTipoFuncao>();
+
+            foreach (var quartelViatura in quartelViaturas)
+            {
+                viaturas.Add(_viaturaStore.GetById(quartelViatura.ViaturaId));
+            }
+
+            foreach (var viatura in viaturas.Where(x => x.Operacional == true))
+            {
+                var viaturatipoFuncoes = GetByViaturaTipoId(viatura.ViaturaTipoId);
+
+                foreach(var item in viaturatipoFuncoes)
+                {
+                    viaturatipoFuncoesGrouped.Add(item);
+                }
+            }
+
+            ////List<ViaturaTipoFuncao> data = viaturatipoFuncoes.GroupBy(x => x.ViaturaTipoId)
+            ////    .Select(x => new { quantidade x.Sum(y => y.Quantidade) }).ToList
+
+
+            ////var data = viaturatipoFuncoes.GroupBy(x => x.ViaturaTipoId).Select(y => new { Id = y.Key, Quantidade = y.Sum(e => e.Quantidade)});
+
+            //foreach (var viaturaTipoFuncao in viaturatipoFuncoes.GroupBy(x => x.Id).Select(y => new { Id = y.Key., Quantidade = y.Sum(e => e.Quantidade) }))
+            //{
+            //    var vTF = new ViaturaTipoFuncao()
+            //    {
+            //        Id = viaturaTipoFuncao.Id,
+            //        Quantidade = viaturaTipoFuncao.Quantidade,
+            //    };
+            //    viaturatipoFuncoesGrouped.Add(vTF);
+            //}
+
+            //var viaturatipoFuncoes = _viaturaTipoFuncaoStore.GetAll();
+
+
+            //DateTime firstDay = new DateTime(year, month, 1);
+            //DateTime lastDay = new DateTime(year, month + 1, 1);           
+
+            //for (DateTime dt = firstDay; dt <= lastDay; dt = dt.AddDays(1))
+            //{
+
+            //}
+           
+            return viaturatipoFuncoesGrouped;
         }
     }
 }
