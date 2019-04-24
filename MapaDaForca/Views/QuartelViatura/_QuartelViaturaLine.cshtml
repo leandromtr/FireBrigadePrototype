@@ -3,7 +3,7 @@
 
 <tr class="quartelViaturaLine" data-quartelViaturaId="@Model.Id">
     <td style="width: 60%;">@Model.Viatura.Matricula</td>
-    <td style="width: 30%;">@Model.Viatura.ViaturaTipo.Sigla</td>
+    <td style="width: 30%;"><a href=@Url.Action("Detail", "ViaturaTipo", new { @id = Model.Viatura.ViaturaTipo.Id })>@Model.Viatura.ViaturaTipo.Sigla</a></a></td>
     <td style="width: 10%;">
         <button type="button" class="btn btn-primary btn-sm waves-effect waves-light quartelViaturaDelete">Excluir</button>
     </td>

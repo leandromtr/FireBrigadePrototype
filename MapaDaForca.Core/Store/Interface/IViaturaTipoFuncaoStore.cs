@@ -18,5 +18,7 @@ namespace MapaDaForca.Core.Store
         ViaturaTipoFuncao Save(ViaturaTipoFuncao save);
 
         bool Delete(Guid id);
+
+        IList<ViaturaTipoFuncao> GetByQuartelId(Guid quartelId);
     }
 }
