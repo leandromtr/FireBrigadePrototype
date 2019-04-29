@@ -6,8 +6,10 @@ namespace MapaDaForca.ViewModel
     {
         public Guid id { get; set; }
 
-        public String title { get; set; }
+        public string title { get; set; }
 
         public DateTime start { get; set; }
+
+        public string className { get; set; }
     }
 }

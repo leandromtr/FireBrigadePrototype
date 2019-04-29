@@ -9,38 +9,75 @@ new Breadcrumb() { Name = "Dispositivo Mínimo", Link = @Url.Action("Index","Dis
 };
 }
 
+<style>
+    .event-negative {
+        border-color: #212529;
+        background-color: #a90707;
+        line-height: 1.0;
+    }
+
+    .event-ok {
+        border-color: #212529;
+        line-height: 1.0;
+    }
+
+    .event-positive {
+        border-color: #212529;
+        background-color: #497d38;
+        line-height: 1.0;
+    }
+</style>
+
+
 <div class="row">
-
     <input id="dtEscala" type="hidden" value="">
-
-    <div class="col-lg-5">
+    <div class="col-5">
         <div class="card">
             <div class="card-body">
                 <div class="form-group">
-                    <label>Quartel</label>
-                    <div>
-                        <select class="form-control" id="quartelId" asp-items="@(new SelectList(@Model.Quarteis,"Id","Nome"))">
-                            @*<option value="">None</option>*@
-                        </select>
+                    <div class="row">
+                        <div class="col-8">
+                            <label>Quartel</label>
+                            <div>
+                                <select class="form-control" id="quartelId" asp-items="@(new SelectList(@Model.Quarteis,"Id","Nome"))">
+                                    @*<option value="">None</option>*@
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <label>Quartel</label>
+                            <div>
+                                <input type="checkbox" id="PeriodoDiurno" switch="success" checked="checked" data-val="true" name="PeriodoDiurno" value="true">
+                                <label for="PeriodoDiurno" data-on-label="Sim" data-off-label="Não"></label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group">
+                    <div id="bombeirosByDataAndQuartelContainer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-7">
+        <div class="card">
             <div class="card-body">
                 <div id="calendar"></div>
                 <div style="clear:both"></div>
             </div>
         </div>
     </div>
-    <div class="col-7">
-        <div class="card m-b-30">
-            <div class="card-body">
-                <div id="bombeirosByDataAndQuartelContainer">
-
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
+
 
 <script type="text/javascript">
 
@@ -72,11 +109,14 @@ $(document).ready(function ()
         viewRender: function (view, element) {
                 var currentDay=$('#calendar').fullCalendar('getDate');
                 $("#calendar").fullCalendar('removeEvents');
-                $.ajax( {
+                $.ajax({
                     type: "POST",
-                    url: '@Url.RouteUrl(new{ action= "GetEvents", controller="EscalaTurno"})',
+                    url: '@Url.RouteUrl(new{ action= "GetDispositivoMinimoByQuartel", controller="DispositivoMinimo"})',
                     data: {
-                        calendarDate: currentDay.format()
+                        calendarDate: currentDay.format(),
+                        turno: 1,
+                        quartelId: $("#quartelId").val(),
+                        periodoDiurno: $('#PeriodoDiurno').prop('checked')
                     }
                     , success: function (data) {
                         renderEvents(data);
@@ -94,6 +134,7 @@ $(document).ready(function ()
         },
         firstDay: 1, //The day that each week begins (Monday=1)
     });
+
     function renderEvents(data) {
         $.each(data, function (i, event) {
             $calendar.fullCalendar('renderEvent',
@@ -101,22 +142,24 @@ $(document).ready(function ()
                     id: event.id,
                     title: event.title,
                     start: moment(event.start),
-                    allDay: true
+                    allDay: true,
+                    className: event.className
                 }, true);
         });
     }
-});
+    });
+    //event-pending
 
 
     function SetForm(dtEscala) {
         $("#dtEscala").val(dtEscala);
 
-        $(".viaturatipofuncaoSection").remove();
-        $("#bombeirosByDataAndQuartelContainer").load('/escala/getBombeirosByDataAndQuartel',
-            {
-                quartelId: $("#quartelId").val(),
-                dtEscala: dtEscala
-            });
+        //$(".viaturatipofuncaoSection").remove();
+        //$("#bombeirosByDataAndQuartelContainer").load('/escala/getBombeirosByDataAndQuartel',
+        //    {
+        //        quartelId: $("#quartelId").val(),
+        //        dtEscala: dtEscala
+        //    });
     }
 
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
+using MapaDaForca.Model.Enums;
 using MapaDaForca.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,7 @@ namespace MapaDaForca.Controllers
         private readonly IEscalaStore _escalaStore;
         private readonly IEscalaTipoStore _escalaTipoStore;
         private readonly IViaturaTipoFuncaoStore _viaturaTipoFuncaoStore;
+        private readonly IEscalaTurnoStore _escalaTurnoStore;
 
         public DispositivoMinimoController(
             IBombeiroStore bombeiroStore,
@@ -28,7 +30,8 @@ namespace MapaDaForca.Controllers
             IFuncaoStore funcaoStore,
             IEscalaStore escalaStore,
             IEscalaTipoStore escalaTipoStore,
-            IViaturaTipoFuncaoStore viaturaTipoFuncaoStore)
+            IViaturaTipoFuncaoStore viaturaTipoFuncaoStore,
+            IEscalaTurnoStore escalaTurnoStore)
         {
             _bombeiroStore = bombeiroStore;
             _postoStore = postoStore;
@@ -38,6 +41,7 @@ namespace MapaDaForca.Controllers
             _escalaStore = escalaStore;
             _escalaTipoStore = escalaTipoStore;
             _viaturaTipoFuncaoStore = viaturaTipoFuncaoStore;
+            _escalaTurnoStore = escalaTurnoStore;
         }
 
         public IActionResult Index()
@@ -50,35 +54,55 @@ namespace MapaDaForca.Controllers
         }
 
 
-        //[HttpPost]
-        //public JsonResult GetDispositivoMinimo(DateTime calendarDate)
-        //{
-        //    var events = new List<EventViewModel>();
+        [HttpPost]
+        public JsonResult GetDispositivoMinimoByQuartel(Guid quartelId, bool periodoDiurno, DateTime calendarDate)
+        {
+            var events = new List<EventViewModel>();
+            //var viaturaTipoFuncoes = _viaturaTipoFuncaoStore.GetByQuartelId(new Guid("64d91ea9-2252-4731-9ed8-762937ca140a"));
+            var viaturaTipoFuncoes = _viaturaTipoFuncaoStore.GetByQuartelId(quartelId);
 
-        //    var viaturaTipoFuncoes = _viaturaTipoFuncaoStore.GetByQuartelId(new Guid("64d91ea9-2252-4731-9ed8-762937ca140a"));
-        //    var aaa = viaturaTipoFuncoes.GroupBy(
-        //        p => p.Id,
-        //        p => p.Quantidade,
-        //        (key, g) => new { Id = key, Quantidade = g.ToList() });
+            List<QuantidadeFuncaoViewModel> result = viaturaTipoFuncoes
+                .GroupBy(l => l.FuncaoId)
+                .Select(x => new QuantidadeFuncaoViewModel
+                {
+                    FuncaoId = x.First().FuncaoId,
+                    FuncaoNome = x.First().Funcao.Nome,
+                    Quantidade = x.Sum(c => c.Quantidade),
+                }).ToList();
 
+            DateTime firstDay = new DateTime(calendarDate.Year, calendarDate.Month, 1);
+            DateTime lastDay = new DateTime(calendarDate.Year, calendarDate.Month, DateTime.DaysInMonth(calendarDate.Year, calendarDate.Month));
 
+            for (DateTime dt = firstDay; dt <= lastDay; dt = dt.AddDays(1))
+            {
+                foreach (var funcao in result)
+                {
+                    var qtdeFuncao = _escalaStore.GetQuantityToDispositivoMinimo(quartelId, funcao.FuncaoId, dt, periodoDiurno);
 
+                    var className = "event-ok";
+                    if (((funcao.Quantidade * -1) + qtdeFuncao) > 0)
+                        className = "event-positive";
 
-        //    foreach (var viaturaTipoFuncao in viaturaTipoFuncoes.GroupBy(x => x.Id).Select())
-        //    {
+                    if ((funcao.Quantidade * -1) + qtdeFuncao < 0)
+                        className = "event-negative";
 
-        //    }
+                    events.Add(new EventViewModel()
+                    {
+                        id = new Guid(),
+                        title = funcao.FuncaoNome.Substring(0, 3) + "  " + ((funcao.Quantidade * -1) + qtdeFuncao),
+                        start = dt,
+                        className= className
+                    });
+                }
+            }
+            
+            return Json(events.ToArray());
+        }
+    }
 
-        //    foreach (var item in escalaTurnos)
-        //    {
-        //        events.Add(new EventViewModel()
-        //        {
-        //            id = item.Id,
-        //            title = (item.PeriodoDiurno ? "D - " : "N - ") + item.Turno,
-        //            start = item.DtEscalaTurno
-        //        });
-        //    }
-        //    return Json(events.ToArray());
-        //}
+    public class QuantidadeFuncaoViewModel{
+        public Guid FuncaoId { get; set; }
+        public string FuncaoNome { get; set; }
+        public int Quantidade { get; set; }
     }
 }

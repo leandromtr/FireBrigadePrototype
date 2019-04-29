@@ -19,7 +19,7 @@ namespace MapaDaForca.Data.Repository
         IList<Escala> GetByFuncaoId(Guid funcaoId);
 
         IList<Escala> GetByQuartelId(Guid quartelId);
-
+       
         IList<Escala> GetByBombeiroIdAndMonthYear(Guid bombeiroId, int month, int year);
 
         IList<Escala> GetByQuartelIdAndDtEscala(Guid quartelId, DateTime dtEscala);
@@ -29,6 +29,8 @@ namespace MapaDaForca.Data.Repository
         Escala Create(Escala create);
 
         Escala Update(Escala update);
+
+        int GetQuantityToDispositivoMinimo(Guid quartelId, Guid funcaoId, DateTime dtEscala, bool periodoDiurno);
 
         bool Delete(Guid id);
 
