@@ -136,5 +136,18 @@ namespace MapaDaForca.Data.Repository
                 return context.SaveChanges() > 0;
             }
         }
+
+        public int GetQuantityToDispositivoMinimo(Guid quartelId, Guid funcaoId, DateTime dtEscala, bool periodoDiurno)
+        {
+            using (var context = new MapaDaForcaDbContext(Options))
+            {
+                return context.Escalas.Count(x =>
+                x.QuartelId == quartelId &&
+                x.FuncaoId == funcaoId &&
+                x.DtEscala == dtEscala &&
+                x.PeriodoDiurno == periodoDiurno
+                );
+            }
+        }
     }
 }

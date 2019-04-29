@@ -133,5 +133,11 @@ namespace MapaDaForca.Core.Store
         {
             return _repository.Delete(id);
         }
+
+
+        public int GetQuantityToDispositivoMinimo(Guid quartelId, Guid funcaoId, DateTime dtEscala, bool periodoDiurno)
+        {
+            return _repository.GetQuantityToDispositivoMinimo(quartelId, funcaoId, dtEscala, periodoDiurno);
+        }
     }
 }

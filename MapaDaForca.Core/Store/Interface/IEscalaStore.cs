@@ -30,5 +30,8 @@ namespace MapaDaForca.Core.Store
         void SaveYear(Guid bombeiroId, int year);
 
         bool Delete(Guid id);
+
+        int GetQuantityToDispositivoMinimo(Guid quartelId, Guid funcaoId, DateTime dtEscala, bool periodoDiurno);
+
     }
 }
