@@ -78,6 +78,11 @@ namespace MapaDaForca.Core.Store
             return _repository.GetByQuartelIdAndDtEscala(quartelId, dtEscala);
         }
 
+        public IList<Escala> GetByQuartelIdAndDtEscalaAndPeriodoDiurno(Guid quartelId, DateTime dtEscala, bool periodoDiurno)
+        {
+            return _repository.GetByQuartelIdAndDtEscalaAndPeriodoDiurno(quartelId, dtEscala, periodoDiurno);
+        }
+
         public Escala GetByBombeiroIdAndDtEscala(Guid bombeiroId, DateTime dtEscala)
         {
             return _repository.GetByBombeiroIdAndDtEscala(bombeiroId, dtEscala);

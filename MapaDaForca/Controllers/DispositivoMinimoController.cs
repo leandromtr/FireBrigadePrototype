@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MapaDaForca.Controllers
 {
+    [Route("dispositivoMinimo")]
+
     public class DispositivoMinimoController : Controller
     {
         private readonly IBombeiroStore _bombeiroStore;
@@ -98,11 +100,32 @@ namespace MapaDaForca.Controllers
             
             return Json(events.ToArray());
         }
-    }
 
-    public class QuantidadeFuncaoViewModel{
-        public Guid FuncaoId { get; set; }
-        public string FuncaoNome { get; set; }
-        public int Quantidade { get; set; }
+
+
+
+        [HttpPost]
+        [Route("getBombeirosFuncao")]
+        public PartialViewResult getBombeirosFuncao(Guid quartelId, bool periodoDiurno, DateTime dtEscala)
+        {
+            var escalas = _escalaStore.GetByQuartelIdAndDtEscalaAndPeriodoDiurno(quartelId, dtEscala, periodoDiurno).ToList();
+
+            var bombeiros = _bombeiroStore.GetAll().OrderBy(x => x.Nome).ToList();
+            var funcoes = _funcaoStore.GetAll().OrderBy(x => x.Nome).ToList();
+
+            escalas.ForEach(e => e.Bombeiro = bombeiros.FirstOrDefault(b => b.Id == e.BombeiroId));
+            escalas.ForEach(e => e.Funcao = funcoes.FirstOrDefault(f => f.Id == e.FuncaoId));
+
+            //var funcaoBombeiros = new List<FuncaoBombeirosViewModel>();
+
+
+            //List<string> funcoess = funcaoBombeiros.Select(m => m.Funcao.Nome).Distinct().ToList();
+
+            ////var bombeirosByDataAndQuartelViewModel = new BombeirosByDataAndQuartelViewModel();
+            ////bombeirosByDataAndQuartelViewModel.dtEscala = (string)dtEscala.ToString("d");
+            ////bombeirosByDataAndQuartelViewModel.quartel = _quartelStore.GetById(quartelId);
+
+            return PartialView("../DispositivoMinimo/_BombeiroFuncao", escalas);
+        }
     }
 }

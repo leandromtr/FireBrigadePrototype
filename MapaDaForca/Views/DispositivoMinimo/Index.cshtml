@@ -36,7 +36,7 @@ new Breadcrumb() { Name = "Dispositivo Mínimo", Link = @Url.Action("Index","Dis
             <div class="card-body">
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-8">
+                        <div class="col-7">
                             <label>Quartel</label>
                             <div>
                                 <select class="form-control" id="quartelId" asp-items="@(new SelectList(@Model.Quarteis,"Id","Nome"))">
@@ -45,8 +45,10 @@ new Breadcrumb() { Name = "Dispositivo Mínimo", Link = @Url.Action("Index","Dis
 
                             </div>
                         </div>
-                        <div class="col-3">
-                            <label>Quartel</label>
+                        <div class="col-1">
+                        </div>
+                        <div class="col-4">
+                            <label>Período Diúrno</label>
                             <div>
                                 <input type="checkbox" id="PeriodoDiurno" switch="success" checked="checked" data-val="true" name="PeriodoDiurno" value="true">
                                 <label for="PeriodoDiurno" data-on-label="Sim" data-off-label="Não"></label>
@@ -59,11 +61,11 @@ new Breadcrumb() { Name = "Dispositivo Mínimo", Link = @Url.Action("Index","Dis
 
         <div class="card">
             <div class="card-body">
-                <div class="form-group">
-                    <div id="bombeirosByDataAndQuartelContainer">
 
-                    </div>
+                <div id="dispositivoMinimoFuncaoContainer">
+
                 </div>
+
             </div>
         </div>
     </div>
@@ -83,11 +85,10 @@ new Breadcrumb() { Name = "Dispositivo Mínimo", Link = @Url.Action("Index","Dis
 
 $(document).ready(function ()
 {
-    var currentDate = $.datepicker.formatDate('yy-mm-dd', new Date());
-    SetForm(currentDate);
+    //var currentDate = $.datepicker.formatDate('yy-mm-dd', new Date());
+    //SetForm(currentDate);
 
     var $calendar = $('#calendar');
-
     $calendar.fullCalendar({
         ignoreTimezone: false,
         monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
@@ -148,23 +149,60 @@ $(document).ready(function ()
         });
     }
     });
-    //event-pending
-
-
-    function SetForm(dtEscala) {
-        $("#dtEscala").val(dtEscala);
-
-        //$(".viaturatipofuncaoSection").remove();
-        //$("#bombeirosByDataAndQuartelContainer").load('/escala/getBombeirosByDataAndQuartel',
-        //    {
-        //        quartelId: $("#quartelId").val(),
-        //        dtEscala: dtEscala
-        //    });
-    }
 
 
     $("#quartelId").change(function () {
-        SetForm($("#dtEscala").val());
+        $("#bombeiroFuncaoSection").remove();
+        refreshCalendar($('#calendar').fullCalendar('getDate').format());
     });
+
+
+    $("#PeriodoDiurno").change(function () {
+        $("#bombeiroFuncaoSection").remove();
+        refreshCalendar($('#calendar').fullCalendar('getDate').format());
+    });
+
+
+    function refreshCalendar(currentDay) {
+        $("#calendar").fullCalendar('removeEvents');
+        $.ajax({
+            type: "POST",
+            url: '@Url.RouteUrl(new{ action= "GetDispositivoMinimoByQuartel", controller="DispositivoMinimo"})',
+            data: {
+                calendarDate: currentDay,
+                quartelId: $("#quartelId").val(),
+                periodoDiurno: $('#PeriodoDiurno').prop('checked')
+            }
+            , success: function (data) {
+                renderEvents(data);
+            }
+            , error: function (error) {
+                alert('failed');
+            }
+        });
+    }
+    function renderEvents(data) {
+        $.each(data, function (i, event) {
+            $("#calendar").fullCalendar('renderEvent',
+                {
+                    id: event.id,
+                    title: event.title,
+                    start: moment(event.start),
+                    allDay: true,
+                    className: event.className
+                }, true);
+        });
+    }
+
+
+    function SetForm(dtEscala) {
+        $("#bombeiroFuncaoSection").remove();
+        $("#dispositivoMinimoFuncaoContainer").load('/dispositivoMinimo/getBombeirosFuncao',
+            {
+                quartelId: $("#quartelId").val(),
+                dtEscala: dtEscala, 
+                periodoDiurno: $('#PeriodoDiurno').prop('checked'),
+            });
+    }
 
 </script>
