@@ -24,6 +24,8 @@ namespace MapaDaForca.Data.Repository
 
         IList<Escala> GetByQuartelIdAndDtEscala(Guid quartelId, DateTime dtEscala);
 
+        IList<Escala> GetByQuartelIdAndDtEscalaAndPeriodoDiurno(Guid quartelId, DateTime dtEscala, bool periodoDiurno);
+
         Escala GetByBombeiroIdAndDtEscala(Guid bombeiroId, DateTime dtEscala);
 
         Escala Create(Escala create);

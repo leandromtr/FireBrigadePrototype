@@ -71,6 +71,14 @@ namespace MapaDaForca.Data.Repository
             }
         }
 
+        public IList<Escala> GetByQuartelIdAndDtEscalaAndPeriodoDiurno(Guid quartelId, DateTime dtEscala, bool periodoDiurno)
+        {
+            using (var context = new MapaDaForcaDbContext(Options))
+            {
+                return context.Escalas.Where(x => x.QuartelId == quartelId && x.PeriodoDiurno == periodoDiurno && x.DtEscala == dtEscala).ToList();
+            }
+        }
+
         public Escala GetByBombeiroIdAndDtEscala(Guid bombeiroId, DateTime dtEscala)
         {
             using (var context = new MapaDaForcaDbContext(Options))
