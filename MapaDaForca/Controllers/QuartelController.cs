@@ -134,11 +134,11 @@ namespace MapaDaForca.Controllers
                         Quantidade = x.Sum(c => c.Quantidade),
                     }).ToList();
 
-                //var quartelViatura = new QuartelViaturaViewModel();
-                //quartelViatura.QuartelId = quartel.Id;
-                //quartelViatura.QuartelViaturas = _quartelViaturaStore.GetByQuartelId(quartel.Id).ToList();
+                var quartelViatura = new QuartelViaturaViewModel();
+                quartelViatura.QuartelViaturas = _quartelViaturaStore.GetByQuartelId(quartel.Id).ToList();
                 //quartelViatura.Viaturas = _viaturaStore.GetAll().ToList();
-                //quartelViewModel.QuartelViaturaViewModel = quartelViatura;
+                quartelViewModel.QuartelViaturaViewModel = quartelViatura;
+
                 quarteisViewModel.Add(quartelViewModel);
             }
 

@@ -23,19 +23,30 @@ new Breadcrumb() { Name = "Quartel Mapa", Link = @Url.Action("QuartelMapa","Quar
                 <div class="col-xl-3 col-md-3">
                     <div class="card m-b-20">
                         <div class="card-body">
-                            <h4 class="mt-0 header-title">@quartel.Quartel.Nome (@quartel.QuantidadeFuncoesViewModel.Sum(x=> x.Quantidade))</h4>
+                            <h4 class="mt-0 header-title">@quartel.Quartel.Nome (@quartel.QuantidadeFuncoesViewModel.Sum(x => x.Quantidade))</h4>
                             <p class="text-muted m-b-30">@quartel.Quartel.Companhia.Nome</p>
+
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#home2" role="tab">Funções</a>
+                                    <a class="nav-link active show" data-toggle="tab" href="#tabFuncoes_@quartel.Quartel.Id" role="tab" aria-selected="true">Funções</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tabVeiculos_@quartel.Quartel.Id" role="tab" aria-selected="false">Veículos</a>
                                 </li>
                             </ul>
+
                             <div class="tab-content">
-                                <div class="tab-pane active p-3" id="home2" role="tabpanel">
+                                <div class="tab-pane active p-3" id="tabFuncoes_@quartel.Quartel.Id" role="tabpanel">
                                     @foreach (var funcao in quartel.QuantidadeFuncoesViewModel)
                                     {
                                         <p class="mb-0">@funcao.FuncaoNome-@funcao.Quantidade</p>
+                                    }
+                                </div>
+                                <div class="tab-pane p-3" id="tabVeiculos_@quartel.Quartel.Id" role="tabpanel">
+                                    @foreach (var viatura in quartel.QuartelViaturaViewModel.QuartelViaturas.OrderBy(x=> x.Viatura.ViaturaTipo.Sigla))
+                                    {
+                                    <p class="mb-0"><a href=@Url.Action("Detail", "Viatura", new { @id = viatura.Viatura.Id })>@viatura.Viatura.Matricula</a> | <a href=@Url.Action("Detail", "ViaturaTipo", new { @id = viatura.Viatura.ViaturaTipo.Id })>@viatura.Viatura.ViaturaTipo.Sigla</a></p>
                                     }
                                 </div>
                             </div>
