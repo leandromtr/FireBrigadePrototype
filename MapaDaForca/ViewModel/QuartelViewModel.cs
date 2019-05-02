@@ -12,6 +12,8 @@ namespace MapaDaForca.ViewModel
         
         public QuartelViaturaViewModel QuartelViaturaViewModel { get; set; }
 
-        public List<Viatura> Viaturas { get; set; }        
+        public IEnumerable<QuantidadeFuncaoViewModel> QuantidadeFuncoesViewModel { get; set; }
+
+        public IEnumerable<Viatura> Viaturas { get; set; }        
     }
 }

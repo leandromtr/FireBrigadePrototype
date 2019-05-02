@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MapaDaForca.Controllers
+namespace MapaDaForca.ViewModel
 {
     public class QuantidadeFuncaoViewModel{
         public Guid FuncaoId { get; set; }
