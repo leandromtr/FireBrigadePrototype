@@ -18,12 +18,13 @@ new Breadcrumb() { Name = "Dispositivo Mínimo", Link = @Url.Action("Index","Dis
 
     .event-ok {
         border-color: #212529;
+        background-color: #497d38;
         line-height: 1.0;
     }
 
     .event-positive {
         border-color: #212529;
-        background-color: #497d38;
+        background-color: #d49a45;
         line-height: 1.0;
     }
 </style>
@@ -85,8 +86,8 @@ new Breadcrumb() { Name = "Dispositivo Mínimo", Link = @Url.Action("Index","Dis
 
 $(document).ready(function ()
 {
-    //var currentDate = $.datepicker.formatDate('yy-mm-dd', new Date());
-    //SetForm(currentDate);
+    var currentDate = $.datepicker.formatDate('yy-mm-dd', new Date());
+    SetForm(currentDate);
 
     var $calendar = $('#calendar');
     $calendar.fullCalendar({
@@ -196,6 +197,7 @@ $(document).ready(function ()
 
 
     function SetForm(dtEscala) {
+        $("#dtEscala").val(dtEscala);
         $("#bombeiroFuncaoSection").remove();
         $("#dispositivoMinimoFuncaoContainer").load('/dispositivoMinimo/getBombeirosFuncao',
             {

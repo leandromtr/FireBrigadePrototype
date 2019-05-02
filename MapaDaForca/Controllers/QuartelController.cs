@@ -17,19 +17,25 @@ namespace MapaDaForca.Controllers
         private readonly IQuartelStore _quartelStore;
         private readonly IQuartelViaturaStore _quartelViaturaStore;
         private readonly IViaturaStore _viaturaStore;
+        private readonly IBatalhaoStore _batalhaoStore;
+        private readonly IViaturaTipoFuncaoStore _viaturaTipoFuncaoStore;
 
         public QuartelController(
             ICompanhiaStore companhiaStore,
             IEscalaStore escalaStore,
             IQuartelStore quartelStore,
             IQuartelViaturaStore quartelViaturaStore,
-            IViaturaStore viaturaStore)
+            IViaturaStore viaturaStore,
+            IBatalhaoStore batalhaoStore,
+            IViaturaTipoFuncaoStore viaturaTipoFuncaoStore)
         {
             _companhiaStore = companhiaStore;
             _escalaStore = escalaStore;
             _quartelStore = quartelStore;
             _quartelViaturaStore = quartelViaturaStore;
             _viaturaStore = viaturaStore;
+            _batalhaoStore = batalhaoStore;
+            _viaturaTipoFuncaoStore = viaturaTipoFuncaoStore;
         }
 
 
@@ -103,6 +109,45 @@ namespace MapaDaForca.Controllers
 
             _quartelStore.Delete(id);
             return Json(new { success = true, message = "Quartel excluído!" });
+        }
+
+
+        [HttpGet]
+        [Route("quartelmapa")]
+        public ActionResult QuartelMapa()
+        {
+            var quarteis= _quartelStore.GetAll();
+            var quarteisViewModel = new List<QuartelViewModel>();
+
+            foreach (var quartel in quarteis)
+            {
+                var quartelViewModel = new QuartelViewModel();
+                quartelViewModel.Quartel = _quartelStore.GetById(quartel.Id);
+
+                var viaturaTipoFuncoes = _viaturaTipoFuncaoStore.GetByQuartelId(quartel.Id);
+                quartelViewModel.QuantidadeFuncoesViewModel = viaturaTipoFuncoes
+                    .GroupBy(l => l.FuncaoId)
+                    .Select(x => new QuantidadeFuncaoViewModel
+                    {
+                        FuncaoId = x.First().FuncaoId,
+                        FuncaoNome = x.First().Funcao.Nome,
+                        Quantidade = x.Sum(c => c.Quantidade),
+                    }).ToList();
+
+                //var quartelViatura = new QuartelViaturaViewModel();
+                //quartelViatura.QuartelId = quartel.Id;
+                //quartelViatura.QuartelViaturas = _quartelViaturaStore.GetByQuartelId(quartel.Id).ToList();
+                //quartelViatura.Viaturas = _viaturaStore.GetAll().ToList();
+                //quartelViewModel.QuartelViaturaViewModel = quartelViatura;
+                quarteisViewModel.Add(quartelViewModel);
+            }
+
+            var batalhoes = _batalhaoStore.GetAll();
+            var companhias = _companhiaStore.GetAll();
+            quarteisViewModel.ForEach(q => q.Quartel.Companhia = companhias.FirstOrDefault(c => c.Id == q.Quartel.CompanhiaId));
+            quarteisViewModel.ForEach(q => q.Quartel.Companhia.Batalhao = batalhoes.FirstOrDefault(b => b.Id == q.Quartel.Companhia.BatalhaoId));
+
+            return View(quarteisViewModel);
         }
     }
 }

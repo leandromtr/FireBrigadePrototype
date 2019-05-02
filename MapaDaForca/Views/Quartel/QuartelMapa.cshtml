@@ -1,0 +1,51 @@
+﻿@model IEnumerable<QuartelViewModel>
+
+@{
+    ViewBag.Title = "Quartel Mapa";
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+{
+new Breadcrumb() { Name = "Dashboard", Link = "/" },
+new Breadcrumb() { Name = "Quartel Mapa", Link = @Url.Action("QuartelMapa","Quartel"), IsActive = true}
+};
+}
+
+@{
+    List<Batalhao> batalhoes = Model.Select(m => m.Quartel.Companhia.Batalhao).Distinct().ToList();
+}
+
+
+@{foreach (var batalhao in batalhoes.OrderBy(x => x.Nome))
+    {
+        <center><h2 class="mt-0 header-title">@batalhao.Nome</h2></center>
+        <div class="row">
+            @foreach (var quartel in @Model.Where(x => x.Quartel.Companhia.BatalhaoId == batalhao.Id).OrderBy(x => x.Quartel.Companhia.Nome))
+            {
+                <div class="col-xl-3 col-md-3">
+                    <div class="card m-b-20">
+                        <div class="card-body">
+                            <h4 class="mt-0 header-title">@quartel.Quartel.Nome (@quartel.QuantidadeFuncoesViewModel.Sum(x=> x.Quantidade))</h4>
+                            <p class="text-muted m-b-30">@quartel.Quartel.Companhia.Nome</p>
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#home2" role="tab">Funções</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active p-3" id="home2" role="tabpanel">
+                                    @foreach (var funcao in quartel.QuantidadeFuncoesViewModel)
+                                    {
+                                        <p class="mb-0">@funcao.FuncaoNome-@funcao.Quantidade</p>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <br/>
+    }
+}
+
+@*//<ul class="list-unstyled">*@
