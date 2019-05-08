@@ -64,10 +64,8 @@ new Breadcrumb() { Name = "Escala x Turno", Link = @Url.Action("Index","EscalaTu
 $(document).ready(function () {
     var currentDate = $.datepicker.formatDate('yy-mm-dd', new Date());
     @*var tt = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model) as String);*@
-    SetForm(currentDate);
 
     var $calendar = $('#calendar');
-
         $calendar.fullCalendar({
             ignoreTimezone: false,
             monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
@@ -81,6 +79,7 @@ $(document).ready(function () {
                     today: "Hoje",
             },
             viewRender: function (view, element) {
+                $("#calendar").LoadingOverlay("show");
                 var currentDay=$('#calendar').fullCalendar('getDate');
                 $("#calendar").fullCalendar('removeEvents');
                 $.ajax( {
@@ -122,9 +121,12 @@ $(document).ready(function () {
                     allDay: true
 				}, true);
             });
+            $("#calendar").LoadingOverlay("hide");
         }
 
+    SetForm(currentDate);
     });
+
 
 
 
@@ -151,6 +153,9 @@ $(document).ready(function () {
     });
 
     function SetForm(dtEscalaTurno) {
+        $('[data-date]').css('background-color', '');
+        $('[data-date="' + dtEscalaTurno + '"]').css('background-color', 'rgb(217, 90, 111)');
+
         $("#DtEscalaTurno").val(dtEscalaTurno);
             $.ajax({
                 dataType: "json",
