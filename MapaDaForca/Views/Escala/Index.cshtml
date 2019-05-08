@@ -65,11 +65,19 @@ $(document).ready(function ()
         },
         dayClick: function (date, jsEvent, view) {
             SetForm(date.format())
+            //$(this).css('background-color', 'red');
         },
         eventClick: function (calEvent, jsEvent, view) {
-            SetForm(calEvent.start.format())
+            SetForm(calEvent.start.format());   
+            //$('[data-date]').removeClass('background-color');
+            //$(this).css('background-color', 'blue');
+            //calEvent.el.style.borderColor = 'red';
         },
+        //eventAfterAllRender: function (view) {
+        //    //$.LoadingOverlay("hide");
+        //},
         viewRender: function (view, element) {
+            $("#calendar").LoadingOverlay("show");
                 var currentDay=$('#calendar').fullCalendar('getDate');
                 $("#calendar").fullCalendar('removeEvents');
                 $.ajax( {
@@ -104,6 +112,7 @@ $(document).ready(function ()
                     allDay: true
                 }, true);
         });
+        $("#calendar").LoadingOverlay("hide");
     }
 });
 
