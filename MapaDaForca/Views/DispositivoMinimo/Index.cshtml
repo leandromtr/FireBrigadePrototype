@@ -109,6 +109,7 @@ $(document).ready(function ()
             SetForm(calEvent.start.format())
         },
         viewRender: function (view, element) {
+            $("#calendar").LoadingOverlay("show");
                 var currentDay=$('#calendar').fullCalendar('getDate');
                 $("#calendar").fullCalendar('removeEvents');
                 $.ajax({
@@ -148,6 +149,7 @@ $(document).ready(function ()
                     className: event.className
                 }, true);
         });
+        $("#calendar").LoadingOverlay("hide");
     }
     });
 
@@ -165,6 +167,7 @@ $(document).ready(function ()
 
 
     function refreshCalendar(currentDay) {
+        $("#calendar").LoadingOverlay("show");
         $("#calendar").fullCalendar('removeEvents');
         $.ajax({
             type: "POST",
@@ -193,6 +196,7 @@ $(document).ready(function ()
                     className: event.className
                 }, true);
         });
+        $("#calendar").LoadingOverlay("hide");
     }
 
 

@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "cdnjs",
+      "library": "jquery-loading-overlay@2.1.6",
+      "destination": "wwwroot/jquery-loading-overlay/"
+    }
+  ]
+}
