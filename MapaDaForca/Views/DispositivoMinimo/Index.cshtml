@@ -87,7 +87,6 @@ new Breadcrumb() { Name = "Dispositivo Mínimo", Link = @Url.Action("Index","Dis
 $(document).ready(function ()
 {
     var currentDate = $.datepicker.formatDate('yy-mm-dd', new Date());
-    SetForm(currentDate);
 
     var $calendar = $('#calendar');
     $calendar.fullCalendar({
@@ -137,6 +136,10 @@ $(document).ready(function ()
         },
         firstDay: 1, //The day that each week begins (Monday=1)
     });
+
+    SetForm(currentDate);
+
+
 
     function renderEvents(data) {
         $.each(data, function (i, event) {
@@ -202,6 +205,10 @@ $(document).ready(function ()
 
     function SetForm(dtEscala) {
         $("#dtEscala").val(dtEscala);
+
+        $('[data-date]').css('background-color', '');
+        $('[data-date="' + dtEscala + '"]').css('background-color', 'rgb(217, 90, 111)');
+
         $("#bombeiroFuncaoSection").remove();
         $("#dispositivoMinimoFuncaoContainer").load('/dispositivoMinimo/getBombeirosFuncao',
             {

@@ -47,10 +47,8 @@
 $(document).ready(function () 
 {
     var currentDate = $.datepicker.formatDate('yy-mm-dd', new Date());    
-    SetForm(currentDate);
 
     var $calendar = $('#calendar');
-
     $calendar.fullCalendar({
         ignoreTimezone: false,
         monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
@@ -65,17 +63,10 @@ $(document).ready(function ()
         },
         dayClick: function (date, jsEvent, view) {
             SetForm(date.format())
-            //$(this).css('background-color', 'red');
         },
         eventClick: function (calEvent, jsEvent, view) {
             SetForm(calEvent.start.format());   
-            //$('[data-date]').removeClass('background-color');
-            //$(this).css('background-color', 'blue');
-            //calEvent.el.style.borderColor = 'red';
         },
-        //eventAfterAllRender: function (view) {
-        //    //$.LoadingOverlay("hide");
-        //},
         viewRender: function (view, element) {
             $("#calendar").LoadingOverlay("show");
                 var currentDay=$('#calendar').fullCalendar('getDate');
@@ -102,6 +93,9 @@ $(document).ready(function ()
         },
         firstDay: 1, //The day that each week begins (Monday=1)
     });
+    SetForm(currentDate);
+
+
     function renderEvents(data) {
         $.each(data, function (i, event) {
             $calendar.fullCalendar('renderEvent',
@@ -120,6 +114,9 @@ $(document).ready(function ()
     function SetForm(dtEscala) {
         $("#dtEscala").val(dtEscala);        
 
+        $('[data-date]').css('background-color', '');
+        $('[data-date="' + dtEscala + '"]').css('background-color', 'rgb(217, 90, 111)');
+
         $(".viaturatipofuncaoSection").remove();
         $("#bombeirosByDataAndQuartelContainer").load('/escala/getBombeirosByDataAndQuartel',
             {
@@ -134,3 +131,9 @@ $(document).ready(function ()
     });
 
 </script>
+
+<style>
+    .ajx {
+        background-color: black;
+    }
+</style>
