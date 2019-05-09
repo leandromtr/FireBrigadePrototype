@@ -75,11 +75,18 @@ namespace MapaDaForca.Controllers
             DateTime firstDay = new DateTime(calendarDate.Year, calendarDate.Month, 1);
             DateTime lastDay = new DateTime(calendarDate.Year, calendarDate.Month, DateTime.DaysInMonth(calendarDate.Year, calendarDate.Month));
 
+            var escalasPeriodo = _escalaStore.GetByQuartelIdAndMonthYearAndPeriodoDiurno(quartelId, calendarDate.Month, calendarDate.Year, periodoDiurno).ToList();
+
             for (DateTime dt = firstDay; dt <= lastDay; dt = dt.AddDays(1))
             {
                 foreach (var funcao in result)
                 {
-                    var qtdeFuncao = _escalaStore.GetQuantityToDispositivoMinimo(quartelId, funcao.FuncaoId, dt, periodoDiurno);
+                    //var qtdeFuncao = _escalaStore.GetQuantityToDispositivoMinimo(quartelId, funcao.FuncaoId, dt, periodoDiurno);                  
+                    var qtdeFuncao = escalasPeriodo.Count(x =>
+                        x.FuncaoId == funcao.FuncaoId &&
+                        x.DtEscala == dt &&
+                        x.PeriodoDiurno == periodoDiurno
+                        );                  
 
                     var className = "event-ok";
                     if (((funcao.Quantidade * -1) + qtdeFuncao) > 0)
@@ -96,8 +103,7 @@ namespace MapaDaForca.Controllers
                         className= className
                     });
                 }
-            }
-            
+            }            
             return Json(events.ToArray());
         }
 

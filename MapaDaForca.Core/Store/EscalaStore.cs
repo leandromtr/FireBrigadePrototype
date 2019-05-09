@@ -83,6 +83,11 @@ namespace MapaDaForca.Core.Store
             return _repository.GetByQuartelIdAndDtEscalaAndPeriodoDiurno(quartelId, dtEscala, periodoDiurno);
         }
 
+        //IList<Escala> GetByQuartelIdAndMonthYearAndPeriodoDiurno(Guid quartelId, int month, int year, bool periodoDiurno)
+        //{
+        //    return _repository.GetByQuartelIdAndMonthYearAndPeriodoDiurno(quartelId, month, year, periodoDiurno);
+        //}
+
         public Escala GetByBombeiroIdAndDtEscala(Guid bombeiroId, DateTime dtEscala)
         {
             return _repository.GetByBombeiroIdAndDtEscala(bombeiroId, dtEscala);
@@ -143,6 +148,11 @@ namespace MapaDaForca.Core.Store
         public int GetQuantityToDispositivoMinimo(Guid quartelId, Guid funcaoId, DateTime dtEscala, bool periodoDiurno)
         {
             return _repository.GetQuantityToDispositivoMinimo(quartelId, funcaoId, dtEscala, periodoDiurno);
+        }
+
+        IList<Escala> IEscalaStore.GetByQuartelIdAndMonthYearAndPeriodoDiurno(Guid quartelId, int month, int year, bool periodoDiurno)
+        {
+            return _repository.GetByQuartelIdAndMonthYearAndPeriodoDiurno(quartelId, month, year, periodoDiurno);
         }
     }
 }
