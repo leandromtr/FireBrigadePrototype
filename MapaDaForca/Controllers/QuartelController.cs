@@ -19,6 +19,7 @@ namespace MapaDaForca.Controllers
         private readonly IViaturaStore _viaturaStore;
         private readonly IBatalhaoStore _batalhaoStore;
         private readonly IViaturaTipoFuncaoStore _viaturaTipoFuncaoStore;
+        private readonly IBombeiroStore _bombeiroStore;
 
         public QuartelController(
             ICompanhiaStore companhiaStore,
@@ -27,7 +28,8 @@ namespace MapaDaForca.Controllers
             IQuartelViaturaStore quartelViaturaStore,
             IViaturaStore viaturaStore,
             IBatalhaoStore batalhaoStore,
-            IViaturaTipoFuncaoStore viaturaTipoFuncaoStore)
+            IViaturaTipoFuncaoStore viaturaTipoFuncaoStore,
+            IBombeiroStore bombeiroStore)
         {
             _companhiaStore = companhiaStore;
             _escalaStore = escalaStore;
@@ -36,6 +38,7 @@ namespace MapaDaForca.Controllers
             _viaturaStore = viaturaStore;
             _batalhaoStore = batalhaoStore;
             _viaturaTipoFuncaoStore = viaturaTipoFuncaoStore;
+            _bombeiroStore = bombeiroStore;
         }
 
 
@@ -107,6 +110,10 @@ namespace MapaDaForca.Controllers
             if (_escalaStore.GetByQuartelId(id).Any())
                 return Json(new { success = false, message = "Este Quartel possui relações e não poderá ser excluído!" });
 
+            if (_bombeiroStore.GetByQuartelId(id).Any())
+                return Json(new { success = false, message = "Este Quartel possui relações e não poderá ser excluído!" });
+
+            _quartelViaturaStore.DeleteByQuartelId(id);
             _quartelStore.Delete(id);
             return Json(new { success = true, message = "Quartel excluído!" });
         }

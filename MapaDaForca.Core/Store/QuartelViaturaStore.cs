@@ -41,6 +41,11 @@ namespace MapaDaForca.Core.Store
             return quarteis;            
         }
 
+        public IList<QuartelViatura> GetByViaturaId(Guid viaturaId)
+        {
+            return _repository.GetByViaturaId(viaturaId).ToList();
+        }
+
         public QuartelViatura GetById(Guid id)
         {
             var quartelViatura = _repository.GetById(id);
@@ -69,6 +74,15 @@ namespace MapaDaForca.Core.Store
         public bool Delete(Guid id)
         {
             return _repository.Delete(id);
+        }
+
+        public void DeleteByQuartelId(Guid quartelId)
+        {
+            var requests = _repository.GetByQuartelId(quartelId);
+            foreach (var item in requests)
+            {
+                _repository.Delete(item.Id);
+            }
         }
     }
 }

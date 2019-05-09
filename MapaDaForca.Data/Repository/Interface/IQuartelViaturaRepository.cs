@@ -10,6 +10,8 @@ namespace MapaDaForca.Data.Repository
 
         IList<QuartelViatura> GetByQuartelId(Guid quartelId);
 
+        IList<QuartelViatura> GetByViaturaId(Guid viaturaId);
+
         QuartelViatura GetById(Guid id);
 
         QuartelViatura Create(QuartelViatura create);

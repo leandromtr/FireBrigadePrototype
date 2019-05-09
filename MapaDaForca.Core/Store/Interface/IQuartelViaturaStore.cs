@@ -11,10 +11,14 @@ namespace MapaDaForca.Core.Store
 
         IList<QuartelViatura> GetByQuartelId(Guid quartelId);
 
+        IList<QuartelViatura> GetByViaturaId(Guid viaturaId);
+
         QuartelViatura GetById(Guid id);
 
         QuartelViatura Save(QuartelViatura save);
 
         bool Delete(Guid id);
+
+        void DeleteByQuartelId(Guid quartelId);
     }
 }

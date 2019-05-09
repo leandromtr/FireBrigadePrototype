@@ -77,7 +77,14 @@ namespace MapaDaForca.Core.Store
             return _repository.Delete(id);
         }
 
-
+        public void DeleteByViaturaTipoId(Guid viaturaTipoId)
+        {
+            var requests = _repository.GetByViaturaTipoId(viaturaTipoId);
+            foreach (var item in requests)
+            {
+                _repository.Delete(item.Id);
+            }
+        }
 
         public IList<ViaturaTipoFuncao> GetByQuartelId(Guid quartelId)
         {

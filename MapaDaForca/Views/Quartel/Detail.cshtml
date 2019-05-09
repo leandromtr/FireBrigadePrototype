@@ -95,12 +95,12 @@ new Breadcrumb() { Name = Model.Quartel.Nome, Link = @Url.Action("Detail","Quart
                     type: "Delete",
                     url: "@Url.Action("Delete", "Quartel", new { @id = Model.Quartel.Id })",
                     success: function (data) {
-                        //if (data.ErrorMessage != "") {
-                        //    $.notify(data.errorMessage, "error");
-                        //}
-                        //else {
+                        if (data.success == true) {
                             window.location.href = '@Url.Action("Index", "Quartel")';
-                        //}
+                        }
+                        else {
+                            $.notify(data.message, "error");
+                        }
                     }
                 });
         });
