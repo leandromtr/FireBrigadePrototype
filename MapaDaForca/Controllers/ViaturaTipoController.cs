@@ -93,6 +93,7 @@ namespace MapaDaForca.Controllers
             if (_viaturaStore.GetByViaturaTipoId(id).Any())
                 return Json(new { success = false, message = "Esta Viatura possui relações e não poderá ser excluída!" });
 
+            _viaturaTipoFuncaoStore.DeleteByViaturaTipoId(id);
             _viaturaTipoStore.Delete(id);
             return Json(new { success = true, message = "Tipo da Viatura excluído!" });
         }
