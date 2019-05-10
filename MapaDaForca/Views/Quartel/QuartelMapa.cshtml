@@ -20,7 +20,7 @@ new Breadcrumb() { Name = "Quartel Mapa", Link = @Url.Action("QuartelMapa","Quar
         <div class="row">
             @foreach (var quartel in @Model.Where(x => x.Quartel.Companhia.BatalhaoId == batalhao.Id).OrderBy(x => x.Quartel.Companhia.Nome))
             {
-                <div class="col-xl-3 col-md-3">
+                <div class="col-xl-4 col-md-4">
                     <div class="card m-b-20">
                         <div class="card-body">
                             <h4 class="mt-0 header-title">@quartel.Quartel.Nome (@quartel.QuantidadeFuncoesViewModel.Sum(x => x.Quantidade))</h4>
@@ -33,6 +33,9 @@ new Breadcrumb() { Name = "Quartel Mapa", Link = @Url.Action("QuartelMapa","Quar
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#tabVeiculos_@quartel.Quartel.Id" role="tab" aria-selected="false">Veículos</a>
+                                </li>                                
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tabBombeiros_@quartel.Quartel.Id" role="tab" aria-selected="false">Bombeiros</a>
                                 </li>
                             </ul>
 
@@ -44,9 +47,15 @@ new Breadcrumb() { Name = "Quartel Mapa", Link = @Url.Action("QuartelMapa","Quar
                                     }
                                 </div>
                                 <div class="tab-pane p-3" id="tabVeiculos_@quartel.Quartel.Id" role="tabpanel">
-                                    @foreach (var viatura in quartel.QuartelViaturaViewModel.QuartelViaturas.OrderBy(x=> x.Viatura.ViaturaTipo.Sigla))
+                                    @foreach (var viatura in quartel.QuartelViaturaViewModel.QuartelViaturas.OrderBy(x => x.Viatura.ViaturaTipo.Sigla))
                                     {
-                                    <p class="mb-0"><a href=@Url.Action("Detail", "Viatura", new { @id = viatura.Viatura.Id })>@viatura.Viatura.Matricula</a> | <a href=@Url.Action("Detail", "ViaturaTipo", new { @id = viatura.Viatura.ViaturaTipo.Id })>@viatura.Viatura.ViaturaTipo.Sigla</a></p>
+                                        <p class="mb-0"><a href=@Url.Action("Detail", "Viatura", new { @id = viatura.Viatura.Id })>@viatura.Viatura.Matricula</a> | <a href=@Url.Action("Detail", "ViaturaTipo", new { @id = viatura.Viatura.ViaturaTipo.Id })>@viatura.Viatura.ViaturaTipo.Sigla</a></p>
+                                    }
+                                </div>
+                                <div class="tab-pane p-3" id="tabBombeiros_@quartel.Quartel.Id" role="tabpanel">
+                                    @foreach (var bombeiro in quartel.Bombeiros.OrderBy(x=> x.Nome))
+                                    {
+                                        <p class="mb-0"><a href=@Url.Action("Detail", "Bombeiro", new { @id = bombeiro.Id })>@bombeiro.Nome</a></p>
                                     }
                                 </div>
                             </div>

@@ -145,7 +145,7 @@ namespace MapaDaForca.Controllers
                 quartelViatura.QuartelViaturas = _quartelViaturaStore.GetByQuartelId(quartel.Id).ToList();
                 //quartelViatura.Viaturas = _viaturaStore.GetAll().ToList();
                 quartelViewModel.QuartelViaturaViewModel = quartelViatura;
-
+                quartelViewModel.Bombeiros = _bombeiroStore.GetByQuartelId(quartel.Id);
                 quarteisViewModel.Add(quartelViewModel);
             }
 

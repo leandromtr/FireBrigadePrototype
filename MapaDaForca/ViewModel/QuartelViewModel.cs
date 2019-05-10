@@ -14,6 +14,8 @@ namespace MapaDaForca.ViewModel
 
         public IEnumerable<QuantidadeFuncaoViewModel> QuantidadeFuncoesViewModel { get; set; }
 
-        public IEnumerable<Viatura> Viaturas { get; set; }        
+        public IEnumerable<Viatura> Viaturas { get; set; }    
+        
+        public IEnumerable<Bombeiro> Bombeiros { get; set; }        
     }
 }
