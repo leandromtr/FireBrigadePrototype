@@ -120,7 +120,6 @@
     <None Include="wwwroot\plugins\jvectormap\jquery-jvectormap-world-mill-en.js" />
     <None Include="wwwroot\plugins\magnific-popup\jquery.magnific-popup.min.js" />
     <None Include="wwwroot\plugins\magnific-popup\magnific-popup.css" />
-    <None Include="wwwroot\plugins\moment\moment.js" />
     <None Include="wwwroot\plugins\morris\morris.css" />
     <None Include="wwwroot\plugins\morris\morris.min.js" />
     <None Include="wwwroot\plugins\parsleyjs\parsley.min.js" />
