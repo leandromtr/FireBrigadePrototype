@@ -138,8 +138,11 @@ namespace MapaDaForca.Controllers
         [Route("{id}/delete")]
         public JsonResult Delete(Guid id)
         {
-            //if (_companhiaStore.GetByBombeiroId(id).Any())
-            //    return Json(new { success = false, message = "Este batalhão possui relações e não poderá ser excluído!" });
+            if (_bombeiroFuncaoStore.GetByBombeiroId(id).Any())
+                return Json(new { success = false, message = "Este bombeiro possui relações e não poderá ser excluído!" });
+
+            if (_escalaStore.GetByBombeiroId(id).Any())
+                return Json(new { success = false, message = "Este bombeiro possui relações e não poderá ser excluído!" });
 
             _bombeiroStore.Delete(id);
             return Json(new { success = true, message = "Bombeiro excluído!" });
