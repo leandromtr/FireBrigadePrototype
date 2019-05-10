@@ -67,11 +67,11 @@ namespace MapaDaForca.Controllers
             try
             {
                 var newCompanhia = _companhiaStore.Save(companhia);
-                return Json(new { success = true, message = "Companhia salvo com sucesso!" });
+                return Json(new { success = true, message = "Companhia guardada com sucesso!" });
             }
             catch (Exception)
             {
-                return Json(new { success = false, message = "Erro ao salvar este Companhia" });
+                return Json(new { success = false, message = "Erro ao guardar este Companhia" });
             }
         }
 
@@ -80,10 +80,10 @@ namespace MapaDaForca.Controllers
         public JsonResult Delete(Guid id)
         {
             if (_quartelStore.GetByCompanhiaId(id).Any())
-                return Json(new { success = false, message = "Esta companhia possui relações e não poderá ser excluída!" });
+                return Json(new { success = false, message = "Esta companhia possui relações e não poderá ser eliminada!" });
 
             _companhiaStore.Delete(id);
-            return Json(new { success = true, message = "Companhia excluída!" });
+            return Json(new { success = true, message = "Companhia eliminada!" });
         }
     }
 }

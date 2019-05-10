@@ -61,11 +61,11 @@ namespace MapaDaForca.Controllers
             try
             {
                 var newPosto = _postoStore.Save(posto);
-                return Json(new { success = true, message = "Posto salvo com sucesso!" });
+                return Json(new { success = true, message = "Posto guardado com sucesso!" });
             }
             catch (Exception)
             {
-                return Json(new { success = false, message = "Erro ao salvar este Posto" });
+                return Json(new { success = false, message = "Erro ao guardar este Posto" });
             }
         }
 
@@ -74,10 +74,10 @@ namespace MapaDaForca.Controllers
         public JsonResult Delete(Guid id)
         {
             if (_bombeiroStore.GetByPostoId(id).Any())
-                return Json(new { success = false, message = "Este Posto possui relações e não poderá ser excluído!" });
+                return Json(new { success = false, message = "Este Posto possui relações e não poderá ser eliminado!" });
 
             _postoStore.Delete(id);
-            return Json(new { success = true, message = "Posto excluído!" });
+            return Json(new { success = true, message = "Posto eliminado!" });
         }
     }
 }

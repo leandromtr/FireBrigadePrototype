@@ -125,11 +125,11 @@ namespace MapaDaForca.Controllers
             try
             {
                 var newBombeiro = _bombeiroStore.Save(bombeiro);
-                return Json(new { success = true, message = "Bombeiro salvo com sucesso!" });
+                return Json(new { success = true, message = "Bombeiro guardado com sucesso!" });
             }
             catch (Exception)
             {
-                return Json(new { success = false, message = "Erro ao salvar este Bombeiro" });
+                return Json(new { success = false, message = "Erro ao guardar este Bombeiro" });
             }
         }
 
@@ -139,13 +139,13 @@ namespace MapaDaForca.Controllers
         public JsonResult Delete(Guid id)
         {
             if (_bombeiroFuncaoStore.GetByBombeiroId(id).Any())
-                return Json(new { success = false, message = "Este bombeiro possui relações e não poderá ser excluído!" });
+                return Json(new { success = false, message = "Este bombeiro possui relações e não poderá ser eliminado!" });
 
             if (_escalaStore.GetByBombeiroId(id).Any())
-                return Json(new { success = false, message = "Este bombeiro possui relações e não poderá ser excluído!" });
+                return Json(new { success = false, message = "Este bombeiro possui relações e não poderá ser eliminado!" });
 
             _bombeiroStore.Delete(id);
-            return Json(new { success = true, message = "Bombeiro excluído!" });
+            return Json(new { success = true, message = "Bombeiro eliminado!" });
         }
 
 
@@ -212,7 +212,7 @@ namespace MapaDaForca.Controllers
         public JsonResult DeleteEscala(Guid id)
         {
             _escalaStore.Delete(id);
-            return Json(new { success = true, message = "Data da Escala excluída!" });
+            return Json(new { success = true, message = "Data da Escala eliminado!" });
         }
     }
 }

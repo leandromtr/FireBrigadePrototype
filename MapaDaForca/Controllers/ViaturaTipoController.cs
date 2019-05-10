@@ -78,11 +78,11 @@ namespace MapaDaForca.Controllers
             try
             {
                 var newBatalhao = _viaturaTipoStore.Save(viaturaTipo);
-                return Json(new { success = true, message = "Tipo da Viatura salvo com sucesso!" });
+                return Json(new { success = true, message = "Tipo da Viatura guardado com sucesso!" });
             }
             catch (Exception)
             {
-                return Json(new { success = false, message = "Erro ao salvar este Tipo da Viatura" });
+                return Json(new { success = false, message = "Erro ao guardar este Tipo da Viatura" });
             }
         }
 
@@ -91,11 +91,11 @@ namespace MapaDaForca.Controllers
         public JsonResult Delete(Guid id)
         {
             if (_viaturaStore.GetByViaturaTipoId(id).Any())
-                return Json(new { success = false, message = "Esta Viatura possui relações e não poderá ser excluída!" });
+                return Json(new { success = false, message = "Este Tipo da Viatura possui relações e não poderá ser eliminado!" });
 
             _viaturaTipoFuncaoStore.DeleteByViaturaTipoId(id);
             _viaturaTipoStore.Delete(id);
-            return Json(new { success = true, message = "Tipo da Viatura excluído!" });
+            return Json(new { success = true, message = "Tipo da Viatura eliminado!" });
         }
     }
 }

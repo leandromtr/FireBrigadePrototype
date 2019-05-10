@@ -2,11 +2,11 @@
 @using MapaDaForca.Helper;
 
     @{
-        ViewBag.Title = "Tipo da Escala";
+        ViewBag.Title = "Tipo da Ausência";
         ViewBag.Breadcrumbs = new List<Breadcrumb>()
 {
 new Breadcrumb() { Name = "Dashboard", Link = "/" },
-new Breadcrumb() { Name = "Tipo da Escala", Link = @Url.Action("Index","EscalaTipo"), IsActive = true}
+new Breadcrumb() { Name = "Tipo da Ausência", Link = @Url.Action("Index","EscalaTipo"), IsActive = true}
 };
 
         ViewData["CreateButtonLink"] = Url.Action("Create", "EscalaTipo");
@@ -19,7 +19,7 @@ new Breadcrumb() { Name = "Tipo da Escala", Link = @Url.Action("Index","EscalaTi
                     <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
                             <tr>
-                                <th>Tipo da Escala</th>
+                                <th>Tipo da Ausência</th>
                                 <th>Detalhe</th>
                             </tr>
                         </thead>

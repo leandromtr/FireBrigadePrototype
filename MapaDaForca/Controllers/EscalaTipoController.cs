@@ -48,7 +48,7 @@ namespace MapaDaForca.Controllers
         public ActionResult Detail(Guid id, bool message)
         {
             if (message)
-                ViewData["MessageCreate"] = "Tipo da Escala criado com sucesso!";
+                ViewData["MessageCreate"] = "Tipo da Ausência criado com sucesso!";
 
             var model = _escalaTipoStore.GetById(id);
             return View(model);
@@ -61,11 +61,11 @@ namespace MapaDaForca.Controllers
             try
             {
                 var newEscalaTipo = _escalaTipoStore.Save(escalaTipo);
-                return Json(new { success = true, message = "Tipo da Escala salvo com sucesso!" });
+                return Json(new { success = true, message = "Tipo da Ausência guardado com sucesso!" });
             }
             catch (Exception)
             {
-                return Json(new { success = false, message = "Erro ao salvar este Tipo da Escala" });
+                return Json(new { success = false, message = "Erro ao guardar este Tipo da Ausência" });
             }
         }
 
@@ -74,10 +74,10 @@ namespace MapaDaForca.Controllers
         public JsonResult Delete(Guid id)
         {
             if (_escalaStore.GetByEscalaTipoId(id).Any())
-                return Json(new { success = false, message = "Este Tipo da Escala possui relações e não poderá ser excluído!" });
+                return Json(new { success = false, message = "Este Tipo da Ausência possui relações e não poderá ser eliminado!" });
 
             _escalaTipoStore.Delete(id);
-            return Json(new { success = true, message = "Tipo da Escala excluído!" });
+            return Json(new { success = true, message = "Tipo da Ausência eliminado!" });
         }
     }
 }

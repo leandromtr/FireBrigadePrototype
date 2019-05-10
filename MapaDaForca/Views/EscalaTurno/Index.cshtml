@@ -2,11 +2,11 @@
 @using MapaDaForca.Model.Enums
 
 @{
-    ViewBag.Title = "Escala x Turno: ";
+    ViewBag.Title = "Escala vs. Turno: ";
     ViewBag.Breadcrumbs = new List<Breadcrumb>()
 {
 new Breadcrumb() { Name = "Dashboard", Link = "/" },
-new Breadcrumb() { Name = "Escala x Turno", Link = @Url.Action("Index","EscalaTurno")},
+new Breadcrumb() { Name = "Escala vs. Turno", Link = @Url.Action("Index","EscalaTurno")},
 };
 }
 
@@ -40,8 +40,8 @@ new Breadcrumb() { Name = "Escala x Turno", Link = @Url.Action("Index","EscalaTu
                 </form>
                 <div class="form-group mb-0">
                     <div>
-                        <button id="SaveEscalaTurno" class="btn btn-primary waves-effect waves-light">Salvar</button>
-                        <button id="SaveEscalaTurnoAno" class="btn btn-primary waves-effect waves-light">Salvar Ano</button>
+                        <button id="SaveEscalaTurno" class="btn btn-primary waves-effect waves-light">Guardar</button>
+                        <button id="SaveEscalaTurnoAno" class="btn btn-primary waves-effect waves-light">Guardar Ano</button>
                     </div>
                 </div>
             </div>

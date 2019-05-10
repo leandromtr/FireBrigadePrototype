@@ -32,7 +32,7 @@ new Breadcrumb() { Name = Model.Quartel.Nome, Link = @Url.Action("Detail","Quart
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Contabilizar contingente para o Portão?</label>
+                        <label>Contabilizar contingente para a portaria?</label>
                         <div>
                             <input type="checkbox" asp-for="Quartel.Portao" id="Portao" switch="success" @*checked="checked" *@>
                             <label for="Portao" data-on-label="Sim" data-off-label="Não"></label>
@@ -42,7 +42,7 @@ new Breadcrumb() { Name = Model.Quartel.Nome, Link = @Url.Action("Detail","Quart
                 <div class="form-group mb-0">
                     <div>
 
-                        <button id="SaveQuartel" class="btn btn-primary waves-effect waves-light">Salvar</button>
+                        <button id="SaveQuartel" class="btn btn-primary waves-effect waves-light">Guardar</button>
                         <button type="reset" class="btn btn-secondary waves-effect m-l-5" onclick="location.href='@Url.Action("Index", "Quartel")'">Cancelar</button>
                     </div>
                 </div>

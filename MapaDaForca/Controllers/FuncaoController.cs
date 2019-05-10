@@ -64,11 +64,11 @@ namespace MapaDaForca.Controllers
             try
             {
                 var newFuncao = _funcaoStore.Save(funcao);
-                return Json(new { success = true, message = "Função salvo com sucesso!" });
+                return Json(new { success = true, message = "Função guardada com sucesso!" });
             }
             catch (Exception)
             {
-                return Json(new { success = false, message = "Erro ao salvar este Função" });
+                return Json(new { success = false, message = "Erro ao guardar esta Função" });
             }
         }
 
@@ -77,16 +77,16 @@ namespace MapaDaForca.Controllers
         public JsonResult Delete(Guid id)
         {
             if (_bombeiroFuncaoStore.GetByFuncaoId(id).Any())
-                return Json(new { success = false, message = "Esta Função possui relações e não poderá ser excluída!" });
+                return Json(new { success = false, message = "Esta Função possui relações e não poderá ser eliminada!" });
 
             if (_viaturaTipoFuncaoStore.GetByFuncaoId(id).Any())
-                return Json(new { success = false, message = "Esta Função possui relações e não poderá ser excluída!" });
+                return Json(new { success = false, message = "Esta Função possui relações e não poderá ser eliminada!" });
 
             if (_escalaStore.GetByFuncaoId(id).Any())
-                return Json(new { success = false, message = "Esta Função possui relações e não poderá ser excluída!" });
+                return Json(new { success = false, message = "Esta Função possui relações e não poderá ser eliminada!" });
 
             _funcaoStore.Delete(id);
-            return Json(new { success = true, message = "Função excluído!" });
+            return Json(new { success = true, message = "Função eliminada!" });
         }
     }
 }

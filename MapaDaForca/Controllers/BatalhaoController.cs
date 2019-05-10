@@ -66,11 +66,11 @@ namespace MapaDaForca.Controllers
             try
             {
                 var newBatalhao = _batalhaoStore.Save(batalhao);
-                return Json(new { success = true, message = "Batalhão salvo com sucesso!" });
+                return Json(new { success = true, message = "Batalhão guardado com sucesso!" });
             }
             catch (Exception)
             {
-                return Json(new { success = false, message = "Erro ao salvar este Batalhão" });
+                return Json(new { success = false, message = "Erro ao guardar este Batalhão" });
             }
         }
 
@@ -80,10 +80,10 @@ namespace MapaDaForca.Controllers
         public JsonResult Delete(Guid id)
         {
             if (_companhiaStore.GetByBatalhaoId(id).Any())
-                return Json(new { success = false, message = "Este batalhão possui relações e não poderá ser excluído!" });
+                return Json(new { success = false, message = "Este batalhão possui relações e não poderá ser eliminado!" });
 
             _batalhaoStore.Delete(id);
-            return Json(new { success = true, message = "Batalhão excluído!" });
+            return Json(new { success = true, message = "Batalhão eliminado!" });
         }
     }
 }
