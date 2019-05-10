@@ -70,7 +70,7 @@ namespace MapaDaForca.Controllers
             }
             catch (Exception)
             {
-                return Json(new { success = false, message = "Erro ao salvar esta Viatura" });
+                return Json(new { success = false, message = "Erro ao guardar esta Viatura" });
             }
         }
 
@@ -79,10 +79,10 @@ namespace MapaDaForca.Controllers
         public JsonResult Delete(Guid id)
         {
             if (_quartelViaturaStore.GetByViaturaId(id).Any())
-                return Json(new { success = false, message = "Esta Viatura possui relações e não poderá ser excluída!" });
+                return Json(new { success = false, message = "Esta Viatura possui relações e não poderá ser eliminada!" });
 
             _viaturaStore.Delete(id);
-            return Json(new { success = true, message = "Viatura excluída!" });
+            return Json(new { success = true, message = "Viatura eliminada!" });
         }
     }
 }

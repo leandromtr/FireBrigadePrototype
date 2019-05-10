@@ -94,11 +94,11 @@ namespace MapaDaForca.Controllers
             try
             {
                 var newQuartel = _quartelStore.Save(quartel);
-                return Json(new { success = true, message = "Quartel salvo com sucesso!" });
+                return Json(new { success = true, message = "Quartel guardado com sucesso!" });
             }
             catch (Exception)
             {
-                return Json(new { success = false, message = "Erro ao salvar este Quartel" });
+                return Json(new { success = false, message = "Erro ao guardar este Quartel" });
             }
         }
 
@@ -108,14 +108,14 @@ namespace MapaDaForca.Controllers
         public JsonResult Delete(Guid id)
         {
             if (_escalaStore.GetByQuartelId(id).Any())
-                return Json(new { success = false, message = "Este Quartel possui relações e não poderá ser excluído!" });
+                return Json(new { success = false, message = "Este Quartel possui relações e não poderá ser eliminado!" });
 
             if (_bombeiroStore.GetByQuartelId(id).Any())
-                return Json(new { success = false, message = "Este Quartel possui relações e não poderá ser excluído!" });
+                return Json(new { success = false, message = "Este Quartel possui relações e não poderá ser eliminado!" });
 
             _quartelViaturaStore.DeleteByQuartelId(id);
             _quartelStore.Delete(id);
-            return Json(new { success = true, message = "Quartel excluído!" });
+            return Json(new { success = true, message = "Quartel eliminado!" });
         }
 
 

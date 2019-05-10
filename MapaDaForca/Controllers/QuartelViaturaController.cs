@@ -67,7 +67,7 @@ namespace MapaDaForca.Controllers
         public JsonResult Delete(Guid id)
         {
             //if (_quartelStore.GetByCompanhiaId(id).Any())
-            //    return Json(new { success = false, message = "Esta companhia possui relações e não poderá ser excluída!" });
+            //    return Json(new { success = false, message = "Esta companhia possui relações e não poderá ser eliminada!" });
 
             _quartelViaturaStore.Delete(id);
             return Json(new { success = true, message = "Viatura removida!" });

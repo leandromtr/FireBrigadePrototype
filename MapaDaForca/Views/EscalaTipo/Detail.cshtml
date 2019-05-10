@@ -3,11 +3,11 @@
 
 
 @{
-    ViewBag.Title = "Tipo da Escala: " + Model.Descricao;
+    ViewBag.Title = "Tipo da Ausência: " + Model.Descricao;
     ViewBag.Breadcrumbs = new List<Breadcrumb>()
 {
 new Breadcrumb() { Name = "Dashboard", Link = "/" },
-new Breadcrumb() { Name = "Tipo da Escala", Link = @Url.Action("Index","EscalaTipo")},
+new Breadcrumb() { Name = "Tipo da Ausência", Link = @Url.Action("Index","EscalaTipo")},
 new Breadcrumb() { Name = Model.Descricao, Link = @Url.Action("Detail","EscalaTipo", new { @id = Model.Id }), IsActive = true}
 };
     ViewData["DeleteButtonLink"] = Url.Action("Delete", "EscalaTipo", new { @id = Model.Id });
@@ -38,7 +38,7 @@ new Breadcrumb() { Name = Model.Descricao, Link = @Url.Action("Detail","EscalaTi
                 <div class="form-group mb-0">
                     <div>
 
-                        <button id="SaveEscalaTipo" class="btn btn-primary waves-effect waves-light">Salvar</button>
+                        <button id="SaveEscalaTipo" class="btn btn-primary waves-effect waves-light">Guardar</button>
                         <button type="reset" class="btn btn-secondary waves-effect m-l-5" onclick="location.href='@Url.Action("Index", "EscalaTipo")'">Cancelar</button>
                     </div>
                 </div>
