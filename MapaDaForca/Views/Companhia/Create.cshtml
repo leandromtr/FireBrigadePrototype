@@ -15,13 +15,13 @@ new Breadcrumb() { Name = "Cadastrar", Link = @Url.Action("Create","Companhia"),
             <div class="card-body">
                 <form method="post" action="/companhia/create">
                     <div class="form-group">
-                        <label>Nome</label>
+                        <label>@Html.DisplayNameFor(x => x.Nome)</label>
                         <div>
                             <input name="nome" type="text" class="form-control" required data-parsley-minlength="6">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Batalhão</label>
+                        <label>@Html.DisplayNameFor(x => x.BatalhaoId)</label>
                         <div>
                             <select class="form-control" asp-for="BatalhaoId" asp-items="@(new SelectList(@Model.Batalhoes,"Id","Nome"))">
                                 @*<option value="">None</option>*@

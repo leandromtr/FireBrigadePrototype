@@ -15,13 +15,13 @@ new Breadcrumb() { Name = "Cadastrar", Link = @Url.Action("Create","Viatura"), I
             <div class="card-body">
                 <form method="post" action="/viatura/create">
                     <div class="form-group">
-                        <label>Matrícula</label>
+                        <label>@Html.DisplayNameFor(x => x.Matricula)</label>
                         <div>
                             <input class="form-control" asp-for="Matricula" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Tipo da Viatura</label>
+                        <label>@Html.DisplayNameFor(x => x.ViaturaTipo)</label>
                         <div>
                             <select class="form-control" asp-for="ViaturaTipoId" asp-items="@(new SelectList(@Model.ViaturaTipos,"Id","Sigla"))">
                                 @*<option value="">None</option>*@
@@ -29,14 +29,14 @@ new Breadcrumb() { Name = "Cadastrar", Link = @Url.Action("Create","Viatura"), I
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Codigo RSB</label>
+                        <label>@Html.DisplayNameFor(x => x.CodigoRSB)</label>
                         <div class="form-group">
                             <input asp-for="CodigoRSB" class="form-control" required>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label>Operacional?</label>
+                        <label>@Html.DisplayNameFor(x => x.Operacional)</label>
                         <div>
                             <input type="checkbox" asp-for="Operacional" id="Operacional" switch="success">
                             <label for="Operacional" data-on-label="Sim" data-off-label="Não"></label>

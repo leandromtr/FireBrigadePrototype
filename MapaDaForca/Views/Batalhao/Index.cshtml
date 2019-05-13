@@ -18,7 +18,7 @@ new Breadcrumb() { Name = "Batalhão", Link = @Url.Action("Index","Batalhao"), I
                 <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
-                            <th>Nome do Batalhão</th>
+                            <th>@Html.DisplayNameFor(x => x.Nome)</th>
                         </tr>
                     </thead>
                     <tbody>
