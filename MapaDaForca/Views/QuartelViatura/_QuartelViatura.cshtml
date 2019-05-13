@@ -24,7 +24,7 @@
                 }
                 <tr>
                     <td style="width: 60%;">
-                        <select id="ddlViaturas" class="form-control" asp-items="@(new SelectList(Model.Viaturas,"Id","Matricula"))"></select>
+                        <select id="ddlViaturas" class="form-control" asp-items="@(new SelectList(Model.Viaturas,"Id","ViaturaInfo")).OrderBy(x=> x.Text)"></select>
                     <td style="width: 40%;"></td>
                     <td style="width: 10%;">
                         <button id="quartelViaturaSave" type="button" class="btn btn-primary btn-sm waves-effect waves-light">Adicionar</button>

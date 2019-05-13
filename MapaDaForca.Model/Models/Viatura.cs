@@ -25,8 +25,11 @@ namespace MapaDaForca.Model
         public ViaturaTipo ViaturaTipo { get; set; }
         [NotMapped]
         public IEnumerable<ViaturaTipo> ViaturaTipos { get; set; }
+
+        [NotMapped]
+        public string ViaturaInfo
+        {
+            get { return CodigoRSB + " | " + Matricula; }
+        }
     }
-
-
-
 }
