@@ -23,8 +23,11 @@ new Breadcrumb() { Name = "Regimento Sapadores Bombeiros - Dispositivo Atual", L
                 <div class="col-xl-4 col-md-4">
                     <div class="card m-b-20">
                         <div class="card-body">
-                            <h4 class="mt-0 header-title">@quartel.Quartel.Nome (@quartel.QuantidadeFuncoesViewModel.Sum(x => x.Quantidade))</h4>
+                            <h4 class="mt-0 header-title">@quartel.Quartel.Nome</h4>
                             <p class="text-muted m-b-30">@quartel.Quartel.Companhia.Nome</p>
+                            <ul>
+                                <li>Nº de Bombeiros necessário: @quartel.QuantidadeFuncoesViewModel.Sum(x => x.Quantidade)</li>
+                            </ul>
 
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
@@ -33,7 +36,7 @@ new Breadcrumb() { Name = "Regimento Sapadores Bombeiros - Dispositivo Atual", L
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#tabVeiculos_@quartel.Quartel.Id" role="tab" aria-selected="false">Viaturas</a>
-                                </li>                                
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#tabBombeiros_@quartel.Quartel.Id" role="tab" aria-selected="false">Bombeiros</a>
                                 </li>
@@ -53,7 +56,7 @@ new Breadcrumb() { Name = "Regimento Sapadores Bombeiros - Dispositivo Atual", L
                                     }
                                 </div>
                                 <div class="tab-pane p-3" id="tabBombeiros_@quartel.Quartel.Id" role="tabpanel">
-                                    @foreach (var bombeiro in quartel.Bombeiros.OrderBy(x=> x.Nome))
+                                    @foreach (var bombeiro in quartel.Bombeiros.OrderBy(x => x.Nome))
                                     {
                                         <p class="mb-0"><a href=@Url.Action("Detail", "Bombeiro", new { @id = bombeiro.Id })>@bombeiro.Nome</a></p>
                                     }

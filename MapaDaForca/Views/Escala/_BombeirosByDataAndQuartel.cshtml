@@ -26,10 +26,10 @@
                         <table class="table table-striped mb-0">
                             <thead>
                                 <tr>
-                                    <th style="width: 20%;">Nº Mecanogr.</th>
-                                    <th style="width: 25%;">Bombeiro</th>
-                                    <th style="width: 25%;">Função</th>
-                                    <th style="width: 20%;">Posto</th>
+                                    <th style="width: 20%;">@Html.DisplayNameFor(x => x.Bombeiro.NumeroMecanografico)</th>
+                                    <th style="width: 25%;">@Html.DisplayNameFor(x => x.Bombeiro.Nome)</th>
+                                    <th style="width: 25%;">@Html.DisplayNameFor(x => x.FuncaoId)</th>
+                                    <th style="width: 20%;">@Html.DisplayNameFor(x => x.Bombeiro.PostoId)</th>
                                 </tr>
                             </thead>
                             @{ foreach (var escala in Model.Where(x => x.PeriodoDiurno == true).OrderBy(x => x.Bombeiro.Nome))
@@ -63,10 +63,10 @@
                         <table class="table table-striped mb-0">
                             <thead>
                                 <tr>
-                                    <th style="width: 20%;">Nº Mecanogr.</th>
-                                    <th style="width: 25%;">Bombeiro</th>
-                                    <th style="width: 25%;">Função</th>
-                                    <th style="width: 20%;">Posto</th>
+                                    <th style="width: 20%;">@Html.DisplayNameFor(x => x.Bombeiro.NumeroMecanografico)</th>
+                                    <th style="width: 25%;">@Html.DisplayNameFor(x => x.Bombeiro.Nome)</th>
+                                    <th style="width: 25%;">@Html.DisplayNameFor(x => x.FuncaoId)</th>
+                                    <th style="width: 20%;">@Html.DisplayNameFor(x => x.Bombeiro.PostoId)</th>
                                 </tr>
                             </thead>
                             @{ foreach (var escala in Model.Where(x => x.PeriodoDiurno == false).OrderBy(x => x.Bombeiro.Nome))
@@ -100,6 +100,7 @@
 
 <script>
     $(document).ready(function () {
+        //var DT = $("#dtEscala").val(moment().format('DD/MM/YYYY'));
         $("#dtEscalaList").text($("#dtEscala").val());
         $("#quartelList").text($("#quartelId option:selected").text());
     });

@@ -156,5 +156,52 @@ namespace MapaDaForca.Controllers
 
             return View(quarteisViewModel);
         }
+
+        [HttpGet]
+        [Route("RSBAtualDiario")]
+        public ActionResult RSBAtualDiario()
+        {
+            var quarteis = _quartelStore.GetAll();
+            var bombeiros = _bombeiroStore.GetAll();
+
+            var quarteisViewModel = new List<RSBAtualDiarioViewModel>();
+
+            foreach (var quartel in quarteis)
+            {
+                var quartelViewModel = new RSBAtualDiarioViewModel();
+                quartelViewModel.Quartel = _quartelStore.GetById(quartel.Id);
+
+                var viaturaTipoFuncoes = _viaturaTipoFuncaoStore.GetByQuartelId(quartel.Id);
+                quartelViewModel.QuantidadeFuncoesDiurnoViewModel = viaturaTipoFuncoes
+                    .GroupBy(l => l.FuncaoId)
+                    .Select(x => new QuantidadeFuncaoViewModel
+                    {
+                        FuncaoId = x.First().FuncaoId,
+                        FuncaoNome = x.First().Funcao.Nome,
+                        Quantidade = x.Sum(c => c.Quantidade),
+                    }).ToList();
+                quartelViewModel.QuantidadeFuncoesNoturnoViewModel = quartelViewModel.QuantidadeFuncoesDiurnoViewModel;
+
+                var quartelViatura = new QuartelViaturaViewModel();
+                quartelViatura.QuartelViaturas = _quartelViaturaStore.GetByQuartelId(quartel.Id).ToList();
+                quartelViewModel.QuartelViaturaViewModel = quartelViatura;
+
+                var EscalaDiurno = _escalaStore.GetByQuartelIdAndDtEscalaAndPeriodoDiurno(quartel.Id, DateTime.Now.Date, true).ToList();
+                var EscalaNoturno = _escalaStore.GetByQuartelIdAndDtEscalaAndPeriodoDiurno(quartel.Id, DateTime.Now.Date, false).ToList();
+                EscalaDiurno.ForEach(e => e.Bombeiro = bombeiros.FirstOrDefault(b => b.Id == e.BombeiroId));
+                EscalaNoturno.ForEach(e => e.Bombeiro = bombeiros.FirstOrDefault(b => b.Id == e.BombeiroId));
+                quartelViewModel.BombeirosDiurno = EscalaDiurno.Select(x=> x.Bombeiro).ToList();
+                quartelViewModel.BombeirosNoturno = EscalaNoturno.Select(x=> x.Bombeiro).ToList();
+
+                quarteisViewModel.Add(quartelViewModel);
+            }
+
+            var batalhoes = _batalhaoStore.GetAll();
+            var companhias = _companhiaStore.GetAll();
+            quarteisViewModel.ForEach(q => q.Quartel.Companhia = companhias.FirstOrDefault(c => c.Id == q.Quartel.CompanhiaId));
+            quarteisViewModel.ForEach(q => q.Quartel.Companhia.Batalhao = batalhoes.FirstOrDefault(b => b.Id == q.Quartel.Companhia.BatalhaoId));
+
+            return View(quarteisViewModel);
+        }
     }
 }
