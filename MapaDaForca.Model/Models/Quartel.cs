@@ -18,7 +18,6 @@ namespace MapaDaForca.Model
         [Display(Name = "Contingente p/ Portaria")]
         public bool Portao { get; set; }
 
-
         [NotMapped]
         public Companhia Companhia { get; set; }
         [NotMapped]
