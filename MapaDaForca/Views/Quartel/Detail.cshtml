@@ -20,11 +20,11 @@ new Breadcrumb() { Name = Model.Quartel.Nome, Link = @Url.Action("Detail","Quart
                     @Html.HiddenFor(x => x.Quartel.Id)
 
                     <div class="form-group">
-                        <label class="form-label">@Html.DisplayNameFor(m => m.Quartel.Nome)</label>
+                        <label>@Html.DisplayNameFor(m => m.Quartel.Nome)</label>
                         @Html.TextBoxFor(m => m.Quartel.Nome, new { @class = "form-control", @type = "text", @required = "required" })
                     </div>
                     <div class="form-group">
-                        <label>Batalhão</label>
+                        <label>@Html.DisplayNameFor(x => x.Quartel.Companhia.Nome)</label>
                         <div>
                             <select class="form-control" asp-for="Quartel.CompanhiaId" asp-items="@(new SelectList(@Model.Quartel.Companhias,"Id","Nome"))">
                                 @*<option value="">None</option>*@

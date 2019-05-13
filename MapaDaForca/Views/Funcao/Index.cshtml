@@ -18,7 +18,7 @@ new Breadcrumb() { Name = "Função", Link = @Url.Action("Index","Funcao"), IsAc
                 <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
-                            <th>Nome da Função</th>
+                            <th>@Html.DisplayNameFor(x => x.Nome)</th>
                         </tr>
                     </thead>
                     <tbody>

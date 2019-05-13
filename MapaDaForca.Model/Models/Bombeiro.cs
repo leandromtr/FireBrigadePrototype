@@ -3,17 +3,30 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using MapaDaForca.Model.Enums;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace MapaDaForca.Model
 {
     public class Bombeiro
     {
         public Guid Id { get; set; }
+
+        [Display(Name = "Nº Mecanográfico")]
         public int NumeroMecanografico { get; set; }
+
+        [Display(Name = "Bombeiro")]
         public string Nome { get; set; }
+
+        [Display(Name = "Data de Início")]
         public DateTime DtInicio { get; set; }
+
+        [Display(Name = "Posto")]
         public Guid PostoId { get; set; }
+
+        [Display(Name = "Quartel")]
         public Guid QuartelId { get; set; }
+
+        [Display(Name = "Turno")]
         public Turno Turno { get; set; }
 
         [NotMapped]

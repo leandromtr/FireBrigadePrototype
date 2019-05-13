@@ -17,13 +17,13 @@ new Breadcrumb() { Name = "Cadastrar", Link = @Url.Action("Create","EscalaTipo")
             <div class="card-body">
                 <form method="post" action="/escalatipo/create">
                     <div class="form-group">
-                        <label>Tipo da Escala</label>
+                        <label>@Html.DisplayNameFor(x => x.Descricao)</label>
                         <div>
                             <input asp-for="Descricao" type="text" class="form-control" required >
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Detalhe</label>
+                        <label>@Html.DisplayNameFor(x => x.EscalaTipoDetalhe)</label>
                         <div>
                             <select class="form-control" asp-for="EscalaTipoDetalhe" asp-items="Html.GetEnumSelectList<EscalaTipoDetalhe>()">
                             </select>

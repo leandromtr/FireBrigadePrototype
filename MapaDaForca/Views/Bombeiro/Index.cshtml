@@ -20,11 +20,11 @@ new Breadcrumb() { Name = "Bombeiro", Link = @Url.Action("Index","Bombeiro"), Is
                 <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                     <thead>
                         <tr>
-                            <th>Nome do Bombeiro</th>
-                            <th>Dt. Início</th>
-                            <th>Posto</th>
-                            <th>Quartel</th>
-                            <th>Turno</th>
+                            <th>@Html.DisplayNameFor(x => x.Nome)</th>
+                            <th>@Html.DisplayNameFor(x => x.DtInicio)</th>
+                            <th>@Html.DisplayNameFor(x => x.Posto)</th>
+                            <th>@Html.DisplayNameFor(x => x.Quartel)</th>
+                            <th>@Html.DisplayNameFor(x => x.Turno)</th>
                         </tr>
                     </thead>
                     <tbody>

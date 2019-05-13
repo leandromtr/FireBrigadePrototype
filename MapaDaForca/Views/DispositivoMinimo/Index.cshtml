@@ -38,7 +38,7 @@ new Breadcrumb() { Name = "Dispositivo Mínimo", Link = @Url.Action("Index","Dis
                 <div class="form-group">
                     <div class="row">
                         <div class="col-7">
-                            <label>Quartel</label>
+                            <label>@Html.DisplayNameFor(x => x.QuartelId)</label>
                             <div>
                                 <select class="form-control" id="quartelId" asp-items="@(new SelectList(@Model.Quarteis,"Id","Nome"))">
                                     @*<option value="">None</option>*@
@@ -49,7 +49,7 @@ new Breadcrumb() { Name = "Dispositivo Mínimo", Link = @Url.Action("Index","Dis
                         <div class="col-1">
                         </div>
                         <div class="col-4">
-                            <label>Período Diúrno</label>
+                            <label>@Html.DisplayNameFor(x => x.PeriodoDiurno)</label>
                             <div>
                                 <input type="checkbox" id="PeriodoDiurno" switch="success" checked="checked" data-val="true" name="PeriodoDiurno" value="true">
                                 <label for="PeriodoDiurno" data-on-label="Sim" data-off-label="Não"></label>

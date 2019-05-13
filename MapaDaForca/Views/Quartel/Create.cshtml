@@ -15,13 +15,13 @@ new Breadcrumb() { Name = "Cadastrar", Link = @Url.Action("Create","Quartel"), I
             <div class="card-body">
                 <form method="post" action="/quartel/create">
                     <div class="form-group">
-                        <label>Nome</label>
+                        <label>@Html.DisplayNameFor(x => x.Nome)</label>
                         <div>
                             <input name="nome" type="text" class="form-control" required data-parsley-minlength="6">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Companhia</label>
+                        <label>@Html.DisplayNameFor(x => x.CompanhiaId)</label>
                         <div>
                             <select class="form-control" asp-for="CompanhiaId" asp-items="@(new SelectList(@Model.Companhias,"Id","Nome"))">
                                 @*<option value="">None</option>*@
@@ -29,7 +29,7 @@ new Breadcrumb() { Name = "Cadastrar", Link = @Url.Action("Create","Quartel"), I
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Contabilizar contingente para a portaria?</label>
+                        <label>@Html.DisplayNameFor(x => x.Portao)</label>
                         <div>
                             <input type="checkbox" asp-for="Portao" id="Portao" switch="success">
                             <label for="Portao" data-on-label="Sim" data-off-label="Não"></label>

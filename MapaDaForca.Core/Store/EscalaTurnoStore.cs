@@ -65,29 +65,32 @@ namespace MapaDaForca.Core.Store
 
         public void SaveYear(int year)
         {
-            DateTime firstDay = new DateTime(year, 1, 1);
-            DateTime lastDay = new DateTime(year, 12, 31);
-            int nTurno = 1;
-            var escalaTurno = new EscalaTurno();
-
-            for (DateTime dt = firstDay; dt <= lastDay; dt = dt.AddDays(1))
+            if (year >= (int)DateTime.Now.Year)
             {
-                escalaTurno.Id = Guid.Empty;
-                escalaTurno.DtEscalaTurno = dt;
-                escalaTurno.PeriodoDiurno = true;
-                escalaTurno.Turno = (Turno)nTurno;
-                Save(escalaTurno);
-                nTurno++;
-                if (nTurno == 5)
-                    nTurno = 1;
+                DateTime firstDay = new DateTime(year, 1, 1);
+                DateTime lastDay = new DateTime(year, 12, 31);
+                int nTurno = 1;
+                var escalaTurno = new EscalaTurno();
 
-                escalaTurno.Id = Guid.Empty;
-                escalaTurno.PeriodoDiurno = false;
-                escalaTurno.Turno = (Turno)nTurno;
-                Save(escalaTurno);
-                nTurno++;
-                if (nTurno == 5)
-                    nTurno = 1;
+                for (DateTime dt = firstDay; dt <= lastDay; dt = dt.AddDays(1))
+                {
+                    escalaTurno.Id = Guid.Empty;
+                    escalaTurno.DtEscalaTurno = dt;
+                    escalaTurno.PeriodoDiurno = true;
+                    escalaTurno.Turno = (Turno)nTurno;
+                    Save(escalaTurno);
+                    nTurno++;
+                    if (nTurno == 5)
+                        nTurno = 1;
+
+                    escalaTurno.Id = Guid.Empty;
+                    escalaTurno.PeriodoDiurno = false;
+                    escalaTurno.Turno = (Turno)nTurno;
+                    Save(escalaTurno);
+                    nTurno++;
+                    if (nTurno == 5)
+                        nTurno = 1;
+                }
             }
         }
 

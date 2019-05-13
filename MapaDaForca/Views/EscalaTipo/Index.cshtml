@@ -19,8 +19,8 @@ new Breadcrumb() { Name = "Tipo da Ausência", Link = @Url.Action("Index","Escal
                     <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
                             <tr>
-                                <th>Tipo da Ausência</th>
-                                <th>Detalhe</th>
+                                <th>@Html.DisplayNameFor(x => x.Descricao)</th>
+                                <th>@Html.DisplayNameFor(x => x.EscalaTipoDetalhe)</th>
                             </tr>
                         </thead>
                         <tbody>

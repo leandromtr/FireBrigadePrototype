@@ -20,12 +20,12 @@ new Breadcrumb() { Name = Model.ViaturaTipo.Sigla, Link = @Url.Action("Detail","
                     @Html.HiddenFor(x => x.ViaturaTipo.Id)
 
                     <div class="form-group">
-                        <label class="form-label">@Html.DisplayNameFor(m => m.ViaturaTipo.Sigla)</label>
+                        <label>@Html.DisplayNameFor(m => m.ViaturaTipo.Sigla)</label>
                         @Html.TextBoxFor(m => m.ViaturaTipo.Sigla, new { @class = "form-control", @type = "text", @required = "required" })
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">@Html.DisplayNameFor(m => m.ViaturaTipo.Descricao)</label>
+                        <label>@Html.DisplayNameFor(m => m.ViaturaTipo.Descricao)</label>
                         @Html.TextBoxFor(m => m.ViaturaTipo.Descricao, new { @class = "form-control", @type = "text", @required = "required" })
                     </div>
                 </form>

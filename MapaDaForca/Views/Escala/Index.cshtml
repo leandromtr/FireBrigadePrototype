@@ -17,7 +17,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="form-group">
-                    <label>Quartel</label>
+                    <label>@Html.DisplayNameFor(x => x.QuartelId)</label>
                     <div>
                         <select class="form-control" id="quartelId" asp-items="@(new SelectList(@Model.Quarteis,"Id","Nome"))">
                             @*<option value="">None</option>*@
