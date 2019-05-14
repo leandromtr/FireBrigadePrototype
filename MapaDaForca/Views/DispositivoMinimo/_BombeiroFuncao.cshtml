@@ -55,6 +55,8 @@
 
 <script>
     $(document).ready(function () {
+
+        $("#dtEscala").val(moment($("#dtEscala").val()).format('DD/MM/YYYY'));
         $("#dtEscalaBombeiroFuncao").text($("#dtEscala").val());
     })
 </script>

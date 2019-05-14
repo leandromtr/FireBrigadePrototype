@@ -100,7 +100,8 @@
 
 <script>
     $(document).ready(function () {
-        //var DT = $("#dtEscala").val(moment().format('DD/MM/YYYY'));
+
+        $("#dtEscala").val(moment($("#dtEscala").val()).format('DD/MM/YYYY'));
         $("#dtEscalaList").text($("#dtEscala").val());
         $("#quartelList").text($("#quartelId option:selected").text());
     });
