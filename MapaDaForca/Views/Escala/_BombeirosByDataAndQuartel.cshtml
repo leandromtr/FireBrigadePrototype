@@ -101,8 +101,8 @@
 <script>
     $(document).ready(function () {
 
-        $("#dtEscala").val(moment($("#dtEscala").val()).format('DD/MM/YYYY'));
-        $("#dtEscalaList").text($("#dtEscala").val());
+        //$("#dtEscala").val(moment($("#dtEscala").val()).format('DD/MM/YYYY'));
+        $("#dtEscalaList").text(moment($("#dtEscala").val()).format('DD/MM/YYYY'));
         $("#quartelList").text($("#quartelId option:selected").text());
     });
 </script>
