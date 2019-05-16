@@ -1,0 +1,47 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+@*<h2>@ViewData["Title"]</h2>*@
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h4 class="text-muted font-18 m-b-5 text-center">Criar conta</h4>
+            <p class="text-muted text-center">Favor preencher todos os dados</p>
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.Nome"></label>
+                <input asp-for="Input.Nome" class="form-control" />
+                <span asp-validation-for="Input.Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.NumeroMecanografico"></label>
+                <input asp-for="Input.NumeroMecanografico" class="form-control" />
+                <span asp-validation-for="Input.NumeroMecanografico" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Password"></label>
+                <input asp-for="Input.Password" class="form-control" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.ConfirmPassword"></label>
+                <input asp-for="Input.ConfirmPassword" class="form-control" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary w-md waves-effect waves-light">Registrar</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

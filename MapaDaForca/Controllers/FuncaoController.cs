@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MapaDaForca.Controllers
 {
+    [Authorize]
     public class FuncaoController : Controller
     {
         private readonly IFuncaoStore _funcaoStore;

@@ -16,6 +16,7 @@ using MapaDaForca.Core.Store;
 using MapaDaForca.Data.Repository;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using MapaDaForca.Model;
 
 namespace MapaDaForca
 {
@@ -41,19 +42,26 @@ namespace MapaDaForca
             //services.AddDbContext<ApplicationDbContext>(options =>
             //    options.UseSqlServer(
             //        Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDefaultIdentity<IdentityUser>()
+            //services.AddDefaultIdentity<Bombeiro>()
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddDbContext<MapaDaForcaDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDefaultIdentity<MapaDaForcaDbContext>()
-            //    .AddEntityFrameworkStores<MapaDaForcaDbContext>();
+            services.AddDefaultIdentity<Bombeiro>()
+               .AddEntityFrameworkStores<MapaDaForcaDbContext>();
+            //services.AddIdentity<Bombeiro, IdentityRole>()
+            //    .AddEntityFrameworkStores<MapaDaForcaDbContext>()
+            //    .AddDefaultTokenProviders();
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy("OnlyAnonymous",
+            //        policy => policy.Requirements.Add(new Authorization.OnlyAnonymousRequirement()));
+            //});
 
 
             services.AddTransient<IBatalhaoStore, BatalhaoStore>();
@@ -89,7 +97,13 @@ namespace MapaDaForca
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(
+            IApplicationBuilder app, 
+            IHostingEnvironment env
+            //MapaDaForcaDbContext context,
+            //UserManager<Bombeiro> userManager,
+            //RoleManager<IdentityRole> roleManager
+            )
         {
             if (env.IsDevelopment())
             {

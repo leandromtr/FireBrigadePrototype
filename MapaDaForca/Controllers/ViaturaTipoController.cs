@@ -6,9 +6,11 @@ using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
 using Microsoft.AspNetCore.Mvc;
 using MapaDaForca.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MapaDaForca.Controllers
 {
+    [Authorize]
     public class ViaturaTipoController : Controller
     {
         private readonly IViaturaTipoStore _viaturaTipoStore;

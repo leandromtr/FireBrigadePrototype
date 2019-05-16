@@ -4,12 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 using MapaDaForca.Model.Enums;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace MapaDaForca.Model
 {
-    public class Bombeiro
+    public class Bombeiro : IdentityUser
     {
-        public Guid Id { get; set; }
+        //public Guid Id { get; set; }
 
         [Display(Name = "Nº Mecanográfico")]
         public int NumeroMecanografico { get; set; }

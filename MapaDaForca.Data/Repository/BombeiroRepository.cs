@@ -42,7 +42,7 @@ namespace MapaDaForca.Data.Repository
         {
             using (var context = new MapaDaForcaDbContext(Options))
             {
-                return context.Bombeiros.FirstOrDefault(x => x.Id == id);
+                return context.Bombeiros.FirstOrDefault(x => x.Id == id.ToString());
             }
         }
 
@@ -53,7 +53,7 @@ namespace MapaDaForca.Data.Repository
 
             using (var context = new MapaDaForcaDbContext(Options))
             {
-                bombeiro.Id = Guid.NewGuid();
+                bombeiro.Id = Guid.NewGuid().ToString();
                 context.Bombeiros.Add(bombeiro);
                 context.Entry(bombeiro).State = EntityState.Added;
 
@@ -79,7 +79,7 @@ namespace MapaDaForca.Data.Repository
         {
             using (var context = new MapaDaForcaDbContext(Options))
             {
-                return context.Bombeiros.Any(x => x.Id == id);
+                return context.Bombeiros.Any(x => x.Id == id.ToString());
             }
         }
 
@@ -87,7 +87,7 @@ namespace MapaDaForca.Data.Repository
         {
             using (var context = new MapaDaForcaDbContext(Options))
             {
-                var delete = context.Bombeiros.FirstOrDefault(x => x.Id == id);
+                var delete = context.Bombeiros.FirstOrDefault(x => x.Id == id.ToString());
 
                 context.Bombeiros.Remove(delete);
 

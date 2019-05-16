@@ -6,10 +6,12 @@ using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
 using MapaDaForca.Model.Enums;
 using MapaDaForca.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MapaDaForca.Controllers
 {
+    [Authorize]
     [Route("dispositivoMinimo")]
 
     public class DispositivoMinimoController : Controller
@@ -119,7 +121,7 @@ namespace MapaDaForca.Controllers
             var bombeiros = _bombeiroStore.GetAll().OrderBy(x => x.Nome).ToList();
             var funcoes = _funcaoStore.GetAll().OrderBy(x => x.Nome).ToList();
 
-            escalas.ForEach(e => e.Bombeiro = bombeiros.FirstOrDefault(b => b.Id == e.BombeiroId));
+            escalas.ForEach(e => e.Bombeiro = bombeiros.FirstOrDefault(b => b.Id == e.BombeiroId.ToString()));
             escalas.ForEach(e => e.Funcao = funcoes.FirstOrDefault(f => f.Id == e.FuncaoId));
 
             //var funcaoBombeiros = new List<FuncaoBombeirosViewModel>();
