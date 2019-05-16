@@ -6,12 +6,13 @@ using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
 using MapaDaForca.Model.Enums;
 using MapaDaForca.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace MapaDaForca.Controllers
 {
-
+    [Authorize]
     public class EscalaTurnoController : Controller
     {
         private readonly IEscalaTurnoStore _escalaTurnoStore;

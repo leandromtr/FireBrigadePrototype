@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
 using MapaDaForca.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MapaDaForca.Controllers
 {
+    [Authorize]
     [Route("quartel")]
     public class QuartelController : Controller
     {
@@ -188,8 +190,8 @@ namespace MapaDaForca.Controllers
 
                 var EscalaDiurno = _escalaStore.GetByQuartelIdAndDtEscalaAndPeriodoDiurno(quartel.Id, DateTime.Now.Date, true).ToList();
                 var EscalaNoturno = _escalaStore.GetByQuartelIdAndDtEscalaAndPeriodoDiurno(quartel.Id, DateTime.Now.Date, false).ToList();
-                EscalaDiurno.ForEach(e => e.Bombeiro = bombeiros.FirstOrDefault(b => b.Id == e.BombeiroId));
-                EscalaNoturno.ForEach(e => e.Bombeiro = bombeiros.FirstOrDefault(b => b.Id == e.BombeiroId));
+                EscalaDiurno.ForEach(e => e.Bombeiro = bombeiros.FirstOrDefault(b => b.Id == e.BombeiroId.ToString()));
+                EscalaNoturno.ForEach(e => e.Bombeiro = bombeiros.FirstOrDefault(b => b.Id == e.BombeiroId.ToString()));
                 quartelViewModel.BombeirosDiurno = EscalaDiurno.Select(x=> x.Bombeiro).ToList();
                 quartelViewModel.BombeirosNoturno = EscalaNoturno.Select(x=> x.Bombeiro).ToList();
 

@@ -77,7 +77,7 @@ namespace MapaDaForca.Core.Store
         {
             Bombeiro saved = null;
 
-            if (_repository.IsExisting(save.Id))
+            if (_repository.IsExisting(new Guid(save.Id)))
             {
                 saved = _repository.Update(save);
             }

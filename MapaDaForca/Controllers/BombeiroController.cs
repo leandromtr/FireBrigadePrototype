@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
 using MapaDaForca.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MapaDaForca.Controllers
 {
+    [Authorize]
     [Route("bombeiro")]
     public class BombeiroController : Controller
     {

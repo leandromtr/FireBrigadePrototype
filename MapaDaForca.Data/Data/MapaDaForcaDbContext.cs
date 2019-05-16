@@ -1,4 +1,5 @@
 ﻿using MapaDaForca.Model;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -7,7 +8,7 @@ using System.Text;
 
 namespace MapaDaForca.Data.Data
 {
-    public class MapaDaForcaDbContext: DbContext
+    public class MapaDaForcaDbContext: IdentityDbContext<Bombeiro>
     {
         private IConfiguration Configuration { get; }
 

@@ -123,7 +123,7 @@ namespace MapaDaForca.Core.Store
             var bombeiroFuncao = _bombeiroFuncaoStore.GetPrincipalByBombeiroId(bombeiroId);
             var escalaTurnos = _escalaTurnoStore.GetByTurno(bombeiro.Turno).ToList();
             var escala = new Escala() {
-                BombeiroId = bombeiro.Id,
+                BombeiroId = new Guid(bombeiro.Id),
                 FuncaoId = bombeiroFuncao.FuncaoId,
                 QuartelId = bombeiro.QuartelId,
                 EscalaTipoId = Guid.Empty, // FUNCAO PRINCIPAL

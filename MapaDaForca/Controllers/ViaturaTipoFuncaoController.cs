@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
 using MapaDaForca.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MapaDaForca.Controllers
 {
+    [Authorize]
     public class ViaturaTipoFuncaoController : Controller
     {
         private readonly IViaturaTipoFuncaoStore _viaturaTipoFuncaoStore;
