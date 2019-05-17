@@ -17,6 +17,8 @@ using MapaDaForca.Data.Repository;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using MapaDaForca.Model;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using MapaDaForca.Core.Services;
 
 namespace MapaDaForca
 {
@@ -48,8 +50,9 @@ namespace MapaDaForca
             services.AddDbContext<MapaDaForcaDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<Bombeiro>()
-               .AddEntityFrameworkStores<MapaDaForcaDbContext>();
+            services.AddIdentity<Bombeiro, IdentityRole>()
+                .AddEntityFrameworkStores<MapaDaForcaDbContext>()
+                .AddDefaultTokenProviders();
             //services.AddIdentity<Bombeiro, IdentityRole>()
             //    .AddEntityFrameworkStores<MapaDaForcaDbContext>()
             //    .AddDefaultTokenProviders();
@@ -63,6 +66,13 @@ namespace MapaDaForca
             //        policy => policy.Requirements.Add(new Authorization.OnlyAnonymousRequirement()));
             //});
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = new PathString("/Identity/Account/AccessDenied");
+                options.LoginPath = new PathString("/Identity/Account/Login");
+            });
+
+            //services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddTransient<IBatalhaoStore, BatalhaoStore>();
             services.AddTransient<IBombeiroStore, BombeiroStore>();
@@ -99,10 +109,10 @@ namespace MapaDaForca
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(
             IApplicationBuilder app, 
-            IHostingEnvironment env
-            //MapaDaForcaDbContext context,
-            //UserManager<Bombeiro> userManager,
-            //RoleManager<IdentityRole> roleManager
+            IHostingEnvironment env,
+            MapaDaForcaDbContext context,
+            UserManager<Bombeiro> userManager,
+            RoleManager<IdentityRole> roleManager
             )
         {
             if (env.IsDevelopment())

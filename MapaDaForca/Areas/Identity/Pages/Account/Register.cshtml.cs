@@ -19,19 +19,22 @@ namespace MapaDaForca.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<Bombeiro> _signInManager;
         private readonly UserManager<Bombeiro> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
+        //private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<Bombeiro> userManager,
             SignInManager<Bombeiro> signInManager,
-            ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            RoleManager<IdentityRole> roleManager,
+            ILogger<RegisterModel> logger)
+            //IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _logger = logger;
-            _emailSender = emailSender;
+            //_emailSender = emailSender;
         }
 
         [BindProperty]
@@ -47,7 +50,7 @@ namespace MapaDaForca.Areas.Identity.Pages.Account
 
             [Required]
             [Display(Name = "Nº Mecanográfico")]
-            public int NumeroMecanografico { get; set; }            
+            public int NumeroMecanografico { get; set; }
 
             [Required]
             [EmailAddress]
@@ -81,12 +84,17 @@ namespace MapaDaForca.Areas.Identity.Pages.Account
                     Email = Input.Email,
                     Nome = Input.Nome,
                     NumeroMecanografico = Input.NumeroMecanografico,
-                    Turno = (Turno.T1),
+                    Turno = (Turno.T1)
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
+
+                    var x = await _roleManager.RoleExistsAsync(PerfilAcesso.Bombeiro);
+
+                    if (x)
+                        await _userManager.AddToRoleAsync(user, PerfilAcesso.Bombeiro);
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.Page(
@@ -95,8 +103,8 @@ namespace MapaDaForca.Areas.Identity.Pages.Account
                         values: new { userId = user.Id, code = code },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
