@@ -43,7 +43,7 @@
             <div class="text-white bg-primary">
                 <div class="card-body">
                     <blockquote class="card-blockquote mb-0">
-                        <p>Não há um corpo operacional relacionado a este quartel/ período no dia <span id="dtEscalaBombeiroFuncao"></span>.</p>
+                        Não há um corpo operacional relacionado a este quartel/ período no dia <span id="dtEscalaBombeiroFuncao"></span>.
                     </blockquote>
                 </div>
             </div>
@@ -55,7 +55,6 @@
 
 <script>
     $(document).ready(function () {
-
         $("#dtEscala").val(moment($("#dtEscala").val()).format('DD/MM/YYYY'));
         $("#dtEscalaBombeiroFuncao").text($("#dtEscala").val());
     })

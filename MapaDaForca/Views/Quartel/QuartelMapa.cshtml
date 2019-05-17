@@ -14,6 +14,19 @@ new Breadcrumb() { Name = "Regimento Sapadores Bombeiros - Dispositivo Atual", L
 }
 
 
+@{ if (batalhoes.Count() == 0)
+    {
+        <div class="text-white bg-primary">
+            <div class="card-body">
+                <blockquote class="card-blockquote mb-0">
+                    Não há nenhum dispositivo mínimo para ser apresentado.
+                </blockquote>
+            </div>
+        </div>
+    }
+}
+
+
 @{foreach (var batalhao in batalhoes.OrderBy(x => x.Nome))
     {
         <center><h2 class="mt-0 header-title">@batalhao.Nome</h2></center>
@@ -67,7 +80,7 @@ new Breadcrumb() { Name = "Regimento Sapadores Bombeiros - Dispositivo Atual", L
                 </div>
             }
         </div>
-        <br/>
+        <br />
     }
 }
 

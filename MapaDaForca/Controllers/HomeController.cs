@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using MapaDaForca.Model.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Home.Controllers
 {
     [Authorize]
+    [Authorize(Roles = PerfilAcesso.Bombeiro + ", " + PerfilAcesso.Administrador)]
     public class HomeController : Controller
     {
         public IActionResult Index()

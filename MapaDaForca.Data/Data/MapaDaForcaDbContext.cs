@@ -1,4 +1,6 @@
 ﻿using MapaDaForca.Model;
+using MapaDaForca.Model.Enums;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,16 +18,12 @@ namespace MapaDaForca.Data.Data
 
         public MapaDaForcaDbContext(DbContextOptions<MapaDaForcaDbContext> options) : base(options) { }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
-        //    modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = Guid.NewGuid().ToString(), Name = Role.Super_Administrator, NormalizedName = Role.Super_Administrator.ToUpper() });
-        //    modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = Guid.NewGuid().ToString(), Name = Role.Administrator, NormalizedName = Role.Administrator.ToUpper() });
-        //    modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = Guid.NewGuid().ToString(), Name = Role.Participant, NormalizedName = Role.Participant.ToUpper() });
-        //    modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = Guid.NewGuid().ToString(), Name = Role.Staff, NormalizedName = Role.Staff.ToUpper() });
-        //    modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = Guid.NewGuid().ToString(), Name = Role.Volunteer, NormalizedName = Role.Volunteer.ToUpper() });
-        //    modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = Guid.NewGuid().ToString(), Name = Role.Parent, NormalizedName = Role.Parent.ToUpper() });
-        //}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = Guid.NewGuid().ToString(), Name = PerfilAcesso.Administrador, NormalizedName = PerfilAcesso.Administrador.ToUpper() });
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = Guid.NewGuid().ToString(), Name = PerfilAcesso.Bombeiro, NormalizedName = PerfilAcesso.Bombeiro.ToUpper() });       
+        }
 
         public DbSet<Bombeiro> Bombeiros { get; set; }
 
