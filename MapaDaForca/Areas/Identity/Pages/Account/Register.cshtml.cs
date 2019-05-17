@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using MapaDaForca.Model;
+using MapaDaForca.Model.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -80,6 +81,7 @@ namespace MapaDaForca.Areas.Identity.Pages.Account
                     Email = Input.Email,
                     Nome = Input.Nome,
                     NumeroMecanografico = Input.NumeroMecanografico,
+                    Turno = (Turno.T1),
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
