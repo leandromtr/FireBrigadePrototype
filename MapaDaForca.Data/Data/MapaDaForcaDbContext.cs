@@ -22,7 +22,7 @@ namespace MapaDaForca.Data.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = Guid.NewGuid().ToString(), Name = PerfilAcesso.Administrador, NormalizedName = PerfilAcesso.Administrador.ToUpper() });
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = Guid.NewGuid().ToString(), Name = PerfilAcesso.Bombeiro, NormalizedName = PerfilAcesso.Bombeiro.ToUpper() });       
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = Guid.NewGuid().ToString(), Name = PerfilAcesso.Bombeiro, NormalizedName = PerfilAcesso.Bombeiro.ToUpper() });
         }
 
         public DbSet<Bombeiro> Bombeiros { get; set; }
