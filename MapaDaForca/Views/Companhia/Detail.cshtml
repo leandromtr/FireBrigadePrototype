@@ -7,6 +7,7 @@ new Breadcrumb() { Name = "Dashboard", Link = "/" },
 new Breadcrumb() { Name = "Companhia", Link = @Url.Action("Index","Companhia")},
 new Breadcrumb() { Name = Model.Nome, Link = @Url.Action("Detail","Companhia", new { @id = Model.Id }), IsActive = true}
 };
+    ViewData["CreateButtonLink"] = Url.Action("Create", "Companhia");
     ViewData["DeleteButtonLink"] = Url.Action("Delete", "Companhia", new { @id = Model.Id });
 }
 
@@ -26,7 +27,7 @@ new Breadcrumb() { Name = Model.Nome, Link = @Url.Action("Detail","Companhia", n
                     <div class="form-group">
                         <label>Batalhão</label>
                         <div>
-                            <select class="form-control" asp-for="BatalhaoId" asp-items="@(new SelectList(@Model.Batalhoes,"Id","Nome"))">
+                            <select class="form-control" asp-for="BatalhaoId" asp-items="@(new SelectList(@Model.Batalhoes,"Id","Nome").OrderBy(x=> x.Text))">
                                 @*<option value="">None</option>*@
                             </select>
                         </div>

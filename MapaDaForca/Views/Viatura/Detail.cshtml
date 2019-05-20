@@ -7,6 +7,7 @@ new Breadcrumb() { Name = "Dashboard", Link = "/" },
 new Breadcrumb() { Name = "Viatura", Link = @Url.Action("Index","Viatura")},
 new Breadcrumb() { Name = Model.Matricula, Link = @Url.Action("Detail","Viatura", new { @id = Model.Id }), IsActive = true}
 };
+    ViewData["CreateButtonLink"] = Url.Action("Create", "Viatura");
     ViewData["DeleteButtonLink"] = Url.Action("Delete", "Viatura", new { @id = Model.Id });
 }
 

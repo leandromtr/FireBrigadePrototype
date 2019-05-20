@@ -51,7 +51,7 @@ namespace MapaDaForca.Controllers
         public ActionResult Detail(Guid id, bool message)
         {
             if (message)
-                ViewData["MessageCreate"] = "Tipo da Ausência criado com sucesso!";
+                ViewData["MessageCreate"] = "Tipo da Ausencia criado com sucesso!";
 
             var model = _escalaTipoStore.GetById(id);
             return View(model);

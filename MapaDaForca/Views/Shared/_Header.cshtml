@@ -25,25 +25,13 @@
                         </ol>
                     }
 
-                    @*<ol class="breadcrumb">
-                        <li class="breadcrumb-item active">Home > Batalhao > Cadastrar</li>
-                    </ol>*@
-
-
 
                 </div>
                 <div class="col-md-4">
 
-                    @if (ViewData["CreateButtonLink"] != null)
-                    {
-                        <div class="float-right d-none d-md-block">
-                            <div><a href="@ViewData["CreateButtonLink"]" class="btn btn-primary waves-effect waves-light">Cadastrar</a></div>
-                        </div>
-                    }
-
                     @if (ViewData["DeleteButtonLink"] != null)
                     {
-                        <button type="button" class="float-right btn btn-primary waves-effect waves-light" data-toggle="modal" data-target=".bs-example-modal-center">Eliminar</button>
+                        <button type="button" style="background-color:#d67272; border-color:#d67272" class="float-right btn btn-primary waves-effect waves-light button-header" data-toggle="modal" data-target=".bs-example-modal-center">Eliminar</button>
                         <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
@@ -62,9 +50,23 @@
                             </div>
                         </div>
                     }
+
+                    @if (ViewData["CreateButtonLink"] != null)
+                    {
+                        <div class="float-right d-none d-md-block">
+                            <div><a href="@ViewData["CreateButtonLink"]" class="btn btn-primary waves-effect waves-light button-header">Cadastrar</a></div>
+                        </div>
+                    }
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<style>
+    .button-header
+    {
+    margin: 1px
+    }
+</style>
