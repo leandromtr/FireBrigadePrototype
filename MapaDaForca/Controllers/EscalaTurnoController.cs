@@ -47,7 +47,12 @@ namespace MapaDaForca.Controllers
             escalaTurno.Turno = (Turno)turnoNoturno;
             escalaTurno.PeriodoDiurno = false;
             _escalaTurnoStore.Save(escalaTurno);
-            return Json(new { success = true, message = "Data salva com sucesso!" });
+            var escala = _escalaTurnoStore.GetByDtEscalaTurno(dtEscalaTurno);
+
+            var diurnoId = escala.Where(x => x.PeriodoDiurno == true).FirstOrDefault().Id;
+            var noturnoId = escala.Where(x => x.PeriodoDiurno == false).FirstOrDefault().Id;
+
+            return Json(new { success = true, message = "Data salva com sucesso!", diurno = diurnoId, noturno = noturnoId });
         }
 
 

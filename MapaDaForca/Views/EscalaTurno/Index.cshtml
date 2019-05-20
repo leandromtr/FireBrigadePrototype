@@ -144,9 +144,9 @@ $(document).ready(function () {
         })
         .done(function (data) {
             $.notify(data.message, "success");
-            $("#calendar").fullCalendar('removeEvents', $("#PeriodoDiurnoId").val());
+            $("#calendar").fullCalendar('removeEvents', data.diurno);
+            $("#calendar").fullCalendar('removeEvents', data.noturno);
             $('#calendar').fullCalendar('renderEvent', { id: $("#PeriodoDiurnoId").val(), title: 'D - T' + $("#TurnoDiurno").val(), start: $("#DtEscalaTurno").val()}, true );
-            $("#calendar").fullCalendar('removeEvents', $("#PeriodoNoturnoId").val());
             $('#calendar').fullCalendar('renderEvent', { id: $("#PeriodoNoturnoId").val(), title: 'N - T' + $("#TurnoNoturno").val(), start: $("#DtEscalaTurno").val() }, true);
 
         })
