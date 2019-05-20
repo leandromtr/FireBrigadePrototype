@@ -28,8 +28,8 @@ new Breadcrumb() { Name = "Quartel", Link = @Url.Action("Index","Quartel"), IsAc
                         {
                             <tr>
                                 <td><a href="@Url.Action("Detail", "Quartel", new {id = quartel.Id})">@quartel.Nome</a></td>
-                                <td>@quartel.Companhia.Nome</td>
-                                <td>@quartel.Companhia.Batalhao.Nome</td>
+                                <td>@quartel.Companhia?.Nome</td>
+                                <td>@quartel.Companhia?.Batalhao?.Nome</td>
                                 <td>@(quartel.Portao == true ? "Sim" : "Não")</td>
                             </tr>
                         }

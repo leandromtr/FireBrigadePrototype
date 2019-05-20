@@ -84,7 +84,8 @@ namespace MapaDaForca.Areas.Identity.Pages.Account
                     Email = Input.Email,
                     Nome = Input.Nome,
                     NumeroMecanografico = Input.NumeroMecanografico,
-                    Turno = (Turno.T1)
+                    Turno = (Turno.T1),
+                    EmailConfirmed = true
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

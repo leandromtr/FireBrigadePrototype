@@ -29,7 +29,7 @@
                         {
                         <tr>
                             <td><a href="@Url.Action("Detail", "Viatura", new {id = viatura.Id})">@viatura.Matricula</a></td>
-                            <td>@viatura.ViaturaTipo.Sigla</td>
+                            <td>@viatura.ViaturaTipo?.Sigla</td>
                             <td>@viatura.CodigoRSB</td>
                             <td>@(viatura.Operacional == true ? "Sim" : "Não")</td>
                         </tr>
