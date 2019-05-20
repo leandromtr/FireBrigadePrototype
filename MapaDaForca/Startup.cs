@@ -41,11 +41,6 @@ namespace MapaDaForca
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //    options.UseSqlServer(
-            //        Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDefaultIdentity<Bombeiro>()
-            //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddDbContext<MapaDaForcaDbContext>(options =>
                 options.UseSqlServer(
@@ -53,18 +48,10 @@ namespace MapaDaForca
             services.AddIdentity<Bombeiro, IdentityRole>()
                 .AddEntityFrameworkStores<MapaDaForcaDbContext>()
                 .AddDefaultTokenProviders();
-            //services.AddIdentity<Bombeiro, IdentityRole>()
-            //    .AddEntityFrameworkStores<MapaDaForcaDbContext>()
-            //    .AddDefaultTokenProviders();
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            //services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy("OnlyAnonymous",
-            //        policy => policy.Requirements.Add(new Authorization.OnlyAnonymousRequirement()));
-            //});
 
             services.ConfigureApplicationCookie(options =>
             {
