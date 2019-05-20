@@ -8,7 +8,7 @@
 
 <div class="topbar">
     <!-- LOGO -->
-    <div class="topbar-left"><a href="/" class="logo"><span><img src="/images/logo-light.png" alt="" height="18"> </span><i><img src="/images/logo-sm.png" alt="" height="22"></i></a></div>
+    <div class="topbar-left"><a href="/" class="logo"><span><img src="/images/logo.png" alt="" height="50"> </span><i><img src="/images/logo-sm.png" alt="" height="22"></i></a></div>
     <nav class="navbar-custom">
         <ul class="navbar-right d-flex list-inline float-right mb-0">
             @*<li class="dropdown notification-list">
@@ -43,7 +43,7 @@
             </li>*@
             <li class="dropdown notification-list">
                 <div class="dropdown notification-list nav-pro-img">
-                    <a class="dropdown-toggle nav-link arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><img src="/images/users/user-4.jpg" alt="user" class="rounded-circle"></a>
+                    <a class="dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><img src="/images/users/user-4.jpg" alt="user" class="rounded-circle"></a>
                     <div class="dropdown-menu dropdown-menu-right profile-dropdown">
                         <!-- item-->
                         <a class="dropdown-item" href="@Url.Action("Detail","Bombeiro", new { @id = fullUser.Id })"><i class="mdi mdi-account-circle m-r-5"></i> Perfil</a>
@@ -55,7 +55,7 @@
                         <form asp-area="Identity" asp-page="/Account/Logout"
                               asp-route-returnUrl="@Url.Page("/", new { area = "" })"
                               method="post">
-                            <button type="submit" class="nav-link btn btn-link text-dark"><i class="mdi mdi-power text-primary"></i> Logout</button>
+                            <button type="submit" class="btn btn-link text-dark">   <i class="mdi mdi-power text-primary"></i> Logout</button>
                         </form>
                     </div>
                 </div>
