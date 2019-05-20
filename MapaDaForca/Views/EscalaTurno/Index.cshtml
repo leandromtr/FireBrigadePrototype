@@ -177,10 +177,10 @@ $(document).ready(function () {
                     });
                 }
             });
+    }
 
-    }   
-
-     $("#SaveEscalaTurnoAno").click(function () {
+    $("#SaveEscalaTurnoAno").click(function () {
+        $.LoadingOverlay("show");
             var year = prompt("Favor informar o ano", (new Date).getFullYear());
             $.ajax({
                 url: '@Url.Action("SaveYear", "EscalaTurno")',
@@ -192,6 +192,7 @@ $(document).ready(function () {
             .done(function () {
                 window.location.href = '@Url.Action("Index", "EscalaTurno")';
             })
+        $.LoadingOverlay("hide");
         });
 
 </script>

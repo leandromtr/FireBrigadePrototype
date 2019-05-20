@@ -23,7 +23,7 @@ new Breadcrumb() { Name = "Cadastrar", Link = @Url.Action("Create","Companhia"),
                     <div class="form-group">
                         <label>@Html.DisplayNameFor(x => x.BatalhaoId)</label>
                         <div>
-                            <select class="form-control" asp-for="BatalhaoId" asp-items="@(new SelectList(@Model.Batalhoes,"Id","Nome"))">
+                            <select class="form-control" asp-for="BatalhaoId" asp-items="@(new SelectList(@Model.Batalhoes,"Id","Nome").OrderBy(x=> x.Text))">
                                 @*<option value="">None</option>*@
                             </select>
                         </div>
