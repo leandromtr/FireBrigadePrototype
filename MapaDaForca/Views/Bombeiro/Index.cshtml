@@ -9,7 +9,7 @@ new Breadcrumb() { Name = "Dashboard", Link = "/" },
 new Breadcrumb() { Name = "Bombeiro", Link = @Url.Action("Index","Bombeiro"), IsActive = true}
 };
 
-    ViewData["CreateButtonLink"] = Url.Action("Create", "Bombeiro");
+    ViewData["CreateButtonLink"] = "/Identity/Account/Register?returnUrl=%2F";
 }
 
 

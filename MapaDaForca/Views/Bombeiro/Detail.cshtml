@@ -10,7 +10,7 @@ new Breadcrumb() { Name = "Bombeiro", Link = @Url.Action("Index","Bombeiro")},
 new Breadcrumb() { Name = Model.Bombeiro.Nome, Link = @Url.Action("Detail","Bombeiro", new { @id = Model.Bombeiro.Id }), IsActive = true}
 };
 
-    ViewData["CreateButtonLink"] = Url.Action("Create", "Bombeiro");
+    ViewData["CreateButtonLink"] = "/Identity/Account/Register?returnUrl=%2F";
     ViewData["DeleteButtonLink"] = Url.Action("Delete", "Bombeiro", new { @id = Model.Bombeiro.Id });
 }
 
@@ -35,8 +35,10 @@ new Breadcrumb() { Name = Model.Bombeiro.Nome, Link = @Url.Action("Detail","Bomb
                         <label>@Html.DisplayNameFor(x => x.Bombeiro.DtInicio)</label>
                         <div>
                             <div class="input-group">
-                                <input asp-for="Bombeiro.DtInicio" type="date" class="form-control" placeholder="dd/mm/yyyy">
+                                <input asp-for="Bombeiro.DtInicio" type="date" class="form-control" date-format="dd/mm/yyyy" placeholder="dd/mm/yyyy" />
                                 <div class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
+
+                                @*<div>Click textbox to open datetime picker: <input type="text" id="fromDate" class="datepicker" /></div>*@
                             </div>
                         </div>
                     </div>
@@ -97,6 +99,8 @@ new Breadcrumb() { Name = Model.Bombeiro.Nome, Link = @Url.Action("Detail","Bomb
 
 <script type="text/javascript">
     $(document).ready(function () {
+
+        $(".datepicker").datepicker({ format: 'dd/mm/yyyy', autoclose: true, todayBtn: 'linked' })
 
         if ("@(ViewData["MessageCreate"])" != "") {
             $.notify("@(ViewData["MessageCreate"])", "success");

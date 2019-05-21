@@ -19,6 +19,7 @@ namespace MapaDaForca.Model
         public string Nome { get; set; }
 
         [Display(Name = "Data de Início")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime DtInicio { get; set; }
 
         [Display(Name = "Posto")]

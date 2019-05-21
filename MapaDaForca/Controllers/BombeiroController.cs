@@ -6,6 +6,7 @@ using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
 using MapaDaForca.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MapaDaForca.Controllers
@@ -14,6 +15,9 @@ namespace MapaDaForca.Controllers
     [Route("bombeiro")]
     public class BombeiroController : Controller
     {
+        private readonly UserManager<Bombeiro> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+
         //private readonly UserManager<User> _userManager;
         private readonly IBombeiroStore _bombeiroStore;
         private readonly IPostoStore _postoStore;
@@ -25,6 +29,8 @@ namespace MapaDaForca.Controllers
 
 
         public BombeiroController(
+            UserManager<Bombeiro> userManager,
+            RoleManager<IdentityRole> roleManager,
             IBombeiroStore bombeiroStore,
             IPostoStore postoStore,
             IQuartelStore quartelStore,
@@ -33,6 +39,8 @@ namespace MapaDaForca.Controllers
             IEscalaStore escalaStore,
             IEscalaTipoStore escalaTipoStore)
         {
+            _userManager = userManager;
+            _roleManager = roleManager;
             _bombeiroStore = bombeiroStore;
             _postoStore = postoStore;
             _quartelStore = quartelStore;
@@ -52,25 +60,25 @@ namespace MapaDaForca.Controllers
             return View(bombeiro);
         }
 
-        [HttpGet]
-        [Route("create")]
-        public ActionResult Create()
-        {
-            var bombeiro = new Bombeiro();
+        //[HttpGet]
+        //[Route("create")]
+        //public ActionResult Create()
+        //{
+        //    var bombeiro = new Bombeiro();
 
-            bombeiro.Postos = _postoStore.GetAll();
-            bombeiro.Quarteis = _quartelStore.GetAll();
-            return View(bombeiro);
+        //    bombeiro.Postos = _postoStore.GetAll();
+        //    bombeiro.Quarteis = _quartelStore.GetAll();
+        //    return View(bombeiro);            
 
-        }
+        //}
 
-        [HttpPost]
-        [Route("create")]
-        public ActionResult Create(Bombeiro bombeiro)
-        {
-            var newBombeiro = _bombeiroStore.Save(bombeiro);
-            return new RedirectToActionResult("Detail", "Bombeiro", new { @id = newBombeiro.Id, @message = true });
-        }
+        //[HttpPost]
+        //[Route("create")]
+        //public ActionResult Create(Bombeiro bombeiro)
+        //{
+        //    var newBombeiro = _bombeiroStore.Save(bombeiro);
+        //    return new RedirectToActionResult("Detail", "Bombeiro", new { @id = newBombeiro.Id, @message = true });
+        //}
 
 
         [HttpGet]
@@ -122,11 +130,13 @@ namespace MapaDaForca.Controllers
 
         [HttpPost]
         [Route("edit")]
-        public JsonResult Edit(Bombeiro bombeiro)
+        //public JsonResult 
+        public async Task<IActionResult> Edit(Bombeiro bombeiro)
         {
             try
             {
-                var newBombeiro = _bombeiroStore.Save(bombeiro);
+                //var newBombeiro = _bombeiroStore.Save(bombeiro);
+                await _userManager.UpdateAsync(bombeiro); ;
                 return Json(new { success = true, message = "Bombeiro guardado com sucesso!" });
             }
             catch (Exception)
