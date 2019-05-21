@@ -2,44 +2,80 @@
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
+    Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-@*<h2>@ViewData["Title"]</h2>*@
+@{
+    ViewBag.Title = "Cadastrar Bombeiro";
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+{
+new Breadcrumb() { Name = "Dashboard", Link = "/" },
+new Breadcrumb() { Name = "Bombeiro", Link = @Url.Action("Index","Bombeiro") },
+new Breadcrumb() { Name = "Cadastrar", Link = @Url.Action("Create","Bombeiro"), IsActive = true}
+};
+}
 
 <div class="row">
     <div class="col-md-12">
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4 class="text-muted font-18 m-b-5 text-center">Criar conta</h4>
-            <p class="text-muted text-center">Favor preencher todos os dados</p>
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Input.Nome"></label>
-                <input asp-for="Input.Nome" class="form-control" />
-                <span asp-validation-for="Input.Nome" class="text-danger"></span>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body">
+                    @*<div class="row">*@
+                    <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Input.Bombeiro.Nome"></label>
+                            <input asp-for="Input.Bombeiro.Nome" class="form-control" />
+                            <span asp-validation-for="Input.Bombeiro.Nome" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 form-group">
+                                <label asp-for="Input.Bombeiro.NumeroMecanografico"></label>
+                                <input asp-for="Input.Bombeiro.NumeroMecanografico" class="form-control" type="number" />
+                                <span asp-validation-for="Input.Bombeiro.NumeroMecanografico" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-6 form-group">
+                                <label asp-for="Input.Bombeiro.DtInicio"></label>
+                                <div class="input-group">
+                                    <input asp-for="Input.Bombeiro.DtInicio" type="date" class="form-control" date-format="dd/mm/yyyy" placeholder="dd/mm/yyyy" />
+                                    <div class="input-group-append"><span class="input-group-text"><i class="mdi mdi-calendar"></i></span></div>
+                                </div>
+                                <span asp-validation-for="Input.Bombeiro.DtInicio" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Input.Email"></label>
+                            <input asp-for="Input.Email" class="form-control" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        @*<div class="form-group">
+                            <label asp-for="Input.Bombeiro.Posto"></label>
+                            <div>
+                                <select class="form-control" asp-for="Input.Bombeiro.PostoId" asp-items=@(new SelectList((IEnumerable<SelectList>)ViewData["Posto"],"Id","Nome"))></select>
+                            </div>
+                        </div>*@
+
+                        <div class="row">
+                            <div class="col-6 form-group">
+                                <label asp-for="Input.Password"></label>
+                                <input asp-for="Input.Password" class="form-control" />
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+                            <div class="col-6 form-group">
+                                <label asp-for="Input.ConfirmPassword"></label>
+                                <input asp-for="Input.ConfirmPassword" class="form-control" />
+                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-md waves-effect waves-light">Registrar</button>
+                        <button type="reset" class="btn btn-secondary waves-effect m-l-5" onclick="location.href='@Url.Action("Index", "Bombeiro")'">Cancelar</button>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Input.NumeroMecanografico"></label>
-                <input asp-for="Input.NumeroMecanografico" class="form-control" />
-                <span asp-validation-for="Input.NumeroMecanografico" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Email"></label>
-                <input asp-for="Input.Email" class="form-control" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Password"></label>
-                <input asp-for="Input.Password" class="form-control" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-primary w-md waves-effect waves-light">Registrar</button>
-            <button type="reset" class="btn btn-secondary waves-effect m-l-5" onclick="location.href='@Url.Action("Index", "Bombeiro")'">Cancelar</button>
-        </form>
+        </div>
     </div>
 </div>
 
