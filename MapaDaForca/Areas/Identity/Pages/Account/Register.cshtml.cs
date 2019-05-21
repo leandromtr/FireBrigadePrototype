@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
 using MapaDaForca.Model.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -21,18 +22,24 @@ namespace MapaDaForca.Areas.Identity.Pages.Account
         private readonly UserManager<Bombeiro> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<RegisterModel> _logger;
+        private readonly IPostoStore _postoStore;
+        private readonly IQuartelStore _quartelStore;
         //private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<Bombeiro> userManager,
             SignInManager<Bombeiro> signInManager,
             RoleManager<IdentityRole> roleManager,
+            IPostoStore postoStore,
+            IQuartelStore quartelStore,
             ILogger<RegisterModel> logger)
             //IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _postoStore = postoStore;
+            _quartelStore = quartelStore;
             _logger = logger;
             //_emailSender = emailSender;
         }
@@ -44,13 +51,16 @@ namespace MapaDaForca.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [Display(Name = "Nome")]
-            public string Nome { get; set; }
+            //[Required]
+            //[Display(Name = "Nome")]
+            //public string Nome { get; set; }
 
-            [Required]
-            [Display(Name = "Nº Mecanográfico")]
-            public int NumeroMecanografico { get; set; }
+            //[Required]
+            //[Display(Name = "Nº Mecanográfico")]
+            //public int NumeroMecanografico { get; set; }
+
+
+            public Bombeiro Bombeiro { get; set; }
 
             [Required]
             [EmailAddress]
@@ -71,6 +81,10 @@ namespace MapaDaForca.Areas.Identity.Pages.Account
 
         public void OnGet(string returnUrl = null)
         {
+            //this.ViewData["Postos"] =_postoStore.GetAll();
+
+            //this.ViewData["Quartel"] = _quartelStore.GetAll();
+
             ReturnUrl = returnUrl;
         }
 
@@ -82,8 +96,9 @@ namespace MapaDaForca.Areas.Identity.Pages.Account
                 var user = new Bombeiro {
                     UserName = Input.Email,
                     Email = Input.Email,
-                    Nome = Input.Nome,
-                    NumeroMecanografico = Input.NumeroMecanografico,
+                    Nome = Input.Bombeiro.Nome,
+                    NumeroMecanografico = Input.Bombeiro.NumeroMecanografico,
+                    DtInicio = Input.Bombeiro.DtInicio,
                     Turno = (Turno.T1),
                     EmailConfirmed = true
                 };
