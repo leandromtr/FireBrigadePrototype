@@ -11,7 +11,7 @@ new Breadcrumb() { Name = "Tipo da Ausência", Link = @Url.Action("Index","Escal
 new Breadcrumb() { Name = Model.Descricao, Link = @Url.Action("Detail","EscalaTipo", new { @id = Model.Id }), IsActive = true}
 };
 
-    ViewData["CreateButtonLink"] = Url.Action("Create", "EscalaTipo");
+    ViewData["CreateButtonLink"] = "/Identity/Account/Register?returnUrl=%2F";
     ViewData["DeleteButtonLink"] = Url.Action("Delete", "EscalaTipo", new { @id = Model.Id });
 }
 
