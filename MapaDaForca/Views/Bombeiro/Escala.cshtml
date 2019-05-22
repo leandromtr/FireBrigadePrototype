@@ -21,6 +21,25 @@ new Breadcrumb() { Name = "Escala", Link = @Url.Action("Escala","Bombeiro", new 
     .fc-title {
         white-space: normal;
     }
+
+
+    .event-ferias {
+        border-color: #212529;
+        background-color: #f78e0c;
+        /*line-height: 1.0;*/
+    }
+
+    /*.event-ok {
+        border-color: #212529;
+        background-color: #497d38;
+        line-height: 1.0;
+    }
+
+    .event-positive {
+        border-color: #212529;
+        background-color: #d49a45;
+        line-height: 1.0;
+    }*/
 </style>
 
 <div class="row">
@@ -151,6 +170,7 @@ $(document).ready(function () {
 					id: event.id,
                    	title: event.title,
                     start: moment(event.start),
+                    className: event.className,
                     allDay: true
 				}, true);
             });

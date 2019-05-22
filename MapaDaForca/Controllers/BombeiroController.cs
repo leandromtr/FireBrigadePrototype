@@ -118,7 +118,7 @@ namespace MapaDaForca.Controllers
             bombeiroEscalaViewModel.EscalaTipos = _escalaTipoStore.GetAll().ToList();
 
             var bombeiroFuncoes = _bombeiroFuncaoStore.GetByBombeiroId(id).ToList();
-            foreach(var bombeiroFuncao in bombeiroFuncoes)
+            foreach (var bombeiroFuncao in bombeiroFuncoes)
             {
                 var funcao = _funcaoStore.GetById(bombeiroFuncao.FuncaoId);
                 bombeiroEscalaViewModel.Funcoes.Add(funcao);
@@ -187,12 +187,26 @@ namespace MapaDaForca.Controllers
 
             foreach (var item in escalas)
             {
-                events.Add(new EventViewModel()
+                if (item.EscalaTipo?.EscalaTipoDetalhe == Model.Enums.EscalaTipoDetalhe.Ferias)
                 {
-                    id = item.Id,
-                    title = (item.PeriodoDiurno ? "Diurno - " : "Noturno - ") + item.Funcao.Nome.ToString() + " - " +  item.Quartel.Nome.ToString(),
-                    start = item.DtEscala
-                });
+                    events.Add(new EventViewModel()
+                    {
+                        id = item.Id,
+                        title = "Férias",
+                        start = item.DtEscala,
+                        className = "event-ferias"
+                    });
+                }
+                else
+                {
+                    events.Add(new EventViewModel()
+                    {
+                        id = item.Id,
+                        title = (item.PeriodoDiurno ? "Diurno - " : "Noturno - ") + item.Funcao.Nome.ToString() + " - " + item.Quartel.Nome.ToString(),
+                        start = item.DtEscala
+                    });
+
+                }
             }
             return Json(events.ToArray());
         }
@@ -222,10 +236,10 @@ namespace MapaDaForca.Controllers
             escala.EscalaTipoId = escalaTipoId;
             escala.PeriodoDiurno = periodoDiurno;
 
-            var newBombeiroEscala =  _escalaStore.Save(escala);
+            var newBombeiroEscala = _escalaStore.Save(escala);
             string title = (newBombeiroEscala.PeriodoDiurno ? "Diurno - " : "Noturno - ") + _funcaoStore.GetById(funcaoId).Nome + " - " + _quartelStore.GetById(quartelId).Nome;
 
-            return Json(new { success = true, message = "Data salva com sucesso!", id= newBombeiroEscala.Id , title = title });
+            return Json(new { success = true, message = "Data salva com sucesso!", id = newBombeiroEscala.Id, title = title });
         }
 
 
