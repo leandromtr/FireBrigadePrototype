@@ -135,8 +135,15 @@ namespace MapaDaForca.Controllers
         {
             try
             {
-                //var newBombeiro = _bombeiroStore.Save(bombeiro);
-                await _userManager.UpdateAsync(bombeiro); ;
+                var userDetail = _userManager.GetUserAsync(User).Result;
+                userDetail.Nome = bombeiro.Nome;
+                userDetail.NumeroMecanografico = bombeiro.NumeroMecanografico;
+                userDetail.PostoId = bombeiro.PostoId;
+                userDetail.QuartelId = bombeiro.QuartelId;
+                userDetail.DtInicio = bombeiro.DtInicio;
+                userDetail.Turno = bombeiro.Turno;
+
+                await _userManager.UpdateAsync(userDetail);
                 return Json(new { success = true, message = "Bombeiro guardado com sucesso!" });
             }
             catch (Exception)
