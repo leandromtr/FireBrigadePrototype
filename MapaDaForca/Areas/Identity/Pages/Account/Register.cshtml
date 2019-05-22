@@ -51,12 +51,17 @@ new Breadcrumb() { Name = "Cadastrar", Link = @Url.Action("Create","Bombeiro"), 
                             <input asp-for="Input.Email" class="form-control" />
                             <span asp-validation-for="Input.Email" class="text-danger"></span>
                         </div>
-                        @*<div class="form-group">
-                            <label asp-for="Input.Bombeiro.Posto"></label>
-                            <div>
-                                <select class="form-control" asp-for="Input.Bombeiro.PostoId" asp-items=@(new SelectList((IEnumerable<SelectList>)ViewData["Posto"],"Id","Nome"))></select>
+
+                        <div class="row">
+                            <div class="col-6 form-group">
+                                <label asp-for="Input.Bombeiro.PostoId"></label>
+                                <select asp-for="Input.Bombeiro.PostoId" asp-items="@((List<SelectListItem>)ViewData["Postos"])" class="form-control"></select>
                             </div>
-                        </div>*@
+                            <div class="col-6 form-group">
+                                <label asp-for="Input.Bombeiro.QuartelId"></label>
+                                <select asp-for="Input.Bombeiro.QuartelId" asp-items="@((List<SelectListItem>)ViewData["Quarteis"])" class="form-control"></select>
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col-6 form-group">
@@ -70,6 +75,14 @@ new Breadcrumb() { Name = "Cadastrar", Link = @Url.Action("Create","Bombeiro"), 
                                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                             </div>
                         </div>
+
+                        @*<div class="form-group">
+                                <label>aaa</label>
+                                <div class="col-md-10">
+                                    @Html.DropDownList("UserRole", (IEnumerable<SelectListItem>)ViewBag.Roles, "Select ...")
+                                </div>
+                            </div>*@
+
                         <button type="submit" class="btn btn-primary w-md waves-effect waves-light">Registrar</button>
                         <button type="reset" class="btn btn-secondary waves-effect m-l-5" onclick="location.href='@Url.Action("Index", "Bombeiro")'">Cancelar</button>
                     </form>
