@@ -22,6 +22,8 @@ namespace MapaDaForca.Data.Repository
        
         IList<Escala> GetByBombeiroIdAndMonthYear(Guid bombeiroId, int month, int year);
 
+        IList<Escala> GetByBombeiroIdAndYear(Guid bombeiroId, int year);
+
         IList<Escala> GetByQuartelIdAndDtEscala(Guid quartelId, DateTime dtEscala);
 
         IList<Escala> GetByQuartelIdAndDtEscalaAndPeriodoDiurno(Guid quartelId, DateTime dtEscala, bool periodoDiurno);
