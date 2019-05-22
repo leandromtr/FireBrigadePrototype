@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using MapaDaForca.Core.Store;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 
 namespace MapaDaForca.Areas.Identity.Pages.Account
@@ -85,6 +87,20 @@ namespace MapaDaForca.Areas.Identity.Pages.Account
 
             //this.ViewData["Quartel"] = _quartelStore.GetAll();
 
+            var postos = _postoStore.GetAll().Select(s => new SelectListItem
+            {
+                Value = s.Id.ToString(),
+                Text = s.Nome
+            }).ToList();
+            ViewData["Postos"] = postos;
+
+            var quarteis = _quartelStore.GetAll().Select(s => new SelectListItem
+            {
+                Value = s.Id.ToString(),
+                Text = s.Nome
+            }).ToList();
+            ViewData["Quarteis"] = quarteis;
+
             ReturnUrl = returnUrl;
         }
 
@@ -99,6 +115,8 @@ namespace MapaDaForca.Areas.Identity.Pages.Account
                     Nome = Input.Bombeiro.Nome,
                     NumeroMecanografico = Input.Bombeiro.NumeroMecanografico,
                     DtInicio = Input.Bombeiro.DtInicio,
+                    PostoId = Input.Bombeiro.PostoId,
+                    QuartelId = Input.Bombeiro.QuartelId,
                     Turno = (Turno.T1),
                     EmailConfirmed = true
                 };
@@ -132,7 +150,21 @@ namespace MapaDaForca.Areas.Identity.Pages.Account
                 }
             }
 
-            // If we got this far, something failed, redisplay form
+
+            var postos = _postoStore.GetAll().Select(s => new SelectListItem
+            {
+                Value = s.Id.ToString(),
+                Text = s.Nome
+            }).ToList();
+            ViewData["Postos"] = postos;
+
+            var quarteis = _quartelStore.GetAll().Select(s => new SelectListItem
+            {
+                Value = s.Id.ToString(),
+                Text = s.Nome
+            }).ToList();
+            ViewData["Quarteis"] = quarteis;
+
             return Page();
         }
     }
