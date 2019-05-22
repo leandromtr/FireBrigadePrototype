@@ -160,14 +160,14 @@ namespace MapaDaForca.Controllers
 
             return Json(new { success = false, message = "Você não possui permissões para eliminar este bombeiro!" });
 
-            if (_bombeiroFuncaoStore.GetByBombeiroId(id).Any())
-                return Json(new { success = false, message = "Este bombeiro possui relações e não poderá ser eliminado!" });
+            //if (_bombeiroFuncaoStore.GetByBombeiroId(id).Any())
+            //    return Json(new { success = false, message = "Este bombeiro possui relações e não poderá ser eliminado!" });
 
-            if (_escalaStore.GetByBombeiroId(id).Any())
-                return Json(new { success = false, message = "Este bombeiro possui relações e não poderá ser eliminado!" });
+            //if (_escalaStore.GetByBombeiroId(id).Any())
+            //    return Json(new { success = false, message = "Este bombeiro possui relações e não poderá ser eliminado!" });
 
-            _bombeiroStore.Delete(id);
-            return Json(new { success = true, message = "Bombeiro eliminado!" });
+            //_bombeiroStore.Delete(id);
+            //return Json(new { success = true, message = "Bombeiro eliminado!" });
         }
 
 

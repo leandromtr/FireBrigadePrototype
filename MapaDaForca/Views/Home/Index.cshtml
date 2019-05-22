@@ -1,8 +1,7 @@
-﻿
+﻿@model  IEnumerable<Escala>
 @{
     ViewBag.Title = "Dashboard";
 }
-
 
 @inject SignInManager<Bombeiro> SignInManager
 @inject UserManager<Bombeiro> UserManager
@@ -16,9 +15,58 @@
     <div class="card-body">
         <div>
             <center><h5>Bem vindo! @fullUser.Nome </h5></center>
-            <br/>
-</div>
-        
+            <br />
+            <br />
+        </div>
+
+        <div class="row">
+            <div class="col-xl-6 col-md-6">
+                <div class="card mini-stat bg-primary">
+                    <div class="card-body mini-stat-img">
+                        <div class="mini-stat-icon"><i class="mdi mdi-fire float-right"></i></div>
+                        <div class="text-white">
+                            <h6 class="text-uppercase mb-3">Escala para @DateTime.Now.Year.ToString() </h6>
+                            <h4 class="mb-4">@Model.Where(x=> x.EscalaTipoId == Guid.Empty).Count()</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-md-6">
+                <div class="card mini-stat bg-primary">
+                    <div class="card-body mini-stat-img">
+                        <div class="mini-stat-icon"><i class="mdi mdi-beach float-right"></i></div>
+                        <div class="text-white">
+                            <h6 class="text-uppercase mb-3">Férias em @DateTime.Now.Year.ToString()</h6>
+                            <h4 class="mb-4">@Model.Where(x => x.EscalaTipo?.EscalaTipoDetalhe == MapaDaForca.Model.Enums.EscalaTipoDetalhe.Ferias).Count()</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="col-xl-3 col-md-6">
+                <div class="card mini-stat bg-primary">
+                    <div class="card-body mini-stat-img">
+                        <div class="mini-stat-icon"><i class="mdi mdi-tag-text-outline float-right"></i></div>
+                        <div class="text-white">
+                            <h6 class="text-uppercase mb-3">@Model.Where(x => x.EscalaTipo.EscalaTipoDetalhe == MapaDaForca.Model.Enums.EscalaTipoDetalhe.Disponivel).Count()</h6>
+                            <h4 class="mb-4">9</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card mini-stat bg-primary">
+                    <div class="card-body mini-stat-img">
+                        <div class="mini-stat-icon"><i class="mdi mdi-briefcase-check float-right"></i></div>
+                        <div class="text-white">
+                            <h6 class="text-uppercase mb-3">@Model.Where(x => x.EscalaTipo.EscalaTipoDetalhe == MapaDaForca.Model.Enums.EscalaTipoDetalhe.Indisponivel).Count()</h6>
+                            <h4 class="mb-4">10</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+        </div>
+
+
         @if (fullUser.PostoId == new Guid())
         {
             <div class="alert alert-warning" role="alert">

@@ -10,7 +10,7 @@ using System.Text;
 
 namespace MapaDaForca.Data.Data
 {
-    public class MapaDaForcaDbContext: IdentityDbContext<Bombeiro>
+    public class MapaDaForcaDbContext : IdentityDbContext<Bombeiro>
     {
         private IConfiguration Configuration { get; }
 
@@ -21,8 +21,33 @@ namespace MapaDaForca.Data.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = Guid.NewGuid().ToString(), Name = PerfilAcesso.Administrador, NormalizedName = PerfilAcesso.Administrador.ToUpper() });
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = Guid.NewGuid().ToString(), Name = PerfilAcesso.Bombeiro, NormalizedName = PerfilAcesso.Bombeiro.ToUpper() });
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = new Guid("0dc9f029-e6f9-46ec-9e8f-04273de86631").ToString(), Name = PerfilAcesso.Administrador, NormalizedName = PerfilAcesso.Administrador.ToUpper() });
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = new Guid("aebc2354-ecb3-4c70-93cc-47849872f57b").ToString(), Name = PerfilAcesso.Bombeiro, NormalizedName = PerfilAcesso.Bombeiro.ToUpper() });
+
+            //modelBuilder.Entity<Bombeiro>().HasData(new Bombeiro
+            //{
+            //    Id = new Guid("e7f067a9-37e9-4dac-9bd6-4c84eeaaa733").ToString(),
+            //    UserName = "admin@gmail.com",
+            //    NormalizedUserName = "admin@gmail.com",
+            //    Email = "admin@gmail.com",
+            //    NormalizedEmail = "admin@gmail.com",
+            //    EmailConfirmed = true,
+            //    PasswordHash = "AQAAAAEAACcQAAAAEHcjRUNHmzhl8qx9dKHTcKcXcb0k99YPE2caUy7QmbnM/a5OzPoYNq450AdMmUgRQA==",
+            //    SecurityStamp = "AT6RKF5YUMZXUJXXW3H64WOJTF73NVF2",
+            //    ConcurrencyStamp = "56253053-b77e-49fe-a190-97596fc8dba3",
+            //    PhoneNumber = null,
+            //    PhoneNumberConfirmed = false,
+            //    TwoFactorEnabled = false,
+            //    LockoutEnd = null,
+            //    LockoutEnabled = false,
+            //    AccessFailedCount = 0,
+            //    NumeroMecanografico = 00000000,
+            //    Nome = "Admin",
+            //    DtInicio = DateTime.Now,
+            //    PostoId = new Guid(),
+            //    QuartelId = new Guid(),
+            //    Turno = Turno.T1
+            //});
         }
 
         public DbSet<Bombeiro> Bombeiros { get; set; }

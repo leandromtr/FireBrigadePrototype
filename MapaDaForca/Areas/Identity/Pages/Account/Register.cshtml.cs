@@ -17,6 +17,8 @@ using Microsoft.Extensions.Logging;
 
 namespace MapaDaForca.Areas.Identity.Pages.Account
 {
+    //[Authorize(Roles = PerfilAcesso.Bombeiro + ", " + PerfilAcesso.Administrador)]
+    //[Authorize(Roles = PerfilAcesso.Administrador)]
     [Authorize]
     public class RegisterModel : PageModel
     {
