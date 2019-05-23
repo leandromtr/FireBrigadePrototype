@@ -78,6 +78,8 @@ namespace MapaDaForca.Controllers
             DateTime lastDay = new DateTime(calendarDate.Year, calendarDate.Month, DateTime.DaysInMonth(calendarDate.Year, calendarDate.Month));
 
             var escalasPeriodo = _escalaStore.GetByQuartelIdAndMonthYearAndPeriodoDiurno(quartelId, calendarDate.Month, calendarDate.Year, periodoDiurno).ToList();
+            escalasPeriodo = escalasPeriodo.Where(x=> x.EscalaTipoId == Guid.Empty).ToList();
+
 
             for (DateTime dt = firstDay; dt <= lastDay; dt = dt.AddDays(1))
             {
@@ -125,8 +127,7 @@ namespace MapaDaForca.Controllers
             escalas.ForEach(e => e.Funcao = funcoes.FirstOrDefault(f => f.Id == e.FuncaoId));
 
             //var funcaoBombeiros = new List<FuncaoBombeirosViewModel>();
-
-
+            
             //List<string> funcoess = funcaoBombeiros.Select(m => m.Funcao.Nome).Distinct().ToList();
 
             ////var bombeirosByDataAndQuartelViewModel = new BombeirosByDataAndQuartelViewModel();

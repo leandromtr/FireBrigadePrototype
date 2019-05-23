@@ -56,6 +56,7 @@ namespace MapaDaForca.Controllers
         public PartialViewResult GetBombeirosByDataAndQuartel(Guid quartelId, DateTime dtEscala)
         {            
             var escalas = _escalaStore.GetByQuartelIdAndDtEscala(quartelId, dtEscala).ToList();
+            escalas = escalas.Where(x => x.EscalaTipoId == Guid.Empty).ToList();
             var bombeiros = _bombeiroStore.GetAll().OrderBy(x => x.Nome).ToList();
             var funcoes = _funcaoStore.GetAll().OrderBy(x => x.Nome).ToList();
 

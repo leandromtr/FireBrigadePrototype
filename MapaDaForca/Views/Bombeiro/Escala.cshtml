@@ -208,8 +208,9 @@ $(document).ready(function () {
         })
         .done(function (data) {
             $.notify(data.message, "success");
-            $("#calendar").fullCalendar('removeEvents', $("#EscalaId").val());
-            $('#calendar').fullCalendar('renderEvent', { id: data.id, title: data.title, start: $("#DtEscala").val()}, true );
+            window.location.href = '@Url.Action("Escala","Bombeiro", new { @id = Model.Bombeiro.Id })';
+            //$("#calendar").fullCalendar('removeEvents', $("#EscalaId").val());
+            //$('#calendar').fullCalendar('renderEvent', { id: data.id, title: data.title, start: $("#DtEscala").val()}, true );
         })
     });
 

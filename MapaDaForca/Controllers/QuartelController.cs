@@ -188,12 +188,15 @@ namespace MapaDaForca.Controllers
                 quartelViatura.QuartelViaturas = _quartelViaturaStore.GetByQuartelId(quartel.Id).ToList();
                 quartelViewModel.QuartelViaturaViewModel = quartelViatura;
 
-                var EscalaDiurno = _escalaStore.GetByQuartelIdAndDtEscalaAndPeriodoDiurno(quartel.Id, DateTime.Now.Date, true).ToList();
-                var EscalaNoturno = _escalaStore.GetByQuartelIdAndDtEscalaAndPeriodoDiurno(quartel.Id, DateTime.Now.Date, false).ToList();
-                EscalaDiurno.ForEach(e => e.Bombeiro = bombeiros.FirstOrDefault(b => b.Id == e.BombeiroId.ToString()));
-                EscalaNoturno.ForEach(e => e.Bombeiro = bombeiros.FirstOrDefault(b => b.Id == e.BombeiroId.ToString()));
-                quartelViewModel.BombeirosDiurno = EscalaDiurno.Select(x=> x.Bombeiro).ToList();
-                quartelViewModel.BombeirosNoturno = EscalaNoturno.Select(x=> x.Bombeiro).ToList();
+                var escalaDiurno = _escalaStore.GetByQuartelIdAndDtEscalaAndPeriodoDiurno(quartel.Id, DateTime.Now.Date, true).ToList();
+                var escalaNoturno = _escalaStore.GetByQuartelIdAndDtEscalaAndPeriodoDiurno(quartel.Id, DateTime.Now.Date, false).ToList();
+                escalaDiurno = escalaDiurno.Where(x => x.EscalaTipoId == Guid.Empty).ToList();
+                escalaNoturno = escalaNoturno.Where(x => x.EscalaTipoId == Guid.Empty).ToList();
+
+                escalaDiurno.ForEach(e => e.Bombeiro = bombeiros.FirstOrDefault(b => b.Id == e.BombeiroId.ToString()));
+                escalaNoturno.ForEach(e => e.Bombeiro = bombeiros.FirstOrDefault(b => b.Id == e.BombeiroId.ToString()));
+                quartelViewModel.BombeirosDiurno = escalaDiurno.Select(x=> x.Bombeiro).ToList();
+                quartelViewModel.BombeirosNoturno = escalaNoturno.Select(x=> x.Bombeiro).ToList();
 
                 quarteisViewModel.Add(quartelViewModel);
             }
