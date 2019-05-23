@@ -14,7 +14,7 @@
 <div class="card m-b-20">
     <div class="card-body">
         <div>
-            <center><h5>Bem vindo! @fullUser.Nome </h5></center>
+            <center><h5>Bem vindo, @fullUser.Nome </h5></center>
             <br />
             <br />
         </div>
@@ -26,7 +26,7 @@
                         <div class="mini-stat-icon"><i class="mdi mdi-fire float-right"></i></div>
                         <div class="text-white">
                             <h6 class="text-uppercase mb-3">Escala para @DateTime.Now.Year.ToString() </h6>
-                            <h4 class="mb-4">@Model.Where(x=> x.EscalaTipoId == Guid.Empty || x.EscalaTipo?.EscalaTipoDetalhe == MapaDaForca.Model.Enums.EscalaTipoDetalhe.Disponivel).Count()</h4>
+                            <h4 class="mb-4">@Model.Where(x => x.EscalaTipoId == Guid.Empty || x.EscalaTipo?.EscalaTipoDetalhe == MapaDaForca.Model.Enums.EscalaTipoDetalhe.Disponivel).Count()</h4>
                         </div>
                     </div>
                 </div>
@@ -36,34 +36,35 @@
                     <div class="card-body mini-stat-img">
                         <div class="mini-stat-icon"><i class="mdi mdi-beach float-right"></i></div>
                         <div class="text-white">
-                            <h6 class="text-uppercase mb-3">Férias em @DateTime.Now.Year.ToString()</h6>
+                            <h6 class="text-uppercase mb-3">Férias marcadas em @DateTime.Now.Year.ToString()</h6>
                             <h4 class="mb-4">@Model.Where(x => x.EscalaTipo?.EscalaTipoDetalhe == MapaDaForca.Model.Enums.EscalaTipoDetalhe.Ferias).Count()</h4>
                         </div>
                     </div>
                 </div>
             </div>
-            @*<div class="col-xl-3 col-md-6">
+
+            <div class="col-xl-6 col-md-6">
                 <div class="card mini-stat bg-primary">
-                    <div class="card-body mini-stat-img">
-                        <div class="mini-stat-icon"><i class="mdi mdi-tag-text-outline float-right"></i></div>
+                    <div class="card-body mini-stat-img" style="background-color: #6f849a;">
+                        <div class="mini-stat-icon"><i class="mdi mdi-fire float-right"></i></div>
                         <div class="text-white">
-                            <h6 class="text-uppercase mb-3">@Model.Where(x => x.EscalaTipo.EscalaTipoDetalhe == MapaDaForca.Model.Enums.EscalaTipoDetalhe.Disponivel).Count()</h6>
-                            <h4 class="mb-4">9</h4>
+                            <h6 class="text-uppercase mb-3">Escala no mês </h6>
+                            <h4 class="mb-4">@Model.Where(x => x.EscalaTipoId == Guid.Empty || x.EscalaTipo?.EscalaTipoDetalhe == MapaDaForca.Model.Enums.EscalaTipoDetalhe.Disponivel).Where(x => x.DtEscala.Month == DateTime.Now.Month).Count()</h4>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
-                <div class="card mini-stat bg-primary">
-                    <div class="card-body mini-stat-img">
-                        <div class="mini-stat-icon"><i class="mdi mdi-briefcase-check float-right"></i></div>
+            <div class="col-xl-6 col-md-6">
+                <div class="card mini-stat bg-primary" >
+                    <div class="card-body mini-stat-img" style="background-color: #6f849a;">
+                        <div class="mini-stat-icon"><i class="mdi mdi-beach float-right"></i></div>
                         <div class="text-white">
-                            <h6 class="text-uppercase mb-3">@Model.Where(x => x.EscalaTipo.EscalaTipoDetalhe == MapaDaForca.Model.Enums.EscalaTipoDetalhe.Indisponivel).Count()</h6>
-                            <h4 class="mb-4">10</h4>
+                            <h6 class="text-uppercase mb-3">Férias marcadas para o mês</h6>
+                            <h4 class="mb-4">@Model.Where(x => x.EscalaTipo?.EscalaTipoDetalhe == MapaDaForca.Model.Enums.EscalaTipoDetalhe.Ferias).Where(x=> x.DtEscala.Month == DateTime.Now.Month).Count()</h4>
                         </div>
                     </div>
                 </div>
-            </div>*@
+            </div>
         </div>
 
 
