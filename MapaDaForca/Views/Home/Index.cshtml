@@ -26,7 +26,7 @@
                         <div class="mini-stat-icon"><i class="mdi mdi-fire float-right"></i></div>
                         <div class="text-white">
                             <h6 class="text-uppercase mb-3">Escala para @DateTime.Now.Year.ToString() </h6>
-                            <h4 class="mb-4">@Model.Where(x=> x.EscalaTipoId == Guid.Empty).Count()</h4>
+                            <h4 class="mb-4">@Model.Where(x=> x.EscalaTipoId == Guid.Empty || x.EscalaTipo?.EscalaTipoDetalhe == MapaDaForca.Model.Enums.EscalaTipoDetalhe.Disponivel).Count()</h4>
                         </div>
                     </div>
                 </div>
