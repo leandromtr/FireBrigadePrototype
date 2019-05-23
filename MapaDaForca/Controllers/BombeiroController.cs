@@ -187,17 +187,8 @@ namespace MapaDaForca.Controllers
 
             foreach (var item in escalas)
             {
-                if (item.EscalaTipo?.EscalaTipoDetalhe == Model.Enums.EscalaTipoDetalhe.Ferias)
-                {
-                    events.Add(new EventViewModel()
-                    {
-                        id = item.Id,
-                        title = "Férias",
-                        start = item.DtEscala,
-                        className = "event-ferias"
-                    });
-                }
-                else
+
+                if (item.EscalaTipoId == new Guid())
                 {
                     events.Add(new EventViewModel()
                     {
@@ -205,7 +196,39 @@ namespace MapaDaForca.Controllers
                         title = (item.PeriodoDiurno ? "Diurno - " : "Noturno - ") + item.Funcao.Nome.ToString() + " - " + item.Quartel.Nome.ToString(),
                         start = item.DtEscala
                     });
-
+                }
+                else
+                {
+                    if (item.EscalaTipo?.EscalaTipoDetalhe == Model.Enums.EscalaTipoDetalhe.Ferias)
+                    {
+                        events.Add(new EventViewModel()
+                        {
+                            id = item.Id,
+                            title = "Férias",
+                            start = item.DtEscala,
+                            className = "event-ferias"
+                        });
+                    }
+                    if (item.EscalaTipo?.EscalaTipoDetalhe == Model.Enums.EscalaTipoDetalhe.Disponivel)
+                    {
+                        events.Add(new EventViewModel()
+                        {
+                            id = item.Id,
+                            title = item.EscalaTipo.Descricao,
+                            start = item.DtEscala,
+                            className = "event-disponivel"
+                        });
+                    }
+                    if (item.EscalaTipo?.EscalaTipoDetalhe == Model.Enums.EscalaTipoDetalhe.Indisponivel)
+                    {
+                        events.Add(new EventViewModel()
+                        {
+                            id = item.Id,
+                            title = item.EscalaTipo.Descricao,
+                            start = item.DtEscala,
+                            className = "event-indisponivel"
+                        });
+                    }
                 }
             }
             return Json(events.ToArray());
