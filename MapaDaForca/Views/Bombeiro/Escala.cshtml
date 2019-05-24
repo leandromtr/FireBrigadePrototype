@@ -40,18 +40,6 @@ new Breadcrumb() { Name = "Escala", Link = @Url.Action("Escala","Bombeiro", new 
         background-color: #bd4f4f;
         /*line-height: 1.0;*/
     }
-
-    /*.event-ok {
-        border-color: #212529;
-        background-color: #497d38;
-        line-height: 1.0;
-    }
-
-    .event-positive {
-        border-color: #212529;
-        background-color: #d49a45;
-        line-height: 1.0;
-    }*/
 </style>
 
 <div class="row">
@@ -72,21 +60,21 @@ new Breadcrumb() { Name = "Escala", Link = @Url.Action("Escala","Bombeiro", new 
                     <div class="form-group">
                         <label>@Html.DisplayNameFor(x => x.Escala.FuncaoId)</label>
                         <div>
-                            <select class="form-control" asp-for="Escala.FuncaoId" asp-items="@(new SelectList(@Model.Funcoes,"Id","Nome"))"></select>
+                            <select class="form-control" asp-for="Escala.FuncaoId" asp-items="@(new SelectList(@Model.Funcoes,"Id","Nome")).OrderBy(x=> x.Text)"></select>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label>@Html.DisplayNameFor(x => x.Escala.QuartelId)</label>
                         <div>
-                            <select class="form-control" asp-for="Escala.QuartelId" asp-items="@(new SelectList(@Model.Quarteis,"Id","Nome"))"></select>
+                            <select class="form-control" asp-for="Escala.QuartelId" asp-items="@(new SelectList(@Model.Quarteis,"Id","Nome")).OrderBy(x=> x.Text)"></select>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label>@Html.DisplayNameFor(x => x.Escala.EscalaTipoId)</label>
                         <div>
-                            <select class="form-control" asp-for="Escala.EscalaTipoId" asp-items="@(new SelectList(@Model.EscalaTipos,"Id","Descricao"))"><option></option></select>
+                            <select class="form-control" asp-for="Escala.EscalaTipoId" asp-items="@(new SelectList(@Model.EscalaTipos,"Id","Descricao")).OrderBy(x=> x.Text)"><option></option></select>
                         </div>
                     </div>
 
