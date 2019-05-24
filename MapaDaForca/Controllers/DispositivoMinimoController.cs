@@ -102,7 +102,7 @@ namespace MapaDaForca.Controllers
                     events.Add(new EventViewModel()
                     {
                         id = new Guid(),
-                        title = funcao.FuncaoNome.Substring(0, 3) + "  " + ((funcao.Quantidade * -1) + qtdeFuncao),
+                        title = funcao.FuncaoNome.PadRight(10).Substring(0, 5) + "  " + ((funcao.Quantidade * -1) + qtdeFuncao),
                         start = dt,
                         className= className
                     });
