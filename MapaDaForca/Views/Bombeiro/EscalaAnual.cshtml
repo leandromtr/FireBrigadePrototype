@@ -1,0 +1,50 @@
+﻿@model BombeiroEscalaViewModel
+@using MapaDaForca.Helper;
+
+@{
+    ViewBag.Title = "Bombeiro";
+    ViewBag.Breadcrumbs = new List<Breadcrumb>()
+{
+new Breadcrumb() { Name = "Dashboard", Link = "/" },
+new Breadcrumb() { Name = "Bombeiro", Link = @Url.Action("Index","Bombeiro")},
+new Breadcrumb() { Name = Model.Bombeiro.Nome, Link = @Url.Action("Detail","Bombeiro", new { @id = Model.Bombeiro.Id })},
+new Breadcrumb() { Name = "Escala Anual", Link = @Url.Action("EscalaAnual","Bombeiro", new { @id = Model.Bombeiro.Id }), IsActive = true}
+};
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card m-b-20">
+            <div class="card-body">
+                <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(x => x.Escala.DtEscala)</th>
+                            <th>Período</th>
+                            <th>@Html.DisplayNameFor(x => x.Escala.Quartel.Nome)</th>
+                            <th>@Html.DisplayNameFor(x => x.Escala.Funcao.Nome)</th>
+                            <th>@Html.DisplayNameFor(x => x.Escala.EscalaTipoId)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var escala in Model.Escalas.OrderByDescending(x=> x.DtEscala))
+                        {
+                            <tr>
+                                <td>@escala.DtEscala.ToString("yyyy/MM/dd")</td>
+                                <td>@(escala.PeriodoDiurno ? "Diurno" : "Noturno")</td>
+                                <td>@escala.Quartel?.Nome</td>
+                                <td>@escala.Funcao.Nome</td>
+                                <td>@escala.EscalaTipo?.Descricao</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
