@@ -55,7 +55,7 @@
                     funcaoPrincipal: $('#chkFuncaoPrincipal').prop('checked'),
                     funcaoId: $("#ddlFuncoes option:selected").val()
                 },
-                success: function (data) {                    
+                success: function (data) {
                     if (data.success == true) {
                         $(".bombeiroFuncaoSection").remove()
                         $("#myPartialViewContainer").load('/bombeiroFuncao/@Model.BombeiroId');
@@ -79,7 +79,10 @@
                     data: { id: id},
                     success: function (data) {
                         if (data.success == true) {
-                            $(element.currentTarget).closest('.bombeiroFuncaoLine').remove();
+                            //$(element.currentTarget).closest('.bombeiroFuncaoLine').remove();
+                            //$.notify(data.message, "success");
+                            $(".bombeiroFuncaoSection").remove()
+                            $("#myPartialViewContainer").load('/bombeiroFuncao/@Model.BombeiroId');
                             $.notify(data.message, "success");
                         }
                         else {

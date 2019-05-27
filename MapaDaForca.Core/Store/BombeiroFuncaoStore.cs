@@ -51,7 +51,7 @@ namespace MapaDaForca.Core.Store
 
         public BombeiroFuncao GetPrincipalByBombeiroId(Guid bombeiroId)
         {
-            var bombeiroFuncao = _repository.GetByBombeiroId(bombeiroId).Where(x=> x.FuncaoPrincipal== true).FirstOrDefault();
+            var bombeiroFuncao = _repository.GetByBombeiroId(bombeiroId).Where(x => x.FuncaoPrincipal == true).FirstOrDefault();
             bombeiroFuncao.Funcao = _funcaoStore.GetById(bombeiroFuncao.FuncaoId);
 
             return bombeiroFuncao;
@@ -67,6 +67,22 @@ namespace MapaDaForca.Core.Store
             }
             else
             {
+                var bombeiroFuncoes = GetByBombeiroId(save.BombeiroId);
+                if (bombeiroFuncoes.Count() == 0)
+                {
+                    save.FuncaoPrincipal = true;
+                }
+                else
+                {
+                    if (save.FuncaoPrincipal == true)
+                    {
+                        foreach (var bombeiroFuncao in bombeiroFuncoes)
+                        {
+                            bombeiroFuncao.FuncaoPrincipal = false;
+                            _repository.Update(bombeiroFuncao);
+                        }
+                    }
+                }
                 saved = _repository.Create(save);
             }
 
@@ -75,6 +91,18 @@ namespace MapaDaForca.Core.Store
 
         public bool Delete(Guid id)
         {
+            var bombeiroFuncao = GetById(id);
+
+            if (bombeiroFuncao.FuncaoPrincipal == true)
+            {
+                var bombeiroFuncoesPrincipal = GetByBombeiroId(bombeiroFuncao.BombeiroId).Where(x => x.FuncaoPrincipal == false).FirstOrDefault();
+                if (bombeiroFuncoesPrincipal != null)
+                {
+                    bombeiroFuncoesPrincipal.FuncaoPrincipal = true;
+                    _repository.Update(bombeiroFuncoesPrincipal);
+                }
+            }
+
             return _repository.Delete(id);
         }
     }

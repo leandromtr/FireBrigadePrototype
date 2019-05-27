@@ -1,7 +1,7 @@
 ﻿@using MapaDaForca.Helper;
 @model BombeiroFuncao
 
-<tr class="bombeiroFuncaoLine" data-bombeiroFuncaoId="@Model.Id">
+<tr class="bombeiroFuncaoLine" data-bombeiroFuncaoId="@Model.Id" @(Model.FuncaoPrincipal ? "style=background-color:#d0dae4" : "")>
     <td style="width: 60%;">@Model.Funcao.Nome</td>
     <td style="width: 30%;">@(Model.FuncaoPrincipal ? "Sim": "Não" )</td>
     <td style="width: 10%;">

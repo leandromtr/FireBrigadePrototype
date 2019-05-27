@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
@@ -38,34 +39,11 @@ namespace Home.Controllers
 
         public IActionResult Index()
         {
+
             //var userId = _userManager.GetUserId(HttpContext.User);
             var escalas = _escalaStore.GetByBombeiroIdAndYear(new Guid (_userManager.GetUserId(HttpContext.User)), (int)DateTime.Now.Year);
             return View(escalas);
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        //public IActionResult Error()
-        //{
-        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        //}
     }
 }
