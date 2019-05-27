@@ -128,6 +128,38 @@ namespace MapaDaForca.Controllers
         }
 
 
+        [HttpGet]
+        [Route("{id}/escalaanual")]
+        public ActionResult EscalaAnual(Guid id)
+        {
+            var bombeiroEvents = new BombeiroEscalaViewModel();
+            var escalas = _escalaStore.GetByBombeiroIdAndYear(id, DateTime.Now.Year);
+
+            escalas = escalas
+                .Where(x => x.EscalaTipoId == new Guid() || x.EscalaTipo?.EscalaTipoDetalhe == Model.Enums.EscalaTipoDetalhe.Disponivel).ToList();
+
+            bombeiroEvents.Escalas = escalas.ToList();
+            bombeiroEvents.Bombeiro = _bombeiroStore.GetById(id);
+
+            return View(bombeiroEvents);
+        }
+
+
+        [HttpGet]
+        [Route("{id}/escalaanualferias")]
+        public ActionResult EscalaAnualFerias(Guid id)
+        {
+            var bombeiroEvents = new BombeiroEscalaViewModel();
+            var escalas = _escalaStore.GetByBombeiroIdAndYear(id, DateTime.Now.Year);
+
+            escalas = escalas.Where(x=> x.EscalaTipo?.EscalaTipoDetalhe == Model.Enums.EscalaTipoDetalhe.Ferias).ToList();
+
+            bombeiroEvents.Escalas = escalas.ToList();
+            bombeiroEvents.Bombeiro = _bombeiroStore.GetById(id);
+
+            return View(bombeiroEvents);
+        }
+
         [HttpPost]
         [Route("edit")]
         //public JsonResult 

@@ -21,30 +21,34 @@
 
         <div class="row">
             <div class="col-xl-6 col-md-6">
-                <div class="card mini-stat bg-primary">
-                    <div class="card-body mini-stat-img">
-                        <div class="mini-stat-icon"><i class="mdi mdi-fire float-right"></i></div>
-                        <div class="text-white">
-                            <h6 class="text-uppercase mb-3">Escala para @DateTime.Now.Year.ToString() </h6>
-                            <h4 class="mb-4">@Model.Where(x => x.EscalaTipoId == Guid.Empty || x.EscalaTipo?.EscalaTipoDetalhe == MapaDaForca.Model.Enums.EscalaTipoDetalhe.Disponivel).Count()</h4>
+                <a href="@Url.Action("EscalaAnual","Bombeiro", new { @id = @fullUser.Id })">
+                    <div class="card mini-stat bg-primary">
+                        <div class="card-body mini-stat-img">
+                            <div class="mini-stat-icon"><i class="mdi mdi-fire float-right"></i></div>
+                            <div class="text-white">
+                                <h6 class="text-uppercase mb-3">Escala para @DateTime.Now.Year.ToString() </h6>
+                                <h4 class="mb-4">@Model.Where(x => x.EscalaTipoId == Guid.Empty || x.EscalaTipo?.EscalaTipoDetalhe == MapaDaForca.Model.Enums.EscalaTipoDetalhe.Disponivel).Count()</h4>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-xl-6 col-md-6">
-                <div class="card mini-stat bg-primary">
-                    <div class="card-body mini-stat-img">
-                        <div class="mini-stat-icon"><i class="mdi mdi-beach float-right"></i></div>
-                        <div class="text-white">
-                            <h6 class="text-uppercase mb-3">Férias marcadas em @DateTime.Now.Year.ToString()</h6>
-                            <h4 class="mb-4">@Model.Where(x => x.EscalaTipo?.EscalaTipoDetalhe == MapaDaForca.Model.Enums.EscalaTipoDetalhe.Ferias).Count()</h4>
+                <a href="@Url.Action("EscalaAnualFerias","Bombeiro", new { @id = @fullUser.Id })">
+                    <div class="card mini-stat bg-primary">
+                        <div class="card-body mini-stat-img">
+                            <div class="mini-stat-icon"><i class="mdi mdi-beach float-right"></i></div>
+                            <div class="text-white">
+                                <h6 class="text-uppercase mb-3">Férias marcadas em @DateTime.Now.Year.ToString()</h6>
+                                <h4 class="mb-4">@Model.Where(x => x.EscalaTipo?.EscalaTipoDetalhe == MapaDaForca.Model.Enums.EscalaTipoDetalhe.Ferias).Count()</h4>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
 
             <div class="col-xl-6 col-md-6">
-                <a href="/bombeiro/@fullUser.Id/escala">
+                <a href="@Url.Action("Escala","Bombeiro", new { @id = @fullUser.Id })">
                     <div class="card mini-stat bg-primary">
                         <div class="card-body mini-stat-img" style="background-color: #6f849a;">
                             <div class="mini-stat-icon"><i class="mdi mdi-fire float-right"></i></div>
@@ -59,7 +63,7 @@
                 </a>
             </div>
             <div class="col-xl-6 col-md-6">
-                <a href="/bombeiro/@fullUser.Id/escala">
+                <a href="@Url.Action("Escala","Bombeiro", new { @id = @fullUser.Id })">
                     <div class="card mini-stat bg-primary">
                         <div class="card-body mini-stat-img" style="background-color: #6f849a;">
                             <div class="mini-stat-icon"><i class="mdi mdi-beach float-right"></i></div>
