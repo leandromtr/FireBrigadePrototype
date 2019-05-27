@@ -18,7 +18,7 @@ namespace MapaDaForca.Model
         [Display(Name = "Bombeiro")]
         public string Nome { get; set; }
 
-        [Display(Name = "Data de Início")]
+        [Display(Name = "Data de Admissão")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
         public DateTime DtInicio { get; set; }
 
