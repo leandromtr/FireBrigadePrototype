@@ -152,7 +152,7 @@ namespace MapaDaForca.Controllers
             var bombeiroEvents = new BombeiroEscalaViewModel();
             var escalas = _escalaStore.GetByBombeiroIdAndYear(id, DateTime.Now.Year);
 
-            escalas = escalas.Where(x=> x.EscalaTipo?.EscalaTipoDetalhe == Model.Enums.EscalaTipoDetalhe.Ferias).ToList();
+            escalas = escalas.Where(x => x.EscalaTipo?.EscalaTipoDetalhe == Model.Enums.EscalaTipoDetalhe.Ferias).ToList();
 
             bombeiroEvents.Escalas = escalas.ToList();
             bombeiroEvents.Bombeiro = _bombeiroStore.GetById(id);
@@ -205,9 +205,17 @@ namespace MapaDaForca.Controllers
 
         [HttpPost]
         [Route("saveyear")]
-        public void SaveYear(Guid bombeiroId, int year)
+        public JsonResult SaveYear(Guid bombeiroId, int year)
         {
-            _escalaStore.SaveYear(bombeiroId, year);
+            try
+            {
+                _escalaStore.SaveYear(bombeiroId, year);
+                return Json(new { success = true, message = "Escala anual criada!" });
+            }
+            catch (Exception)
+            {
+                return Json(new { success = false, message = "Informações do bombeiro ainda estão incompletas" });
+            }
         }
 
 
