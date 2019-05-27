@@ -31,7 +31,8 @@ new Breadcrumb() { Name = "Escala Anual", Link = @Url.Action("EscalaAnual","Bomb
                         @foreach (var escala in Model.Escalas.OrderByDescending(x=> x.DtEscala))
                         {
                             <tr>
-                                <td>@escala.DtEscala.ToString("yyyy/MM/dd")</td>
+                                @*<td>@escala.DtEscala.ToString("yyyy/MM/dd")</td>*@
+                                <td>@escala.DtEscala.ToString("d")</td>
                                 <td>@(escala.PeriodoDiurno ? "Diurno" : "Noturno")</td>
                                 <td>@escala.Quartel?.Nome</td>
                                 <td>@escala.Funcao.Nome</td>
