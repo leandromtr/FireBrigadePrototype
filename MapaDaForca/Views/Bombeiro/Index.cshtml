@@ -21,6 +21,7 @@ new Breadcrumb() { Name = "Bombeiro", Link = @Url.Action("Index","Bombeiro"), Is
                     <thead>
                         <tr>
                             <th>@Html.DisplayNameFor(x => x.Nome)</th>
+                            <th>@Html.DisplayNameFor(x => x.NumeroMecanografico)</th>
                             <th>@Html.DisplayNameFor(x => x.DtInicio)</th>
                             <th>@Html.DisplayNameFor(x => x.Posto)</th>
                             <th>@Html.DisplayNameFor(x => x.Quartel)</th>
@@ -32,6 +33,7 @@ new Breadcrumb() { Name = "Bombeiro", Link = @Url.Action("Index","Bombeiro"), Is
                         {
                             <tr>
                                 <td><a href="@Url.Action("Detail", "Bombeiro", new {id = bombeiro.Id})">@bombeiro.Nome</a></td>
+                                <td>@bombeiro.NumeroMecanografico</td>
                                 <td>@bombeiro.DtInicio.ToString("d")</td>
                                 <td>@bombeiro.Posto?.Nome</td>
                                 <td>@bombeiro.Quartel?.Nome</td>

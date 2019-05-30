@@ -10,37 +10,48 @@
     <!-- LOGO -->
     <div class="topbar-left"><a href="/" class="logo"><span><img src="/images/logo.png" alt="" height="50"> </span><i><img src="/images/logo-sm.png" alt="" height="22"></i></a></div>
     <nav class="navbar-custom">
+
         <ul class="navbar-right d-flex list-inline float-right mb-0">
             @*<li class="dropdown notification-list">
-                <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><i class="ti-bell noti-icon"></i> <span class="badge badge-pill badge-danger noti-icon-badge">3</span></a>
-                <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg">
+            <a class="nav-link dropdown-toggle arrow-none waves-effect" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><i class="ti-bell noti-icon"></i> <span class="badge badge-pill badge-danger noti-icon-badge">3</span></a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg">
+                <!-- item-->
+                <h6 class="dropdown-item-text">Notificações (23)</h6>
+                <div class="slimscroll notification-item-list">
                     <!-- item-->
-                    <h6 class="dropdown-item-text">Notificações (23)</h6>
-                    <div class="slimscroll notification-item-list">
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-warning"><i class="mdi mdi-message"></i></div>
-                            <p class="notify-details">Notificação 1<span class="text-muted">blah blah blah blah blah blah blah blah blah blah blah blah</span></p>
-                        </a>
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-info"><i class="mdi mdi-message"></i></div>
-                            <p class="notify-details">Notificação 2<span class="text-muted">blah blah blah blah blah blah blah blah blah blah blah blah</span></p>
-                        </a>
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-primary"><i class="mdi mdi-message"></i></div>
-                            <p class="notify-details">Notificação 3<span class="text-muted">blah blah blah blah blah blah blah blah blah blah blah blah</span></p>
-                        </a>
-                        <!-- item-->
-                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                            <div class="notify-icon bg-danger"><i class="mdi mdi-message"></i></div>
-                            <p class="notify-details">Notificação 4<span class="text-muted">blah blah blah blah blah blah blah blah blah blah blah blah</span></p>
-                        </a>
-                    </div>
-                    <!-- All--><a href="javascript:void(0);" class="dropdown-item text-center text-danger">Ver todos <i class="fi-arrow-right"></i></a>
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon bg-warning"><i class="mdi mdi-message"></i></div>
+                        <p class="notify-details">Notificação 1<span class="text-muted">blah blah blah blah blah blah blah blah blah blah blah blah</span></p>
+                    </a>
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon bg-info"><i class="mdi mdi-message"></i></div>
+                        <p class="notify-details">Notificação 2<span class="text-muted">blah blah blah blah blah blah blah blah blah blah blah blah</span></p>
+                    </a>
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon bg-primary"><i class="mdi mdi-message"></i></div>
+                        <p class="notify-details">Notificação 3<span class="text-muted">blah blah blah blah blah blah blah blah blah blah blah blah</span></p>
+                    </a>
+                    <!-- item-->
+                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                        <div class="notify-icon bg-danger"><i class="mdi mdi-message"></i></div>
+                        <p class="notify-details">Notificação 4<span class="text-muted">blah blah blah blah blah blah blah blah blah blah blah blah</span></p>
+                    </a>
                 </div>
-            </li>*@
+                <!-- All--><a href="javascript:void(0);" class="dropdown-item text-center text-danger">Ver todos <i class="fi-arrow-right"></i></a>
+            </div>
+        </li>*@
+
+            <li class="dropdown notification-list d-none d-sm-block" style="right: 10px;">
+                <form role="search" class="app-search">
+                    <div class="form-group mb-0"> 
+                        @fullUser.Nome
+                    </div>
+                </form>
+            </li>
+
+
             <li class="dropdown notification-list">
                 <div class="dropdown notification-list nav-pro-img">
                     <a class="dropdown-toggle arrow-none waves-effect nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"><img src="/images/users/user-4.jpg" alt="user" class="rounded-circle"></a>
