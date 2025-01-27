@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using MapaDaForca.Core.Store;
+﻿using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace MapaDaForca.Core.Services
 {

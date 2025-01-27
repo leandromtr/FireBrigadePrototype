@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MapaDaForca.Core.Store;
+﻿using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
 
 namespace MapaDaForca.Controllers
 {
@@ -45,7 +43,7 @@ namespace MapaDaForca.Controllers
         public ActionResult Create(Batalhao batalhao)
         {
             var newBatalhao = _batalhaoStore.Save(batalhao);
-            return new RedirectToActionResult("Detail", "Batalhao", new { @id = newBatalhao.Id, @message =true });
+            return new RedirectToActionResult("Detail", "Batalhao", new { @id = newBatalhao.Id, @message = true });
         }
 
 

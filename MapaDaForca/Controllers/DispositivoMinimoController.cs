@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MapaDaForca.Core.Store;
+﻿using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
-using MapaDaForca.Model.Enums;
 using MapaDaForca.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MapaDaForca.Controllers
 {
@@ -78,7 +76,7 @@ namespace MapaDaForca.Controllers
             DateTime lastDay = new DateTime(calendarDate.Year, calendarDate.Month, DateTime.DaysInMonth(calendarDate.Year, calendarDate.Month));
 
             var escalasPeriodo = _escalaStore.GetByQuartelIdAndMonthYearAndPeriodoDiurno(quartelId, calendarDate.Month, calendarDate.Year, periodoDiurno).ToList();
-            escalasPeriodo = escalasPeriodo.Where(x=> x.EscalaTipoId == Guid.Empty).ToList();
+            escalasPeriodo = escalasPeriodo.Where(x => x.EscalaTipoId == Guid.Empty).ToList();
 
 
             for (DateTime dt = firstDay; dt <= lastDay; dt = dt.AddDays(1))
@@ -90,7 +88,7 @@ namespace MapaDaForca.Controllers
                         x.FuncaoId == funcao.FuncaoId &&
                         x.DtEscala == dt &&
                         x.PeriodoDiurno == periodoDiurno
-                        );                  
+                        );
 
                     var className = "event-ok";
                     if (((funcao.Quantidade * -1) + qtdeFuncao) > 0)
@@ -104,10 +102,10 @@ namespace MapaDaForca.Controllers
                         id = new Guid(),
                         title = funcao.FuncaoNome.PadRight(10).Substring(0, 5) + "  " + ((funcao.Quantidade * -1) + qtdeFuncao),
                         start = dt,
-                        className= className
+                        className = className
                     });
                 }
-            }            
+            }
             return Json(events.ToArray());
         }
 
@@ -127,7 +125,7 @@ namespace MapaDaForca.Controllers
             escalas.ForEach(e => e.Funcao = funcoes.FirstOrDefault(f => f.Id == e.FuncaoId));
 
             //var funcaoBombeiros = new List<FuncaoBombeirosViewModel>();
-            
+
             //List<string> funcoess = funcaoBombeiros.Select(m => m.Funcao.Nome).Distinct().ToList();
 
             ////var bombeirosByDataAndQuartelViewModel = new BombeirosByDataAndQuartelViewModel();

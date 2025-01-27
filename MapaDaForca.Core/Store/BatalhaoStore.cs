@@ -1,21 +1,17 @@
-﻿using MapaDaForca.Core.Store;
-using MapaDaForca.Data.Repository;
+﻿using MapaDaForca.Data.Repository;
 using MapaDaForca.Model;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MapaDaForca.Core.Store
 {
     public class BatalhaoStore : IBatalhaoStore
     {
         private readonly IBatalhaoRepository _repository;
-        //private readonly ICompanhiaRepository _companhiaRepository;
 
         public BatalhaoStore(IBatalhaoRepository repository)
         {
             _repository = repository;
-            //_companhiaRepository = companhiaRepository;
         }
 
         public IList<Batalhao> GetAll()

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using MapaDaForca.Model.Enums;
-using System.Text;
-using System.ComponentModel.DataAnnotations;
+﻿using MapaDaForca.Model.Enums;
 using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MapaDaForca.Model
 {

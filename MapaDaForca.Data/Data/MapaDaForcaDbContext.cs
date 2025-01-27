@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
 
 namespace MapaDaForca.Data.Data
 {
@@ -23,15 +22,17 @@ namespace MapaDaForca.Data.Data
             var roleBombeiroId = Guid.NewGuid().ToString();
 
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { 
-                Id = roleAdminId, 
-                Name = PerfilAcesso.Administrador, 
-                NormalizedName = PerfilAcesso.Administrador.ToUpper() 
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = roleAdminId,
+                Name = PerfilAcesso.Administrador,
+                NormalizedName = PerfilAcesso.Administrador.ToUpper()
             });
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { 
-                Id = roleBombeiroId, 
-                Name = PerfilAcesso.Bombeiro, 
-                NormalizedName = PerfilAcesso.Bombeiro.ToUpper() 
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = roleBombeiroId,
+                Name = PerfilAcesso.Bombeiro,
+                NormalizedName = PerfilAcesso.Bombeiro.ToUpper()
             });
 
 

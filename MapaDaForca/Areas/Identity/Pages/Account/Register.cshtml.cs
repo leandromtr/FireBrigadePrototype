@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using MapaDaForca.Core.Store;
+﻿using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
 using MapaDaForca.Model.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MapaDaForca.Areas.Identity.Pages.Account
 {
@@ -37,7 +33,7 @@ namespace MapaDaForca.Areas.Identity.Pages.Account
             IPostoStore postoStore,
             IQuartelStore quartelStore,
             ILogger<RegisterModel> logger)
-            //IEmailSender emailSender)
+        //IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -111,7 +107,8 @@ namespace MapaDaForca.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new Bombeiro {
+                var user = new Bombeiro
+                {
                     UserName = Input.Email,
                     Email = Input.Email,
                     Nome = Input.Bombeiro.Nome,

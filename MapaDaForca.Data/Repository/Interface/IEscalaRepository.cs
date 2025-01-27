@@ -1,8 +1,6 @@
-﻿using MapaDaForca.Data.Data;
-using MapaDaForca.Model;
+﻿using MapaDaForca.Model;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MapaDaForca.Data.Repository
 {
@@ -19,7 +17,7 @@ namespace MapaDaForca.Data.Repository
         IList<Escala> GetByFuncaoId(Guid funcaoId);
 
         IList<Escala> GetByQuartelId(Guid quartelId);
-       
+
         IList<Escala> GetByBombeiroIdAndMonthYear(Guid bombeiroId, int month, int year);
 
         IList<Escala> GetByBombeiroIdAndYear(Guid bombeiroId, int year);

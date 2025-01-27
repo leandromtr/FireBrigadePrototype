@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MapaDaForca.Core.Store;
+﻿using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
 using MapaDaForca.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Linq;
 
 namespace MapaDaForca.Controllers
 {
@@ -28,7 +25,7 @@ namespace MapaDaForca.Controllers
         [HttpGet]
         [Route("viaturatipofuncao/{viaturatipoId}")]
         public PartialViewResult ViaturaTipoFuncao(Guid viaturaTipoId)
-        {            
+        {
             var viaturaTipoFuncaoViewModel = new ViaturaTipoFuncaoViewModel();
             viaturaTipoFuncaoViewModel.ViaturaTipoId = viaturaTipoId;
             viaturaTipoFuncaoViewModel.ViaturaTipoFuncoes = _viaturaTipoFuncaoStore.GetByViaturaTipoId(viaturaTipoId).ToList();

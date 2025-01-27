@@ -1,9 +1,7 @@
-﻿using MapaDaForca.Core.Store;
-using MapaDaForca.Data.Repository;
+﻿using MapaDaForca.Data.Repository;
 using MapaDaForca.Model;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MapaDaForca.Core.Store
 {

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MapaDaForca.Core.Store;
+﻿using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
 using MapaDaForca.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MapaDaForca.Controllers
 {
@@ -63,7 +62,7 @@ namespace MapaDaForca.Controllers
         [Route("create")]
         public ActionResult Create(Quartel quartel)
         {
-            var newQuartel= _quartelStore.Save(quartel);
+            var newQuartel = _quartelStore.Save(quartel);
             return new RedirectToActionResult("Detail", "Quartel", new { @id = newQuartel.Id, @message = true });
         }
 
@@ -82,7 +81,7 @@ namespace MapaDaForca.Controllers
             var quartelViatura = new QuartelViaturaViewModel();
             quartelViatura.QuartelId = id;
             quartelViatura.QuartelViaturas = _quartelViaturaStore.GetByQuartelId(id).ToList();
-            quartelViatura.Viaturas=_viaturaStore.GetAll().ToList();
+            quartelViatura.Viaturas = _viaturaStore.GetAll().ToList();
             quartel.QuartelViaturaViewModel = quartelViatura;
 
             return View(quartel);
@@ -125,7 +124,7 @@ namespace MapaDaForca.Controllers
         [Route("quartelmapa")]
         public ActionResult QuartelMapa()
         {
-            var quarteis= _quartelStore.GetAll();
+            var quarteis = _quartelStore.GetAll();
             var quarteisViewModel = new List<QuartelViewModel>();
 
             foreach (var quartel in quarteis)
@@ -195,8 +194,8 @@ namespace MapaDaForca.Controllers
 
                 escalaDiurno.ForEach(e => e.Bombeiro = bombeiros.FirstOrDefault(b => b.Id == e.BombeiroId.ToString()));
                 escalaNoturno.ForEach(e => e.Bombeiro = bombeiros.FirstOrDefault(b => b.Id == e.BombeiroId.ToString()));
-                quartelViewModel.BombeirosDiurno = escalaDiurno.Select(x=> x.Bombeiro).ToList();
-                quartelViewModel.BombeirosNoturno = escalaNoturno.Select(x=> x.Bombeiro).ToList();
+                quartelViewModel.BombeirosDiurno = escalaDiurno.Select(x => x.Bombeiro).ToList();
+                quartelViewModel.BombeirosNoturno = escalaNoturno.Select(x => x.Bombeiro).ToList();
 
                 quarteisViewModel.Add(quartelViewModel);
             }

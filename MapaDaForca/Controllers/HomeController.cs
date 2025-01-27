@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using MapaDaForca.Core.Store;
+﻿using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
 using MapaDaForca.Model.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 
 namespace Home.Controllers
@@ -41,7 +36,7 @@ namespace Home.Controllers
         {
 
             //var userId = _userManager.GetUserId(HttpContext.User);
-            var escalas = _escalaStore.GetByBombeiroIdAndYear(new Guid (_userManager.GetUserId(HttpContext.User)), (int)DateTime.Now.Year);
+            var escalas = _escalaStore.GetByBombeiroIdAndYear(new Guid(_userManager.GetUserId(HttpContext.User)), (int)DateTime.Now.Year);
             return View(escalas);
         }
 

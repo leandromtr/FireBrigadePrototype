@@ -11,7 +11,7 @@ namespace MapaDaForca.Data.Repository
         IList<ViaturaTipoFuncao> GetByFuncaoId(Guid funcaoId);
 
         IList<ViaturaTipoFuncao> GetByViaturaTipoId(Guid viaturaTipoId);
-            
+
         ViaturaTipoFuncao GetById(Guid id);
 
         ViaturaTipoFuncao Create(ViaturaTipoFuncao create);
