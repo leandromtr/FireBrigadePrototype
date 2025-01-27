@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MapaDaForca.Core.Store;
+using MapaDaForca.Data.Data;
+using MapaDaForca.Data.Repository;
+using MapaDaForca.Model;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MapaDaForca.Data.Data;
-using MapaDaForca.Core.Store;
-using MapaDaForca.Data.Repository;
+using System.Collections.Generic;
 using System.Globalization;
-using Microsoft.AspNetCore.Localization;
-using MapaDaForca.Model;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using MapaDaForca.Core.Services;
 
 namespace MapaDaForca
 {
@@ -44,7 +38,7 @@ namespace MapaDaForca
 
             services.AddDbContext<MapaDaForcaDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("MapaDaForcaContextConnection")));
             services.AddIdentity<Bombeiro, IdentityRole>()
                 .AddEntityFrameworkStores<MapaDaForcaDbContext>()
                 .AddDefaultTokenProviders();
