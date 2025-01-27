@@ -1,10 +1,8 @@
-﻿using MapaDaForca.Core.Store;
-using MapaDaForca.Data.Repository;
+﻿using MapaDaForca.Data.Repository;
 using MapaDaForca.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace MapaDaForca.Core.Store
 {
@@ -42,7 +40,7 @@ namespace MapaDaForca.Core.Store
         }
 
         public IList<ViaturaTipoFuncao> GetByViaturaTipoId(Guid viaturaTipoId)
-        {           
+        {
             var viaturaTipos = _repository.GetByViaturaTipoId(viaturaTipoId).ToList();
             var funcoes = _funcaoStore.GetAll().ToList();
 
@@ -102,7 +100,7 @@ namespace MapaDaForca.Core.Store
             {
                 var viaturatipoFuncoes = GetByViaturaTipoId(viatura.ViaturaTipoId);
 
-                foreach(var item in viaturatipoFuncoes)
+                foreach (var item in viaturatipoFuncoes)
                 {
                     viaturatipoFuncoesGrouped.Add(item);
                 }
@@ -134,7 +132,7 @@ namespace MapaDaForca.Core.Store
             //{
 
             //}
-           
+
             return viaturatipoFuncoesGrouped;
         }
     }

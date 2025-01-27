@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MapaDaForca.Core.Store;
+﻿using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
 using MapaDaForca.Model.Enums;
 using MapaDaForca.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MapaDaForca.Controllers
 {
@@ -66,7 +64,7 @@ namespace MapaDaForca.Controllers
 
         [HttpPost]
         public JsonResult GetEvents(DateTime calendarDate)
-        {            
+        {
             var events = new List<EventViewModel>();
             //var escalaTurnos = _escalaTurnoStore.GetAll().Where(x=> x.DtEscalaTurno.Month == calendarDate.Month);
             var escalaTurnos = _escalaTurnoStore.GetByMonthYear(calendarDate.Month, calendarDate.Year);
@@ -76,11 +74,11 @@ namespace MapaDaForca.Controllers
                 events.Add(new EventViewModel()
                 {
                     id = item.Id,
-                    title = (item.PeriodoDiurno ? "D - ": "N - ") + item.Turno,
+                    title = (item.PeriodoDiurno ? "D - " : "N - ") + item.Turno,
                     start = item.DtEscalaTurno
                 });
             }
             return Json(events.ToArray());
-        }        
+        }
     }
 }

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MapaDaForca.Core.Store;
+﻿using MapaDaForca.Core.Store;
 using MapaDaForca.Model;
-using MapaDaForca.ViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
 
 namespace MapaDaForca.Controllers
 {
@@ -54,7 +51,7 @@ namespace MapaDaForca.Controllers
         [HttpPost]
         [Route("getBombeirosByDataAndQuartel")]
         public PartialViewResult GetBombeirosByDataAndQuartel(Guid quartelId, DateTime dtEscala)
-        {            
+        {
             var escalas = _escalaStore.GetByQuartelIdAndDtEscala(quartelId, dtEscala).ToList();
             escalas = escalas.Where(x => x.EscalaTipoId == Guid.Empty).ToList();
             var bombeiros = _bombeiroStore.GetAll().OrderBy(x => x.Nome).ToList();

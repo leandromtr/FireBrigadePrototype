@@ -1,13 +1,11 @@
 ﻿using MapaDaForca.Data.Data;
+using MapaDaForca.Data.Repository.Base;
 using MapaDaForca.Model;
+using MapaDaForca.Model.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
-using Microsoft.Extensions.Options;
-using MapaDaForca.Data.Repository.Base;
-using MapaDaForca.Model.Enums;
 
 namespace MapaDaForca.Data.Repository
 {

@@ -1,10 +1,8 @@
-﻿using MapaDaForca.Core.Store;
-using MapaDaForca.Data.Repository;
+﻿using MapaDaForca.Data.Repository;
 using MapaDaForca.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace MapaDaForca.Core.Store
 {
@@ -38,7 +36,7 @@ namespace MapaDaForca.Core.Store
             quarteis.ForEach(q => q.Viatura = viaturas.FirstOrDefault(v => v.Id == q.ViaturaId));
             quarteis.ForEach(q => q.Viatura.ViaturaTipo = viaturaTipos.FirstOrDefault(vt => vt.Id == q.Viatura.ViaturaTipoId));
 
-            return quarteis;            
+            return quarteis;
         }
 
         public IList<QuartelViatura> GetByViaturaId(Guid viaturaId)

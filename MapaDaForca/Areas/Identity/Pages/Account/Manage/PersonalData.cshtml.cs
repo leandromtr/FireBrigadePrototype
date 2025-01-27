@@ -1,9 +1,9 @@
-﻿using System.Threading.Tasks;
-using MapaDaForca.Model;
+﻿using MapaDaForca.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace MapaDaForca.Areas.Identity.Pages.Account.Manage
 {

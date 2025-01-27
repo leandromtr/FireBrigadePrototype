@@ -1,9 +1,7 @@
-﻿using MapaDaForca.Core.Store;
-using MapaDaForca.Data.Repository;
+﻿using MapaDaForca.Data.Repository;
 using MapaDaForca.Model;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace MapaDaForca.Core.Store
@@ -25,7 +23,7 @@ namespace MapaDaForca.Core.Store
         {
             var companhias = _repository.GetAll().OrderBy(x => x.Nome).ToList();
             var batalhoes = _batalhaoStore.GetAll().OrderBy(x => x.Nome).ToList();
-           
+
             companhias.ForEach(c => c.Batalhao = batalhoes.FirstOrDefault(b => b.Id == c.BatalhaoId));
 
             return companhias;

@@ -1,8 +1,5 @@
 ﻿using MapaDaForca.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MapaDaForca.ViewModel
 {
@@ -18,6 +15,6 @@ namespace MapaDaForca.ViewModel
 
         public List<Quartel> Quarteis { get; set; }
 
-        public List<EscalaTipo> EscalaTipos { get; set; }        
+        public List<EscalaTipo> EscalaTipos { get; set; }
     }
 }

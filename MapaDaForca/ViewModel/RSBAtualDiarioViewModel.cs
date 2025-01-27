@@ -1,8 +1,5 @@
 ﻿using MapaDaForca.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MapaDaForca.ViewModel
 {
@@ -19,6 +16,6 @@ namespace MapaDaForca.ViewModel
         public IEnumerable<Viatura> ViaturasNoturno { get; set; }
 
         public IEnumerable<Bombeiro> BombeirosDiurno { get; set; }
-        public IEnumerable<Bombeiro> BombeirosNoturno { get; set; }   
+        public IEnumerable<Bombeiro> BombeirosNoturno { get; set; }
     }
 }

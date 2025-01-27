@@ -1,8 +1,6 @@
-﻿using MapaDaForca.Data.Data;
-using MapaDaForca.Model;
+﻿using MapaDaForca.Model;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MapaDaForca.Data.Repository
 {
