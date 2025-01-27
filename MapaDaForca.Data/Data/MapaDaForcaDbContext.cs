@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MapaDaForca.Data.Data
 {
@@ -20,34 +19,90 @@ namespace MapaDaForca.Data.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = new Guid("0dc9f029-e6f9-46ec-9e8f-04273de86631").ToString(), Name = PerfilAcesso.Administrador, NormalizedName = PerfilAcesso.Administrador.ToUpper() });
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = new Guid("aebc2354-ecb3-4c70-93cc-47849872f57b").ToString(), Name = PerfilAcesso.Bombeiro, NormalizedName = PerfilAcesso.Bombeiro.ToUpper() });
+            var roleAdminId = Guid.NewGuid().ToString();
+            var roleBombeiroId = Guid.NewGuid().ToString();
 
-            //modelBuilder.Entity<Bombeiro>().HasData(new Bombeiro
-            //{
-            //    Id = new Guid("e7f067a9-37e9-4dac-9bd6-4c84eeaaa733").ToString(),
-            //    UserName = "admin@gmail.com",
-            //    NormalizedUserName = "admin@gmail.com",
-            //    Email = "admin@gmail.com",
-            //    NormalizedEmail = "admin@gmail.com",
-            //    EmailConfirmed = true,
-            //    PasswordHash = "AQAAAAEAACcQAAAAEHcjRUNHmzhl8qx9dKHTcKcXcb0k99YPE2caUy7QmbnM/a5OzPoYNq450AdMmUgRQA==",
-            //    SecurityStamp = "AT6RKF5YUMZXUJXXW3H64WOJTF73NVF2",
-            //    ConcurrencyStamp = "56253053-b77e-49fe-a190-97596fc8dba3",
-            //    PhoneNumber = null,
-            //    PhoneNumberConfirmed = false,
-            //    TwoFactorEnabled = false,
-            //    LockoutEnd = null,
-            //    LockoutEnabled = false,
-            //    AccessFailedCount = 0,
-            //    NumeroMecanografico = 00000000,
-            //    Nome = "Admin",
-            //    DtInicio = DateTime.Now,
-            //    PostoId = new Guid(),
-            //    QuartelId = new Guid(),
-            //    Turno = Turno.T1
-            //});
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { 
+                Id = roleAdminId, 
+                Name = PerfilAcesso.Administrador, 
+                NormalizedName = PerfilAcesso.Administrador.ToUpper() 
+            });
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { 
+                Id = roleBombeiroId, 
+                Name = PerfilAcesso.Bombeiro, 
+                NormalizedName = PerfilAcesso.Bombeiro.ToUpper() 
+            });
+
+
+            var passwordHasher = new PasswordHasher<IdentityUser>();
+
+            var userAdmin = new IdentityUser { Id = Guid.NewGuid().ToString(), UserName = "admin@gmail.com" };
+            string hashedPasswordAdmin = passwordHasher.HashPassword(userAdmin, "Teste123!");
+
+            var userBombeiro = new IdentityUser { Id = Guid.NewGuid().ToString(), UserName = "bombeiro@gmail.com" };
+            string hashedPasswordBombeiro = passwordHasher.HashPassword(userBombeiro, "Teste123!");
+
+
+            modelBuilder.Entity<Bombeiro>().HasData(new Bombeiro
+            {
+                Id = userAdmin.Id,
+                UserName = userAdmin.UserName,
+                NormalizedUserName = userAdmin.UserName.ToUpper(),
+                Email = userAdmin.UserName,
+                NormalizedEmail = userAdmin.UserName.ToUpper(),
+                EmailConfirmed = true,
+                PasswordHash = hashedPasswordAdmin,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                ConcurrencyStamp = Guid.NewGuid().ToString(),
+                PhoneNumber = null,
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnd = null,
+                LockoutEnabled = false,
+                AccessFailedCount = 0,
+                NumeroMecanografico = 00000000,
+                Nome = "Admin",
+                DtInicio = new DateTime(2025, 1, 1),
+                PostoId = Guid.Empty,
+                QuartelId = Guid.Empty,
+                Turno = Turno.T1
+            });
+            modelBuilder.Entity<Bombeiro>().HasData(new Bombeiro
+            {
+                Id = userBombeiro.Id,
+                UserName = userBombeiro.UserName,
+                NormalizedUserName = userBombeiro.UserName.ToUpper(),
+                Email = userBombeiro.UserName,
+                NormalizedEmail = userBombeiro.UserName.ToUpper(),
+                EmailConfirmed = true,
+                PasswordHash = hashedPasswordBombeiro,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                ConcurrencyStamp = Guid.NewGuid().ToString(),
+                PhoneNumber = null,
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnd = null,
+                LockoutEnabled = false,
+                AccessFailedCount = 0,
+                NumeroMecanografico = 00000000,
+                Nome = "Bombeiro0",
+                DtInicio = new DateTime(2025, 1, 1),
+                PostoId = Guid.Empty,
+                QuartelId = Guid.Empty,
+                Turno = Turno.T1
+            });
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                UserId = userAdmin.Id,
+                RoleId = roleAdminId
+            });
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                UserId = userBombeiro.Id,
+                RoleId = roleBombeiroId
+            });
         }
 
         public DbSet<Bombeiro> Bombeiros { get; set; }

@@ -15,7 +15,7 @@ namespace MapaDaForca.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
+                .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -92,6 +92,11 @@ namespace MapaDaForca.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new { Id = "1821ccc9-f5a2-4fcf-add0-86d75d5ad5dd", AccessFailedCount = 0, ConcurrencyStamp = "d279c4ba-1a64-4131-8d12-7c00bc681b28", DtInicio = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "admin@gmail.com", EmailConfirmed = true, LockoutEnabled = false, Nome = "Admin", NormalizedEmail = "ADMIN@GMAIL.COM", NormalizedUserName = "ADMIN@GMAIL.COM", NumeroMecanografico = 0, PasswordHash = "AQAAAAEAACcQAAAAEKRRvOn4a/zVGAsKDbzKMYfXT4wZrQcfRcrkYvD+lMQTc4lvJ1/bW8d2nAW+PR+d5Q==", PhoneNumberConfirmed = false, PostoId = new Guid("00000000-0000-0000-0000-000000000000"), QuartelId = new Guid("00000000-0000-0000-0000-000000000000"), SecurityStamp = "209d27c0-b112-4267-873b-2d814afacf2a", Turno = 1, TwoFactorEnabled = false, UserName = "admin@gmail.com" },
+                        new { Id = "42025ddf-5721-4066-abc3-f813480f3c1f", AccessFailedCount = 0, ConcurrencyStamp = "e4a7638f-13b8-431f-800e-5c6693410e86", DtInicio = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), Email = "bombeiro@gmail.com", EmailConfirmed = true, LockoutEnabled = false, Nome = "Bombeiro0", NormalizedEmail = "BOMBEIRO@GMAIL.COM", NormalizedUserName = "BOMBEIRO@GMAIL.COM", NumeroMecanografico = 0, PasswordHash = "AQAAAAEAACcQAAAAEPYMdnRntK5mrxTEIupg/db1aJhpjrjUAGxbLSVWBFrTxPbeNT/xL8ArQdy3K+ES/w==", PhoneNumberConfirmed = false, PostoId = new Guid("00000000-0000-0000-0000-000000000000"), QuartelId = new Guid("00000000-0000-0000-0000-000000000000"), SecurityStamp = "b7ed0c5c-3337-4f91-ae3d-0bda2722b539", Turno = 1, TwoFactorEnabled = false, UserName = "bombeiro@gmail.com" }
+                    );
                 });
 
             modelBuilder.Entity("MapaDaForca.Model.BombeiroFuncao", b =>
@@ -338,8 +343,8 @@ namespace MapaDaForca.Data.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "150a4fe8-7313-435a-b877-ab0fb60cb587", ConcurrencyStamp = "998e9695-2219-497d-a18b-1f53ac2c2262", Name = "Administrador", NormalizedName = "ADMINISTRADOR" },
-                        new { Id = "320486cb-23e5-4b30-9a34-f522a2aa4fcb", ConcurrencyStamp = "86ad17fe-f1c7-4420-922a-fcafdf301f9d", Name = "Bombeiro", NormalizedName = "BOMBEIRO" }
+                        new { Id = "3bc055c0-4c43-458f-97b4-699295bd52cb", ConcurrencyStamp = "d725c4dd-e718-4f5e-8cd7-d4466fa11b67", Name = "Administrador", NormalizedName = "ADMINISTRADOR" },
+                        new { Id = "19a1f2bd-28f2-4b6e-ae1f-859d6fc1f761", ConcurrencyStamp = "db8a76e9-b70b-4255-affb-b90fb953fa2a", Name = "Bombeiro", NormalizedName = "BOMBEIRO" }
                     );
                 });
 
@@ -385,11 +390,9 @@ namespace MapaDaForca.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128);
+                    b.Property<string>("ProviderKey");
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -414,17 +417,20 @@ namespace MapaDaForca.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new { UserId = "1821ccc9-f5a2-4fcf-add0-86d75d5ad5dd", RoleId = "3bc055c0-4c43-458f-97b4-699295bd52cb" },
+                        new { UserId = "42025ddf-5721-4066-abc3-f813480f3c1f", RoleId = "19a1f2bd-28f2-4b6e-ae1f-859d6fc1f761" }
+                    );
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(128);
+                    b.Property<string>("Name");
 
                     b.Property<string>("Value");
 
