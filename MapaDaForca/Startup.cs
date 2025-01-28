@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -25,35 +25,34 @@ namespace MapaDaForca
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             services.AddDbContext<MapaDaForcaDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("MapaDaForcaContextConnection")));
+
             services.AddIdentity<Bombeiro, IdentityRole>()
                 .AddEntityFrameworkStores<MapaDaForcaDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddControllersWithViews()
+                .AddRazorRuntimeCompilation();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddRazorPages();
 
+            services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.ConfigureApplicationCookie(options =>
             {
                 options.AccessDeniedPath = new PathString("/Identity/Account/AccessDenied");
                 options.LoginPath = new PathString("/Identity/Account/Login");
             });
-
-            //services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddTransient<IBatalhaoStore, BatalhaoStore>();
             services.AddTransient<IBombeiroStore, BombeiroStore>();
@@ -87,19 +86,17 @@ namespace MapaDaForca
             services.AddTransient<IViaturaTipoFuncaoRepository, ViaturaTipoFuncaoRepository>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(
-            IApplicationBuilder app,
-            IHostingEnvironment env,
-            MapaDaForcaDbContext context,
-            UserManager<Bombeiro> userManager,
-            RoleManager<IdentityRole> roleManager
-            )
+        IApplicationBuilder app,
+        IWebHostEnvironment env,
+        MapaDaForcaDbContext context,
+        UserManager<Bombeiro> userManager,
+        RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {
@@ -107,17 +104,16 @@ namespace MapaDaForca
                 app.UseHsts();
             }
 
-
-            app.UseAuthentication();
-
-            app.UseStatusCodePages();
             app.UseHttpsRedirection();
-            app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            var cultureInfo = new CultureInfo("pt-PT");
+            app.UseRouting();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
+            var cultureInfo = new CultureInfo("pt-PT");
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
                 DefaultRequestCulture = new RequestCulture(cultureInfo),
@@ -125,12 +121,12 @@ namespace MapaDaForca
                 SupportedUICultures = new List<CultureInfo> { cultureInfo }
             });
 
-
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }
