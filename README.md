@@ -21,4 +21,7 @@ After running the app, you will be redirected to the login page. Use one of thes
 
 
 ## Author
-- [@leandromtr](https://github.com/leandromtr)
+[@leandromtr](https://github.com/leandromtr)
+
+## License
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
